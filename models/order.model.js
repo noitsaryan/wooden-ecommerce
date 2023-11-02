@@ -1,7 +1,7 @@
+import mongoose, { Schema, model, models } from "mongoose";
 import { NextResponse } from "next/server";
 import { updateOrderId } from "./user.model";
-
-const { Schema, default: mongoose, model, models } = require("mongoose");
+import { User } from "./user.model";
 
 const OrderSchema = new Schema(
   {
@@ -45,7 +45,7 @@ const OrderSchema = new Schema(
 
 export const Order = models?.Order || model("Order", OrderSchema);
 
-// Creating New Order 
+// Creating New Order
 
 export const createOrder = async (
   product_sku,
@@ -108,6 +108,38 @@ export const createOrder = async (
 // Get all Orders
 
 export const getAllOrders = async () => {
+  const res = await Order.find().exec();
+  return res;
+};
+
+export const getAllOrdersWithUser = async () => {
   const res = await Order.find().populate("user_id").exec();
   return res;
+};
+
+// Update States
+
+export const updateOrderStates = async (order_id, stage, message) => {
+  const order = await Order.findOne({ "order_lists._id": order_id }).exec();
+
+  if (!order) {
+    return "Order does not exist!";
+  }
+
+  const statusUpdate = {
+    stage,
+    message,
+    completed_stage: true,
+  };
+
+  const orderObject = order.order_lists.find(e => e._id == order_id)
+  const check = orderObject?.status.state.find(e => e.stage == stage)
+  if(check) {
+    return 'Status already exists!'
+  }
+  orderObject?.status.state.push(statusUpdate)
+
+  await order.save();
+
+  return orderObject;
 };

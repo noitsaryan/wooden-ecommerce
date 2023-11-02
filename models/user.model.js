@@ -1,6 +1,9 @@
 import mongoose, { Schema, model, models } from "mongoose";
 import { Order } from "./order.model";
 import { compare, hash } from "bcrypt";
+import { sendMail } from "@/utils/services/mail";
+import { connectDB } from "@/utils/db";
+import randomToken from "random-token";
 
 const UserSchema = new Schema(
   {
@@ -241,10 +244,16 @@ export const deleteAccount = async (email) => {
 
 export const authenticateUser = async (email) => {
   try {
-      const user = await User.findOne({email}).select('email').exec();
-      if(!user) {
-        return 'Email does not exists'
-      }
+    const user = await User.findOne({ email }).select("authentication").exec();
+    if (!user) {
+      return "Email does not exists";
+    }
+    const token = user?.authentication?.token;
+    const link = `http://localhost:3000/reset?token_id=${token}&user=${email}`;
+    const subject = `Password Reset Link | Kasho`;
+    const html = `<h1>Here is your link: ${link}</h1>`;
+    const response = await sendMail(subject, email, html);
+    return 'Mail Sent';
   } catch (error) {
     return error.message;
   }
@@ -253,7 +262,25 @@ export const authenticateUser = async (email) => {
 // Step 2
 // Params: New Password
 
-export const changePassword = async (new_password) => {};
+export const changePassword = async (new_password, token, email) => {
+  try {
+    await connectDB();
+    const user = await User.findOne({ email }).select("authentication").exec();
+    if (!user) {
+      return "No user";
+    }
+    if (user?.authentication?.token !== token) {
+      return "Token Mismatch!";
+    }
+    const hashed = await hash(new_password, 10);
+    user.authentication.password = hashed;
+    user.authentication.token = randomToken(16)
+    await user.save();
+    return user;
+  } catch (error) {
+    return error.message;
+  }
+};
 
 // Updating Order Id
 // Params : order_id => order > _id from order schema & user_id is user > _id from user schema
