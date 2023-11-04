@@ -1,8 +1,10 @@
+import Image from 'next/image'
 import React from 'react'
 
-function page() {
+const page = () => {
   return (
-    <div>Home</div>
+    <Image src="/HeroSectionImg/spacejoy-RqO6kwm4tZY-unsplash.webp"  width={500} height={500} alt="image"  className='h-screen w-screen'/>
+
   )
 }
 
