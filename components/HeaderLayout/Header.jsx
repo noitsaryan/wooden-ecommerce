@@ -18,10 +18,11 @@ import {
   Avatar,
 } from "@nextui-org/react";
 import { RiSearchLine } from "react-icons/ri";
+import DropMenu from "./DropMenu";
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const menuItems = ["Home", "Shop", "Category", "Contact", "About", "Log Out"];
+  const menuItems = ["Home", "Shop", "Contact", "About", "Log Out"];
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -31,18 +32,21 @@ export default function App() {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <h2 className="text-Primary text-3xl font-bold drop-shadow">KASHO</h2>
+          <Link href="/" className="text-Primary text-3xl font-bold drop-shadow">KASHO</Link>
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="start">
-        <NavbarItem>
-          <Link color="foreground" href="#">
+        <NavbarItem  isActive>
+          <Link color="foreground" href="#"   className="text-Primary">
             Home
           </Link>
         </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page" className="text-Primary">
+        <NavbarItem>
+          <DropMenu/>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="#">
             Shop
           </Link>
         </NavbarItem>
@@ -88,7 +92,7 @@ export default function App() {
             <Button
               as={Link}
               className="bg-Primary text-white rounded-md "
-              href="#"
+              href="/login"
               variant="flat"
               size="sm"
             >
@@ -96,7 +100,7 @@ export default function App() {
             </Button>
             <p className="text-[12px] opacity-70">
               New Customer?{" "}
-              <b className="text-Primary hover:underline">Sign Up</b>
+              <Link href="signup" className="text-Primary text-[12px]  hover:underline font-semibold">Sign Up</Link>
             </p>
           </DropdownItem>
 
