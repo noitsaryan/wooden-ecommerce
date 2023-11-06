@@ -1,5 +1,6 @@
 import { createOrder } from "@/models/order.model";
 import { connectDB } from "@/utils/db";
+import { sendMail } from "@/utils/services/mail";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
@@ -14,6 +15,7 @@ export async function POST(req) {
       payment_id,
       signature,
       user_id,
+      email,
     } = await req.json();
 
     if (
@@ -23,11 +25,12 @@ export async function POST(req) {
       !totalPrice ||
       !user_id ||
       !payment_id ||
-      !signature
+      !signature ||
+      !email
     ) {
       return NextResponse.json({
         message:
-          "Product_sku, quantity, price, totalPrice, payment_id, signature or user_id is missing",
+          "Product_sku, quantity, price, totalPrice, payment_id, signature, email or user_id is missing",
       });
     }
 
@@ -45,6 +48,12 @@ export async function POST(req) {
       payment_id,
       signature,
       user_id
+    );
+
+    await sendMail(
+      `New Order`,
+      email,
+      `ORder Details: SKU: ${product_sku}, Quantity: ${quantity}, Price: ${price}, Total Price: ${totalPrice}, Payment Id: ${payment_id}, Payment Signature: ${signature}, UserId: ${user_id}, Email: ${email} `
     );
 
     return NextResponse.json(res);
