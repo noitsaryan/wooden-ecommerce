@@ -1,5 +1,4 @@
 'use client'
-import Logout from '@/components/buttons/logout'
 import { useSession } from 'next-auth/react'
 import React, { useEffect } from 'react'
 
@@ -12,7 +11,7 @@ function page() {
       <p> First Name: {session?.user?.name.first_name}  </p>
       <p> Last Name: {session?.user?.name.last_name}  </p>
       <p>Email: {session?.user?.email}</p>
-      <Logout />
+
     </div>
   )
 }

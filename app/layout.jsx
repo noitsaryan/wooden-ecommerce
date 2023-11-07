@@ -2,6 +2,8 @@ import { AuthProvider } from '@/providers'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Header from '@/components/HeaderLayout/Header'
+import NextTopLoader from 'nextjs-toploader'
+import Footer from '@/components/HeaderLayout/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,10 +15,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}> <AuthProvider> 
-        <Header/>
+      <body className={inter.className} suppressHydrationWarning> <AuthProvider>
+        <Header />
+        <NextTopLoader />
         {children}
-        </AuthProvider></body>
+      </AuthProvider>
+      <Footer />
+      </body>
     </html>
   )
 }
