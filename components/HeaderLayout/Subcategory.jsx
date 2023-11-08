@@ -25,7 +25,7 @@ const Subcategory = () => {
             }}
         >
 
-            <NavbarContent className=" mx-auto sm:flex gap-8 justify-center">
+            <NavbarContent className=" mx-auto sm:flex gap-8" justify="center">
                 <NavbarItem isActive={ pathname === '/shop/residence' ? true : false }>
                     <Link color="foreground" href="/shop/residence">
                         Residence

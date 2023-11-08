@@ -74,3 +74,6 @@
     @apply bg-background text-foreground;
   }
 }
+.custom-tabs .next-tabs-nav .next-tabs-nav-item.active {
+  color: red;
+}

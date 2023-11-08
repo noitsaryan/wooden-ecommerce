@@ -3,6 +3,8 @@ import { Search } from '../buttons/Search'
 import { Button } from '../ui/button'
 import Link from 'next/link';
 import Subcategory from './Subcategory';
+import Bottomnav from './Bottomnav';
+
 
 function Header() {
   return (
@@ -21,6 +23,7 @@ function Header() {
        <Subcategory/>
       </div>
       <hr />
+     <Bottomnav/>
     </header>
   )
 }
