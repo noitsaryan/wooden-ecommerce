@@ -33,17 +33,19 @@ export async function adminLogin(email, password, token) {
       .exec();
     console.log(admin);
     if (!admin) return "Email does not exists";
-    const isTrue = compare(password, admin.authentication.password);
+    const isTrue = await compare(password, admin.authentication.password);
+    console.log(isTrue)
+    console.log(password)
     if (!isTrue) return "Password didn't matched";
     sendMail(
       "Authentication Token",
       email,
-      `here is you link: http://localhost:3000/admin-login?token=${token}`
+      `here is you link: http://localhost:3000/admin-panel?token=${token}&topic=statistics`
     );
     admin.authentication.token = token;
     await admin.save();
     cookie.set('__admin_token', token )
-    return admin;
+    return true;
   } catch (error) {
     return error.message;
   }

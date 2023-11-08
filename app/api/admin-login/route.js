@@ -11,7 +11,7 @@ export async function POST(req) {
 
     if (!password || !email) {
       return NextResponse.json({
-        message: "Authentication or email is missing",
+        message: "Password or email is missing",
       });
     }
 
