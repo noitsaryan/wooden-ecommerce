@@ -3,7 +3,6 @@ import React from "react";
 
 function Footer() {
   return (
-<<<<<<< HEAD
       <footer className="bg-slate-50  mt-3 shadow dark:bg-gray-900">
         <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
           <div className="md:flex md:justify-between">
@@ -115,9 +114,6 @@ function Footer() {
             </div>*/}
           </div> 
         </div>
-=======
-    <footer>
->>>>>>> 61cf58df877f6892c31da446a8ee8b1fcdfeb52c
     </footer>
   );
 }

@@ -29,7 +29,6 @@ const Subcategory = () => {
                     }}
                 >
 
-<<<<<<< HEAD
             <NavbarContent className=" mx-auto sm:flex gap-8" justify="center">
                 <NavbarItem isActive={ pathname === '/shop/residence' ? true : false }>
                     <Link color="foreground" href="/shop/residence">
@@ -39,17 +38,6 @@ const Subcategory = () => {
                 <NavbarItem isActive={ pathname === '/shop/commercial' ? true : false } >
                     <Link href="/shop/commercial" aria-current="page">
                         Commercial
-=======
-                    <NavbarContent className=" mx-auto sm:flex gap-8 justify-center">
-                        <NavbarItem isActive={pathname === '/shop/residence' ? true : false}>
-                            <Link color="foreground" href="/shop/residence">
-                                Residence
-                            </Link>
-                        </NavbarItem>
-                        <NavbarItem isActive={pathname === '/shop/commercial' ? true : false} >
-                            <Link href="/shop/commercial" aria-current="page">
-                                Commercial
->>>>>>> 61cf58df877f6892c31da446a8ee8b1fcdfeb52c
 
                             </Link>
                         </NavbarItem >

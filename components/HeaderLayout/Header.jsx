@@ -21,11 +21,8 @@ function Header() {
       <div className='w-full flex items-center justify-center  '>
        <Subcategory/>
       </div>
-<<<<<<< HEAD
       <hr />
      <Bottomnav/>
-=======
->>>>>>> 61cf58df877f6892c31da446a8ee8b1fcdfeb52c
     </header>
   )
 }
