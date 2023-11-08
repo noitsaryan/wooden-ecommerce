@@ -5,7 +5,6 @@ import { useToast } from '@/components/ui/use-toast'
 import { Label } from '@radix-ui/react-dropdown-menu'
 import axios from 'axios'
 import { Mail } from 'lucide-react'
-import Image from 'next/image'
 import React, { useState } from 'react'
 
 function page() {

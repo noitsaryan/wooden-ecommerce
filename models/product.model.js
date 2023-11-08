@@ -64,6 +64,34 @@ export const createProduct = async (
       color,
     };
 
+    if (!title) {
+      return "title is missing";
+    }
+    if (!price) {
+      return "price is missing";
+    }
+    if (!sku) {
+      return "sku is missing";
+    }
+    if (!description) {
+      return "description is missing";
+    }
+    if (!specification) {
+      return "specification is missing";
+    }
+    if (!color) {
+      return "color is missing";
+    }
+    if (!images) {
+      return "images is missing";
+    }
+    if (!category) {
+      return "category is missing";
+    }
+    if (!subCategory) {
+      return "subCategory is missing";
+    }
+
     const check = await Product.findOne({ sku });
 
     if (check) {
@@ -107,21 +135,30 @@ export const updateProduct = async (
 ) => {
   try {
     const product = await Product.findOne({ sku }).exec();
-    if(!product) {
-        return 'Product does not exists!'
+    if (!product) {
+      return "Product does not exists!";
     }
     const variation = {
-        color
-    }
-    product.title = title,
-    product.price = price,
-    product.description = description
-    product.specification = specification
-    product.variation = variation
-    product.images = images
+      color,
+    };
+    (product.title = title),
+      (product.price = price),
+      (product.description = description);
+    product.specification = specification;
+    product.variation = variation;
+    product.images = images;
     await product.save();
-    return product
+    return product;
   } catch (error) {
     return error.message;
   }
 };
+
+export async function getProducts () {
+  try {
+    const products = await Product.find().exec()
+    return products    
+  } catch (error) {
+    return error.message
+  }
+}

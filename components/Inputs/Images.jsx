@@ -1,34 +1,19 @@
-'use client'
-import {getPreview, uploadImage} from '@/utils/lib/appwrite'
-import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import { uploadImage } from '@/utils/lib/appwrite'
 
-function Images() {
-    const [images, setImages] = useState()
-    const [URL, setURL] = useState(String)
-    const array = images ? Array.from(images): []
-    const upload = async () => {
-        let imageArray = [];
-        if(!images){
+export const addProductImage = async (images) => {
+    try {
+        if (!images) {
             return;
         }
-        for(let i =0; i < array.length; i++){
-            const fileUploaded = await uploadImage(images[i])    
-            if(!fileUploaded) return;
+        let imageArray = [];
+        const array = images ? Array.from(images) : []
+        for (let i = 0; i < array.length; i++) {
+            const fileUploaded = await uploadImage(array[i])
+            if (!fileUploaded) return;
             imageArray.push(fileUploaded.$id)
         }
+        return imageArray
+    } catch (error) {
+        return error.message
     }
-    return (
-        <>
-            <input type="file" multiple accept='image/*' onChange={(e) => {
-                setImages(e.target.files);
-            }
-            } />
-            <button onClick={upload} type='button'>
-                Upload
-            </button>
-        </>
-    )
 }
-
-export default Images

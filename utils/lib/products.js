@@ -1,6 +1,16 @@
 import axios from "axios";
 
-export async function createProduct() {
+export async function createProduct(
+  title,
+  price,
+  sku,
+  description,
+  specification,
+  color,
+  images,
+  category,
+  subCategory
+) {
   try {
     const res = await axios.post("/api/create-product", {
       title,
@@ -18,9 +28,17 @@ export async function createProduct() {
     return error.message;
   }
 }
-export async function updateProduct() {
+export async function updateProduct(
+  title,
+  price,
+  description,
+  specification,
+  color,
+  images,
+  sku
+) {
   try {
-    const res = await axios.post("/api/update-product", {
+    const res = await axios.put("/api/update-product", {
       title,
       price,
       description,
@@ -34,10 +52,10 @@ export async function updateProduct() {
     return error.message;
   }
 }
-export async function deleteProduct() {
+export async function deleteProduct(sku) {
   try {
     const res = await axios.post("/api/delete-product", {
-      sku,
+      sku
     });
     return res;
   } catch (error) {
