@@ -3,8 +3,8 @@ export { default } from "next-auth/middleware";
 
 export async function middleware(request) {
     if (request.nextUrl.pathname.startsWith("/admin-panel")) {
-        const token = request.url.lastIndexOf("=");
-        const slicedURL = request.url.slice(token + 1);
+        const slicedURL = request.nextUrl.searchParams.get('token')
+        console.log('Slices',slicedURL)
         const cookieToken = request.cookies.get('__admin_token')
             
         if(slicedURL !== cookieToken?.value) {
