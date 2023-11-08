@@ -1,7 +1,7 @@
 import { deleteProduct } from "@/models/product.model";
 import { NextResponse } from "next/server";
 
-export async function DELETE(req) {
+export async function POST(req) {
     try {
         const {sku} = await req.json();
         if(!sku) {
