@@ -13,6 +13,8 @@ export default function TabShop() {
           <Tab key="Residence" title="Residence" />
           <Tab key="Commercial" title="Commercial" />
           <Tab key="Studios" title="Studios" />
+          <Tab key="Lighting" title="Lighting" />
+
         </Tabs>
       </div>
   );

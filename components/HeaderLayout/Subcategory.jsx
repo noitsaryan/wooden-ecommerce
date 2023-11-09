@@ -46,6 +46,11 @@ const Subcategory = () => {
                                 Studios
                             </Link>
                         </NavbarItem>
+                        <NavbarItem isActive={pathname === '/shop/lighting' ? true : false} className="ring-b-offset-8">
+                            <Link color="foreground" href="/shop/lighting">
+                            Lighting
+                            </Link>
+                        </NavbarItem>
                     </NavbarContent>
 
                 </Navbar>
