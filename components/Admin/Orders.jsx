@@ -29,50 +29,6 @@ import { ChevronsUpDown, Plus, X } from "lucide-react"
 import { useToast } from '../ui/use-toast'
 
 function Orders() {
-  const [orders, setOrder] = useState(Array)
-  const [isOpen, setIsOpen] = useState(false)
-  const [stage, setStage] = useState(String)
-  const [message, setMessage] = useState(String)
-  const { toast } = useToast()
-  const getOrders = async () => {
-    try {
-      const res = await axios.get('/api/get-orders-user')
-      const array = [];
-      const orderLists = res.data.data.map((e) => {
-        const orderList = e.order_lists;
-        const user = e.user_id
-        array.push({
-          ...orderList,
-          ...user
-        })
-      })
-      setOrder(array)
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
-
-  const updateStatus = async (id) => {
-    try {
-      const res = await axios.post('/api/update-order-status', {
-        order_id: id,
-        stage,
-        message
-      })
-      if (res.data.res) {
-        toast({
-          title: "Status Updated Successfully"
-        })
-        window.location.reload()
-      }
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
-
-  useEffect(() => {
-    getOrders()
-  }, [])
   return (
     <main className='max-w-6xl mx-auto '>
       <h1 className='text-2xl text-center my-4 font-medium'> Order Management </h1>
@@ -202,4 +158,4 @@ function Orders() {
   )
 }
 
-export default Orders
+export default MyOrders
