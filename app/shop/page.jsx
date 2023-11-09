@@ -44,7 +44,7 @@ function page() {
       <section className='w-full  bg-slate-50 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-2 gap-6'>
         {
           response && response.data.map((e, i) => (
-            <Product key={i} title={e.title} price={e.price} link={getFilePreview(e.images[0])} /> 
+            <Product key={i} sku={e.sku} title={e.title} price={e.price} link={getFilePreview(e.images[0])} /> 
           ))
         }
       </section>

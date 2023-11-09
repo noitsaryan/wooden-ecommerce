@@ -6,6 +6,7 @@ import Quantity from '@/components/SkuPage/Quantity'
 import React from 'react'
 
 function page() {
+
   return (
     <>
     <main className='p-2 flex flex-col items-center justify-center'>
