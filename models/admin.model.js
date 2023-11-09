@@ -2,6 +2,7 @@ import { sendMail } from "@/utils/services/mail";
 import { compare } from "bcrypt";
 import { cookies } from 'next/headers'
 import mongoose, { Schema, model, models } from "mongoose";
+import { sign } from "jsonwebtoken";
 const AdminSchema = new Schema({
   email: {
     type: String,
@@ -44,7 +45,8 @@ export async function adminLogin(email, password, token) {
     );
     admin.authentication.token = token;
     await admin.save();
-    cookie.set('__admin_token', token )
+    const newToken = sign(token, process.env.JWT_KEY)
+    cookie.set('__admin_token', newToken)
     return true;
   } catch (error) {
     return error.message;

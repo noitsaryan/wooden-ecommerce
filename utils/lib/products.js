@@ -9,7 +9,10 @@ export async function createProduct(
   color,
   images,
   category,
-  subCategory
+  subCategory,
+  size,
+  warranty,
+  maintenance
 ) {
   try {
     const res = await axios.post("/api/create-product", {
@@ -22,6 +25,9 @@ export async function createProduct(
       images,
       category,
       subCategory,
+      size,
+  warranty,
+  maintenance
     });
     return res;
   } catch (error) {

@@ -26,6 +26,9 @@ const ProductSchema = new Schema({
     color: {
       type: Array,
     },
+    size: {
+      type: Array,
+    },
   },
   images: {
     type: Array,
@@ -42,6 +45,12 @@ const ProductSchema = new Schema({
     lowercase: true,
     trim: true,
   },
+  warranty: {
+    type: String,
+  },
+  maintenance: {
+    type: String,
+  },
 });
 
 export const Product = models?.Product || model("Product", ProductSchema);
@@ -57,13 +66,17 @@ export const createProduct = async (
   color,
   images,
   category,
-  subCategory
+  subCategory,
+  size,
+  warranty,
+  maintenance
 ) => {
   try {
     const variation = {
       color,
+      size,
     };
-
+    
     if (!title) {
       return "title is missing";
     }
@@ -91,6 +104,15 @@ export const createProduct = async (
     if (!subCategory) {
       return "subCategory is missing";
     }
+    if (!size) {
+      return "images is missing";
+    }
+    if (!warranty) {
+      return "category is missing";
+    }
+    if (!maintenance) {
+      return "subCategory is missing";
+    }
 
     const check = await Product.findOne({ sku });
 
@@ -108,6 +130,8 @@ export const createProduct = async (
       images,
       category,
       subCategory,
+      warranty,
+      maintenance,
     });
     return product;
   } catch (error) {
@@ -131,7 +155,10 @@ export const updateProduct = async (
   specification,
   color,
   images,
-  sku
+  sku,
+  size,
+  warranty,
+  maintenance
 ) => {
   try {
     const product = await Product.findOne({ sku }).exec();
@@ -140,13 +167,17 @@ export const updateProduct = async (
     }
     const variation = {
       color,
+      size
     };
-    (product.title = title),
-      (product.price = price),
-      (product.description = description);
+    product.title = title;
+    product.price = price;
+    product.description = description;
     product.specification = specification;
     product.variation = variation;
     product.images = images;
+    product.maintenance = maintenance;
+    product.warranty = warranty;
+
     await product.save();
     return product;
   } catch (error) {
@@ -154,11 +185,22 @@ export const updateProduct = async (
   }
 };
 
-export async function getProducts () {
+export async function getProducts() {
   try {
-    const products = await Product.find().exec()
-    return products    
+    const products = await Product.find().exec();
+    return products;
   } catch (error) {
-    return error.message
+    return error.message;
+  }
+}
+
+export async function getProductsForCard() {
+  try {
+    const products = await Product.find()
+      .select("title price sku images")
+      .exec();
+    return products;
+  } catch (error) {
+    return error.message;
   }
 }

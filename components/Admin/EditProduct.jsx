@@ -28,10 +28,13 @@ function EditProduct() {
   const [title, setTitle] = useState()
   const [price, setPrice] = useState()
   const [description, setDescription] = useState()
-  const [sku, setSKU] = useState()
   const [color, setColor] = useState()
   const [name, setName] = useState()
   const [value, setValue] = useState()
+  const [sizeName, setSizeName] = useState()
+  const [sizePrice, setSizePrice] = useState()
+  const [measurement, setMeasurement] = useState()
+  const [specs, setSpecs] = useState()
   const { toast } = useToast()
   async function getProducts() {
     const res = await fetch('/api/get-products')
@@ -82,16 +85,16 @@ function EditProduct() {
                             </span>
                             <span>
                               <Label> Description </Label>
-                              <Input onChange={(e) => setDescription(e.target.value)} value={description|| e.description} />
+                              <Input onChange={(e) => setDescription(e.target.value)} value={description || e.description} />
                             </span>
                             <span>
                               <Label> Specification </Label>
                               {
-                                e.specification.map((e, i) => {
-                                  return <div className='flex items-center' key={i}>
-                                    <Input onChange={(e) => setName(e.target.value)} value={ name || e.name} />
-                                    <p className='mx-1 font-medium'>:</p>
-                                    <Input onChange={(e) => setValue(e.target.value)} value={value || e.value} />
+                                e.specification && Object.keys(e.specification).map((key, i) => {
+                                  return <div className='flex items-center my-2' key={i} >
+                                    <Input value={key} />
+                                    <p className='mx-1'> : </p>
+                                    <Input value={e.specification[key]} />
                                   </div>
                                 })
                               }
@@ -105,8 +108,27 @@ function EditProduct() {
                                   </div>
                                 })
                               }
+                              <Label> Size </Label>
+                              {
+                                e.variation.size && e.variation.size.map((e, i) => {
+                                  return <div className='flex items-center my-2' key={i}>
+                                    <Input
+                                      onChange={(e) => setSizeName(e.target.value)}
+                                      value={sizeName || e.name}
+                                    />
+                                    <Input
+                                      onChange={(e) => setMeasurement(e.target.value)}
+                                      value={measurement || e.measure}
+                                    />
+                                    <Input
+                                      onChange={(e) => setSizePrice(e.target.value)}
+                                      value={sizePrice || e.price}
+                                    />
+                                  </div>
+                                })
+                              }
                             </span>
-                            <Button  onClick={async () => {
+                            <Button onClick={async () => {
                               const specification = {
                                 name, value
                               }

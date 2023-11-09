@@ -14,7 +14,40 @@ export async function POST(req) {
       images,
       category,
       subCategory,
+      size,
+      warranty,
+      maintenance,
     } = await req.json();
+    if (!title) {
+      return NextResponse.json("title is missing");
+    }
+    if (!price) {
+      return NextResponse.json("price is missing");
+    }
+    if (!description) {
+      return NextResponse.json("description is missing");
+    }
+    if (!specification) {
+      return NextResponse.json("specification is missing");
+    }
+    if (!color) {
+      return NextResponse.json("color is missing");
+    }
+    if (!images) {
+      return NextResponse.json("images is missing");
+    }
+    if (!sku) {
+      return NextResponse.json("sku is missing");
+    }
+    if (!size) {
+      return NextResponse.json("size is missing");
+    }
+    if (!warranty) {
+      return NextResponse.json("warranty is missing");
+    }
+    if (!maintenance) {
+      return NextResponse.json("maintenance is missing");
+    }
     await connectDB();
     const response = await createProduct(
       title,
@@ -25,7 +58,10 @@ export async function POST(req) {
       color,
       images,
       category,
-      subCategory
+      subCategory,
+      size,
+      warranty,
+      maintenance
     );
     return NextResponse.json({
       response,

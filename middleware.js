@@ -1,13 +1,13 @@
+import { decode } from "jsonwebtoken";
 import { NextResponse } from "next/server";
 export { default } from "next-auth/middleware";
 
 export async function middleware(request) {
     if (request.nextUrl.pathname.startsWith("/admin-panel")) {
-        const slicedURL = request.nextUrl.searchParams.get('token')
-        console.log('Slices',slicedURL)
+        const token = request.nextUrl.searchParams.get('token')
         const cookieToken = request.cookies.get('__admin_token')
-            
-        if(slicedURL !== cookieToken?.value) {
+        const decodedToken = decode(cookieToken.value)
+        if(token !== decodedToken) {
             return NextResponse.redirect('http://localhost:3000/admin-login')
         }
         return;
