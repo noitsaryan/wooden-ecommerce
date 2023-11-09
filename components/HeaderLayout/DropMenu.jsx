@@ -16,6 +16,8 @@ export default function DropMenu() {
         <DropdownItem key="residence">Residence</DropdownItem>
         <DropdownItem key="commercial">Commercial</DropdownItem>
         <DropdownItem key="studios">Studios</DropdownItem>
+        <DropdownItem key="lighting">Lighting</DropdownItem>
+
        
       </DropdownMenu>
     </Dropdown>

@@ -10,7 +10,7 @@ function Product({link, title, price}) {
       </div>
      <div className='p-1'>
      <p className='overflow-hidden truncate whitespace-nowrap text-slate-700 text-md '>{title}</p>
-      <h3 className='text-lg '>₹{price.toLocaleString()}</h3>
+      <h3 className='text-lg '>₹{price}</h3>
       <div className='flex items-center gap-[3px]'>
         <BsBoxSeam className='text-md' />
         <p className='text-sm mt-[1px]'>MADE TO ORDER</p>

@@ -1,5 +1,7 @@
 import CtaButton from '@/components/SkuPage/CtaButton'
 import PinCode from '@/components/SkuPage/PinCode'
+import ProductAccord from '@/components/SkuPage/ProductAccord'
+import ProductCustomize from '@/components/SkuPage/ProductCustomize'
 import ProductData from '@/components/SkuPage/ProductData'
 import ProductSlide from '@/components/SkuPage/ProductSlide'
 import Quantity from '@/components/SkuPage/Quantity'
@@ -15,9 +17,11 @@ function page() {
         </section>
         <section className='md:pt-8'>
           <ProductData/>
+          <ProductCustomize/>
           <Quantity/>
           <PinCode/>
           <CtaButton/>
+          <ProductAccord/>
         </section>
       </section>
     </main>
