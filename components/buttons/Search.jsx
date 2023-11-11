@@ -123,7 +123,7 @@ export function Search() {
         </DialogContent>
       </Dialog>
       <DropdownMenu>
-        <DropdownMenuTrigger><HiOutlineMenuAlt3 className='text-2xl cursor-pointer sm:hidden' /></DropdownMenuTrigger>
+        <DropdownMenuTrigger><LuUserCircle className='text-2xl cursor-pointer sm:hidden' /></DropdownMenuTrigger>
         {
           session.status === 'authenticated' ? <DropdownMenuContent className="absolute -right-2">
             <DropdownMenuLabel>Menu</DropdownMenuLabel>

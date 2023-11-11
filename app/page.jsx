@@ -85,6 +85,7 @@ const page = () => {
         </div>
       </section> */}
       <NormalButton name="Check More Products" className="bg-Primary" link="/shop" />
+      
     </main>
   );
 };
