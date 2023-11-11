@@ -58,7 +58,7 @@ function LoginForm() {
       </div>
 
       <Input
-        classNames={...inputStyle}
+        classNames={inputStyle}
         type="email"
         variant={variants}
         label="Email"
