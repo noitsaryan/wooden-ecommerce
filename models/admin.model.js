@@ -32,7 +32,6 @@ export async function adminLogin(email, password, token) {
     const admin = await Admin.findOne({ email })
       .select("authentication")
       .exec();
-    console.log(admin);
     if (!admin) return "Email does not exists";
     const isTrue = await compare(password, admin.authentication.password);
     console.log(isTrue)

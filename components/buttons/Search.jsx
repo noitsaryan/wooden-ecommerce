@@ -3,6 +3,7 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import { HiOutlineMenuAlt3 } from 'react-icons/hi'
+import { LuUserCircle } from 'react-icons/lu'
 import { Input } from "@/components/ui/input"
 import Link from 'next/link';
 import {
@@ -107,11 +108,9 @@ export function Search() {
 
     </>
           : <>
-    <div className="hidden sm:flex w-full max-w-sm items-center space-x-2">
-      <Input type="search" placeholder="Search Products" />
-      <span className='py-1 px-[5px] hover:bg-Dark/30 transition-all cursor-pointer  rounded-full bg-Dark'>
-        <SearchRoundedIcon className='text-white' />
-      </span>
+    <div className="hidden sm:flex w-full max-w-sm items-center space-x-2 border-2 p-1 rounded-full">
+      <input type="search" placeholder="Search Products" className="border-none outline-none rounded-full px-2" />
+        <SearchRoundedIcon className='bg-black rounded-full p-1 text-3xl text-white' />
     </div>
     <div className='flex items-center gap-4'>
       <Dialog>
@@ -123,10 +122,10 @@ export function Search() {
           <Input type="search" placeholder="Search" />
         </DialogContent>
       </Dialog>
-      <DropdownMenu>
-        <DropdownMenuTrigger><HiOutlineMenuAlt3 className='text-2xl cursor-pointer sm:hidden' /></DropdownMenuTrigger>
+      <DropdownMenu className="flex">
+        <DropdownMenuTrigger><LuUserCircle className='text-2xl cursor-pointer sm:hidden' /></DropdownMenuTrigger>
         {
-          session.status === 'authenticated' ? <DropdownMenuContent className="absolute -right-2">
+          session.status === 'authenticated' ? <DropdownMenuContent className="absolute -right-2 z-50">
             <DropdownMenuLabel>Menu</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => route.push('/account')} >Account</DropdownMenuItem>
@@ -148,8 +147,9 @@ export function Search() {
     <div className='space-x-4 sm:flex hidden'>
 
       <HoverCard>
-        <HoverCardTrigger href="/account/userdata">
-          <PersonOutlinedIcon className='text-3xl hover:text-Dark/40 cursor-pointer transition-all text-Dark' />
+        <HoverCardTrigger href="/account">
+        <LuUserCircle className='text-3xl hover:text-Dark/40 cursor-pointer transition-all text-Dark' />
+        
         </HoverCardTrigger>
         <HoverCardContent className="absolute right-0 w-44"  >
           {

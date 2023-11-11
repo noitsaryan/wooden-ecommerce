@@ -10,7 +10,7 @@ import Link from 'next/link'
 
 function NavMenu() {
     return (
-        <div className='space-x-8 flex items-center'>
+        <div className='flex flex-col md:flex-row items-start gap-6 text-xl md:text-base md:items-center '>
             <HoverCard>
                 <HoverCardTrigger className='cursor-pointer flex items-center'>Collection <BiChevronDown/></HoverCardTrigger>
                 <HoverCardContent className="flex flex-col gap-2">

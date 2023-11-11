@@ -5,6 +5,9 @@ import Link from 'next/link';
 import Subcategory from './Subcategory';
 import Bottomnav from './Bottomnav';
 import NavMenu from './NavMenu';
+import { RiMenu2Line } from 'react-icons/ri'
+import 'animate.css';
+
 
 function Header() {
   const [isSticky, setIsSticky] = useState(false);
@@ -26,23 +29,32 @@ function Header() {
     };
   }, []);
 
+  const [navDisplay, setNavDisplay]=useState(false)
+
+
   return (
     <header className={`py-3  px-8 z-50 ${isSticky ? 'fixed top-0 left-0 right-0 bg-white shadow-md' : ''}`}>
       <nav className='flex items-center justify-between'>
-        <div>
+        <div className='flex items-center justify-center gap-2'>
+        <RiMenu2Line className='text-2xl md:hidden flex' onClick={()=>setNavDisplay(!navDisplay)}/>
+
           <Link href="/">
             <h1 className='text-Dark text-2xl font-bold'> WinHome </h1>
           </Link>
         </div>
-        <NavMenu />
+        <span className='md:flex hidden'><NavMenu/></span>
         <div className='flex items-center justify-center gap-8'>
           <Search />
         </div>
       </nav>
+       <div className={`animate__animated animate__fadeInLeft  p-2 w-screen  md:hidden flex bg-white ${navDisplay ? "flex" : "hidden"} pt-6`}>
+          <NavMenu/>
+        </div> 
+
       <div className='w-full flex items-center justify-center'>
         {/* <Subcategory /> */}
       </div>
-      {/* <Bottomnav /> */}
+      <Bottomnav />
     </header>
   );
 }

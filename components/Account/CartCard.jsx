@@ -46,7 +46,8 @@ const CartCard = ({ sku, id, removeCart }) => {
       <hr />
       <div className='flex gap-3'>
         <Image
-          src={image}
+          src={image || "/"}
+          priority
           width={500}
           height={500}
           alt='product_ordered_img'

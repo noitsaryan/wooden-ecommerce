@@ -38,12 +38,9 @@ const ForgetForm = () => {
         title: 'Mail Sent Successfully'
       })
     }
-    console.log(res)
   }
 
-  useEffect(() => {
-    console.log(email)
-  }, [email])
+
 
   return (
     <section className="flex-1 h-full space-y-4 p-8 ">

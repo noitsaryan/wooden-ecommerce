@@ -46,7 +46,6 @@ function Orders() {
           ...user
         })
       })
-      console.log(array)
       setOrder(array)
     } catch (error) {
       console.log(error.message)

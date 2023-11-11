@@ -31,7 +31,6 @@ const UserAddress = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await update()
-    console.log(fields);
   };
 
   const fetchUser = async () => {

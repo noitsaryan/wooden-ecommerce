@@ -8,7 +8,7 @@ import { useToast } from "../ui/use-toast"
 import AddCart from '../buttons/AddCart';
 import { Button } from '../ui/button'
 
-const CtaButton = ({ amount, price, totalPrice, sku }) => {
+const CtaButton = ({ amount, price, totalPrice, sku, quantity }) => {
   const router = useRouter()
   const { data: session } = useSession()
   const { toast } = useToast()
@@ -38,7 +38,7 @@ const CtaButton = ({ amount, price, totalPrice, sku }) => {
         amount
       })
       const { data } = response;
-      router.push(`/checkout?amount=${data.order.amount}&order_id=${data.order.id}&product_sku=${sku}&quantity=${5}&price=${price}&totalPrice=${totalPrice}&user_id=${result}&email=${session?.user?.email}`)
+      router.push(`/checkout?amount=${data.order.amount}&order_id=${data.order.id}&product_sku=${sku}&quantity=${quantity}&price=${price}&totalPrice=${totalPrice}&user_id=${result}&email=${session?.user?.email}`)
     } catch (error) {
       console.log(error.message)
     }

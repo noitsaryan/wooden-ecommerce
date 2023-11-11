@@ -44,7 +44,6 @@ function page() {
         <br />
         <Button className="w-full" onClick={async () => {
           const data = await adminLogin();
-          console.log(data)
           if (data.data === true) {
             toast({
               title: 'Email Sent'

@@ -30,7 +30,7 @@ export default function DataTab({des, specs}) {
 <div classname="relative overflow-x-auto shadow sm:rounded-md">
       {
         specs && specs.map((elem, i)=>(
-          <ul className="flex items-center space-x-2 text-sm">
+          <ul key={i} className="flex items-center space-x-2 text-sm">
             <li>{elem.name}</li> :
           <li>{elem.value}</li>
           </ul>

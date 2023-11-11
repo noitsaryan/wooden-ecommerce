@@ -26,7 +26,6 @@ function Checkout({ amount, sku, price, totalPrice, value, style }) {
             const { data } = response;
             router.push(`/checkout?amount=${data.order.amount}&order_id=${data.order.id}&product_sku=${sku}&quantity=${value}&price=${price}&totalPrice=${totalPrice}&user_id=${data._id}&email=${session?.user?.email}`)
         } catch (error) {
-            console.log(error.message)
         }
     }
     useEffect(() => {

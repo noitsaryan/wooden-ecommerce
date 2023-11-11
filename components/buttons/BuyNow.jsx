@@ -13,14 +13,7 @@ function BuyNow({
     email
 }
 ) {
-    console.log(amount,
-        order_id,
-        product_sku,
-        quantity,
-        price,
-        totalPrice,
-        user_id,
-        email)
+    
     const initializeRazorpay = () => {
         return new Promise((resolve) => {
             const script = document.createElement("script");
@@ -70,7 +63,6 @@ function BuyNow({
                     user_id,
                     email
                 })
-                console.log(order)
             },
         };
         const paymentObject = await new window.Razorpay(options);

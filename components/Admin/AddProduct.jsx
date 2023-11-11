@@ -75,7 +75,6 @@ function AddProduct() {
   const uploadProduct = async () => {
     try {
       if (!images) return;
-      console.log('From Below', images)
       const imageArray = await addProductImage(images);
       const promise = await createProduct(
         title,
@@ -96,15 +95,12 @@ function AddProduct() {
           title: 'Successfully Added Product'
         })
       }
-      console.log(promise)
     } catch (error) {
       console.log(error.message)
     }
   }
 
-  useEffect(() => {
-    console.log(sizeArray)
-  }, [sizeArray])
+
 
   return (
     <main>

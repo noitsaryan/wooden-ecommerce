@@ -1,4 +1,5 @@
 'use client'
+import { signOut } from 'next-auth/react';
 import Link from 'next/link'
 import { usePathname } from 'next/navigation';
 import { FiBox, FiChevronRight, FiHome, FiLock, FiLogOut, FiShoppingBag, FiUser } from "react-icons/fi";
@@ -17,7 +18,7 @@ export default function RootLayout({ children }) {
                 <Link href="/account/address" className={`h-20  ${location == '/account/address' ? 'bg-slate-100' : 'bg-white'} border-transparent border-l-4 hover:border-Primary transition-all hover:bg-slate-100 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiHome className='text-3xl text-Secondary' />Address</span><FiChevronRight /></Link>
                 <Link href="/account/userdata" className={`h-20 ${location == '/account/personaldata' ? 'bg-slate-100' : 'bg-white'} border-transparent border-l-4 hover:border-Primary transition-all hover:bg-slate-100 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiUser className='text-3xl text-Secondary' />Personal Data</span><FiChevronRight /></Link>
                 <Link href="/forget" className={`h-20 ${location == '/account/password' ? 'bg-slate-100' : 'bg-white'} border-transparent border-l-4 hover:border-Primary transition-all hover:bg-slate-100 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiLock className='text-3xl text-Secondary' />Password</span><FiChevronRight /></Link>
-                <button className={`h-20 ${location == '/account/signout' ? 'bg-slate-100' : 'bg-white'} border-transparent border-l-4 hover:border-Primary transition-all hover:bg-slate-100 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiLogOut className='text-3xl text-Secondary' />Sign Out</span><FiChevronRight /></button>
+                <button className={`h-20 ${location == '/account/signout' ? 'bg-slate-100' : 'bg-white'} border-transparent border-l-4 hover:border-Primary transition-all hover:bg-slate-100 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiLogOut className='text-3xl text-Secondary' onClick={() => signOut()} />Sign Out</span><FiChevronRight /></button>
 
 
             </section>
@@ -29,7 +30,7 @@ export default function RootLayout({ children }) {
                     <Link href="/account/address" className='text-3xl text-Secondary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'>< FiHome /><p className='text-sm'>address</p></Link>
                     <Link href="/account/userdata" className='text-3xl text-Secondary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'>< FiUser /><p className='text-sm'>user</p></Link>
                     <Link href="/forget" className='text-3xl text-Secondary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'>< FiLock /><p className='text-sm'>password</p></Link>
-                    <button  className='text-3xl text-Secondary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'><FiLogOut /><p className='text-sm'>logout</p></button>
+                    <button  className='text-3xl text-Secondary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'><FiLogOut /><p className='text-sm' onClick={() => signOut()}>logout</p></button>
 
                 </div>
             </section>

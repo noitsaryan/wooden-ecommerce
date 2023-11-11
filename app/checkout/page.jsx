@@ -1,6 +1,5 @@
 "use client";
 import BuyNow from "@/components/buttons/BuyNow";
-import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Input, Checkbox, } from "@nextui-org/react";
@@ -11,7 +10,6 @@ import Product from "@/components/Cards/Product";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -60,14 +58,12 @@ function page() {
 
   const fetchUserDetails = async () => {
     if (!session) {
-      // console.log("Session not available yet");
       return;
     }
 
     const email = session?.data?.user?.email;
 
     if (!email) {
-      // console.log("Email not available in session");
       return;
     }
 
@@ -76,16 +72,12 @@ function page() {
       order: false,
     });
 
-    // console.log(response);
     if (!response) {
       return;
     }
     setUser(response);
   };
 
-  const [value, setValue] = useState(1);
-  const [shipping_address, setShipping_Address] = useState(null);
-  const [billing_address, setBilling_Address] = useState(null);
   const [phone, setPhone] = useState(null);
   const [check, setCheck] = useState(false);
   const [gstin, setGstin] = useState(null);
@@ -111,8 +103,6 @@ function page() {
       [name]: value,
     });
   };
-
-  // For Billing Address
   const BillAdress = (event) => {
     let { name, value } = event.target;
     setaddress2({
@@ -125,13 +115,6 @@ function page() {
 
   let bilgAddress = `Street Name: ${address2.strtName}, Building Name / Flat No: ${address2.bldgName}, Landmark: ${address2.Landmark}, Pincode: ${address2.zipcode}, GSTIN No. : ${gstin}`;
 
-  // const ProceedChk = () => {
-  //   setShipping_Address(shipngAddress);
-
-  //   setBilling_Address(check ? shipngAddress : bilgAddress);
-
-  //   console.log(check ? shipngAddress : bilgAddress);
-  // };
 
   const updateUser = async (type) => {
     try {
@@ -145,7 +128,6 @@ function page() {
             billing_address: bilgAddress
           }
         })
-        console.log(response)
       } else if (type === 'phone') {
         if(!phone){
           return;
@@ -153,7 +135,6 @@ function page() {
         const response = await axios.post('/api/update-user', {
           email, type: "phone", data: phone
         })
-        console.log(response)
       } else if (type === 'gst') {
         if(!gstin){
           return;
@@ -161,11 +142,8 @@ function page() {
         const response = await axios.post('/api/update-user', {
           email, type: "gst", data: gstin
         })
-        console.log(response)
       }
-      console.log(response)
     } catch (error) {
-      console.log(error.message)
     }
   }
 
@@ -177,9 +155,6 @@ function page() {
     fetchUserDetails();
   }, [session.data]);
 
-  // useEffect(() => {
-  //   ProceedChk()
-  // }, [shipping_address || billing_address])
 
   return (
     <main className="h-auto w-full">

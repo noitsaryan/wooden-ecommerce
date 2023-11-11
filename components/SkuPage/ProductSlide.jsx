@@ -25,7 +25,7 @@ const ProductSlide = ({image, name}) => {
             height={500}
             alt="Product_Image"
             className="w-full h-full bg-slate-100 rounded-md transition-all"
-            src={image[imageNo]}
+            src={image[imageNo] || "/"}
           />
         </figure>
         <div className="absolute flex items-center  w-full justify-between px-3 text-4xl text-black drop-shadow-m font-semibold">
@@ -44,7 +44,6 @@ const ProductSlide = ({image, name}) => {
 
       <div className="grid grid-cols-6 overflow-y-hidden p-2 gap-2 rounded-md my-2">
         {image.map((e, i) => (
-          <>
             <Image
               width={150}
               height={150}
@@ -55,7 +54,6 @@ const ProductSlide = ({image, name}) => {
               onClick={() => setImageNo(i)}
               src={e}
             />
-          </>
         ))}
       </div>
     </div>
