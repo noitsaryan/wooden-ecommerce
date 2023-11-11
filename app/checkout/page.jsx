@@ -52,7 +52,7 @@ function page() {
       </section>
 
     </main>
-  )
+  );
 }
 
-export default page
+export default page;
