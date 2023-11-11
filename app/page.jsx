@@ -3,6 +3,7 @@ import { storage } from "@/appwrite/appwrite.config";
 import Product from "@/components/Cards/Product";
 import HeroSlider from "@/components/HomePage/Slider";
 import NormalButton from "@/components/buttons/NormalButton";
+import { Button } from "@nextui-org/react";
 import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -83,7 +84,7 @@ const page = () => {
           <Product />
         </div>
       </section> */}
-      <NormalButton name="Check More Products" link="/shop" />
+      <NormalButton name="Check More Products" className="bg-Primary" link="/shop" />
     </main>
   );
 };

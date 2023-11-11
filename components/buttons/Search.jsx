@@ -3,6 +3,7 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import { HiOutlineMenuAlt3 } from 'react-icons/hi'
+import { LuUserCircle } from 'react-icons/lu'
 import { Input } from "@/components/ui/input"
 import Link from 'next/link';
 import {
@@ -107,11 +108,9 @@ export function Search() {
 
     </>
           : <>
-    <div className="hidden sm:flex w-full max-w-sm items-center space-x-2">
-      <Input type="search" placeholder="Search Products" />
-      <span className='py-1 px-[5px] hover:bg-Dark/30 transition-all cursor-pointer  rounded-full bg-Dark'>
-        <SearchRoundedIcon className='text-white' />
-      </span>
+    <div className="hidden sm:flex w-full max-w-sm items-center space-x-2 border-2 p-1 rounded-full">
+      <input type="search" placeholder="Search Products" className="border-none outline-none rounded-full px-2" />
+        <SearchRoundedIcon className='bg-black rounded-full p-1 text-3xl text-white' />
     </div>
     <div className='flex items-center gap-4'>
       <Dialog>
@@ -149,7 +148,8 @@ export function Search() {
 
       <HoverCard>
         <HoverCardTrigger href="/account">
-          <PersonOutlinedIcon className='text-3xl hover:text-Dark/40 cursor-pointer transition-all text-Dark' />
+        <LuUserCircle className='text-3xl hover:text-Dark/40 cursor-pointer transition-all text-Dark' />
+        
         </HoverCardTrigger>
         <HoverCardContent className="absolute right-0 w-44"  >
           {
