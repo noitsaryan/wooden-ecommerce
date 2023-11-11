@@ -15,9 +15,6 @@ const page = ({params}) => {
         subaccount==="userdata" ? <UserData/>:
         subaccount==="address" ? <UserAddress/>:
         null
-
-
-
     }
     </>
   )

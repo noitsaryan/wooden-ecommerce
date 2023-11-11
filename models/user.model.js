@@ -192,7 +192,7 @@ export const resetUserPasswordWithPassword = async (
 // Updating Functions
 //  Parametre should follow the conventions as mentioned inside function
 
-export const update = async (email, userData, type) => {
+export const update = async (email, userData, type, cartType) => {
   try {
     const user = await User.findOne({ email }).exec();
     if (!user) {
@@ -213,6 +213,9 @@ export const update = async (email, userData, type) => {
     } else if (type === "cart") {
       // Syntax for params => { sku: String }
       user.cart.push(userData);
+      if(cartType === 'array'){
+        user.cart = userData
+      }
     }
     await user.save();
     return user;

@@ -1,14 +1,61 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input, Button } from '@nextui-org/react';
+import { updateUser } from '@/utils/lib/users';
+import { useSession } from 'next-auth/react';
+import axios from 'axios';
+import { useToast } from '../ui/use-toast';
 
 const UserData = () => {
+  const [response, setResponse] = useState()
+  const { data: session } = useSession()
+  const {toast} = useToast()
   const [fields, setFields] = useState({
     first_name: '',
     last_name: '',
     email: '',
     phone: '',
   });
+
+
+  const fetchUser = async () => {
+    const res = await axios.post('/api/get-user-by-id', {
+      user: session?.user?.email,
+      order: false
+    })
+    setResponse(res.data.res)
+  }
+
+  const { first_name,
+    last_name,
+    phone, } = fields;
+
+  const update = async () => {
+    const number = parseInt(phone)
+    const name = {
+      first_name, last_name
+    }
+    if (!first_name || !last_name) {
+      return;
+    } else {
+      const user = await updateUser(session?.user?.image, name, "name")
+      if(user) {
+        toast({
+          title: 'Successfully Updated'
+        })
+      }
+    }
+    if (!number) {
+      return;
+    } else {
+      const user = await updateUser(session?.user?.image, number, "phone")
+      if(user) {
+        toast({
+          title: 'Successfully Updated'
+        })
+      }
+    }
+  }
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -18,16 +65,26 @@ const UserData = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(fields); 
+    const res = await update();
+    window.location.reload()
+    
+    console.log(fields);
   };
 
-  const isFormValid = Object.values(fields).every((value) => value.trim() !== '');
+
+  useEffect(() => {
+    fetchUser()
+  },[session])
+
+  if(!response) {
+    return <p> No Data to display </p>
+  }
 
   return (
     <div className="space-y-5">
-      <h3>Your Details</h3>
+      <h3>Personal Details</h3>
       <form onSubmit={handleSubmit} className="space-y-3">
         <span className="w-full grid grid-cols-2 gap-2">
           <Input
@@ -36,7 +93,7 @@ const UserData = () => {
             name="first_name"
             label="First name"
             isRequired
-            placeholder="Enter First Name"
+            placeholder={response ? response.name.first_name : ''}
             value={fields.first_name}
             onChange={handleChange}
           />
@@ -46,7 +103,7 @@ const UserData = () => {
             name="last_name"
             label="Last name"
             isRequired
-            placeholder="Enter Last Name"
+            placeholder={response ? response.name.last_name : ''}
             value={fields.last_name}
             onChange={handleChange}
           />
@@ -57,7 +114,8 @@ const UserData = () => {
           name="email"
           label="Email"
           isRequired
-          placeholder="Enter Email Address"
+          disabled
+          placeholder={response ? response.email : ''}
           value={fields.email}
           onChange={handleChange}
         />
@@ -67,7 +125,7 @@ const UserData = () => {
           name="phone"
           label="Phone Number"
           isRequired
-          placeholder="Enter Phone Number"
+          placeholder={response.phone_no}
           value={fields.phone}
           onChange={handleChange}
         />
@@ -76,7 +134,7 @@ const UserData = () => {
           type="submit"
           size="md"
           variant="solid"
-          disabled={!isFormValid}
+        // disabled={!isFormValid}
         >
           Submit
         </Button>

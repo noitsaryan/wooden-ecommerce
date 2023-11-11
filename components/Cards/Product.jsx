@@ -6,7 +6,7 @@ function Product({link, title, price, sku}) {
   return (
     <Link href={`/shop/category/${sku}`} className="cursor-pointer">
       <div className='bg-cover overflow-hidden bg-white rounded-md'>
-        <Image src={link} width={400} height={400} alt="productImg" className='object-fit rounded hover:scale-105 transition-all duration-300 cursor-pointer' />
+        <Image priority src={link || "/"} width={400} height={400} alt="productImg" className='object-fit h-auto w-auto rounded hover:scale-105 transition-all duration-300 cursor-pointer' />
       </div>
      <div className='p-1'>
      <p className='overflow-hidden truncate whitespace-nowrap text-slate-700 text-md '>{title}</p>

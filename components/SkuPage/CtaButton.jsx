@@ -1,13 +1,14 @@
 'use client'
 import React from 'react'
-import { Button } from "@nextui-org/react";
 import axios from "axios"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useToast } from "../ui/use-toast"
+import AddCart from '../buttons/AddCart';
+import { Button } from '../ui/button'
 
-const CtaButton = ({ amount, price, totalPrice, sku }) => {
+const CtaButton = ({ amount, price, totalPrice, sku, quantity }) => {
   const router = useRouter()
   const { data: session } = useSession()
   const { toast } = useToast()
@@ -37,7 +38,7 @@ const CtaButton = ({ amount, price, totalPrice, sku }) => {
         amount
       })
       const { data } = response;
-      router.push(`/checkout?amount=${data.order.amount}&order_id=${data.order.id}&product_sku=${sku}&quantity=${5}&price=${price}&totalPrice=${totalPrice}&user_id=${result}&email=${session?.user?.email}`)
+      router.push(`/checkout?amount=${data.order.amount}&order_id=${data.order.id}&product_sku=${sku}&quantity=${quantity}&price=${price}&totalPrice=${totalPrice}&user_id=${result}&email=${session?.user?.email}`)
     } catch (error) {
       console.log(error.message)
     }
@@ -45,10 +46,8 @@ const CtaButton = ({ amount, price, totalPrice, sku }) => {
   return (
     <div className='grid grid-cols-2 gap-3 px-4'>
 
-      <Button color="primary" variant="bordered" className=" h-12 rounded-md border border-Primary">
-        Add to cart
-      </Button>
-      <Button onClick={checkout} className="bg-Primary h-12 rounded-md border border-Primary" >
+      <AddCart email={session?.user?.email}  sku={sku} />
+      <Button onClick={checkout} className="bg-Primary rounded-md ring-2 ring-Primary hover:bg-white hover:text-Primary" >
         Buy now
       </Button>
     </div>

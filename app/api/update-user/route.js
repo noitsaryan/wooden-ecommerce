@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    const { email, data, type } = await req.json();
+    const { email, data, type, cartType } = await req.json();
     if (!email || !data || !type) {
       return NextResponse.json(
         {
@@ -14,7 +14,7 @@ export async function POST(req) {
       );
     }
     await connectDB();
-    const response = await update(email, data, type);
+    const response = await update(email, data, type, cartType);
     return NextResponse.json({ response });
   } catch (error) {
     return NextResponse.json({ message: error.message }, { status: 400 });

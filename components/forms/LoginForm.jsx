@@ -58,7 +58,10 @@ function LoginForm() {
       </div>
 
       <Input
+<<<<<<< HEAD
         classNames={inputStyle}
+=======
+>>>>>>> b4a0ce85bfe5f9ce40a6e7f8dbf8aa5d00e65ab7
         type="email"
         variant={variants}
         label="Email"
@@ -66,7 +69,6 @@ function LoginForm() {
       />
 
       <Input
-        classNames={inputStyle}
         label="Password"
         variant={variants}
         onChange={(e) => setPassword(e.target.value)}

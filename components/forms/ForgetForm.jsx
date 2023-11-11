@@ -8,17 +8,21 @@ import { useToast } from "../ui/use-toast";
 const ForgetForm = () => {
   const [email, setEmail] = useState(String)
   const variants = ["flat", "bordered", "underlined", "faded"];
-  const inputStyle = {
-    erWrapper: "bg-white  pb-3",
-    inputWrapper: [
-      "bg-white",
-      "rounded",
-      "text-black",
-      "shadow-none",
-      "border",
-      "border-Border w-full h-12 p-1 px-3 ",
-    ],
-  };
+  // const inputStyle = {
+  //   erWrapper: "bg-white  pb-3",
+  //   inputWrapper: [
+  //     "bg-white",
+  //     "rounded",
+  //     "text-black",
+  //     "shadow-none",
+  //     "border",
+  //     "border-Border w-full h-12 p-1 px-3 ",
+  //   ],
+  // };
+
+
+
+  // console.log(data)
 
   const {toast} = useToast()
 
@@ -38,12 +42,9 @@ const ForgetForm = () => {
         title: 'Mail Sent Successfully'
       })
     }
-    console.log(res)
   }
 
-  useEffect(() => {
-    console.log(email)
-  }, [email])
+
 
   return (
     <section className="flex-1 h-full space-y-4 p-8 ">
@@ -51,15 +52,13 @@ const ForgetForm = () => {
         <h2 className="text-2xl text-black font-semibold">Forgot Password?</h2>
         <p className="text-xs text-Border">Enter your email id to reset your password.</p>
       </div>
-
       <Input
-        classNames={...inputStyle}
         type="email"
         variant={variants}
         label="Email"
         onChange={(e) => setEmail(e.target.value)}
       />
-      <Button onClick={verify} disabled={ !email < 0 ? true : false }  className="bg-Primary  w-full outline-none rounded text-white text-lg">
+      <Button onClick={verify} className="bg-Primary  w-full outline-none rounded text-white text-lg">
         Verify
       </Button>
     </section>

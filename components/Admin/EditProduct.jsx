@@ -50,20 +50,15 @@ function EditProduct() {
   async function getProducts() {
     const res = await fetch('/api/get-products');
     const data = await res.json();
-    console.log(data)
     setProducts(data);
   }
 
   async function updateProducts(sku, images) {
     try {
       const specs = editedSpecifications[sku]
-      console.log(specs)
       const size = editedSizes[sku]
-      console.log(size)
       const colors = editedColors[sku]
-      console.log(colors)      
       const res = await updateProduct(title || products.title, price || products.price, description || products.description, specs || products.specification, colors || products.variation.color, images, sku, size || products.variation.size, warranty || products.warranty, maintenance || products.maintenance)
-      console.log(res)
     } catch (error) {
       console.log(error.message)
     }
@@ -106,8 +101,8 @@ function EditProduct() {
               <TableHead>{product.price}</TableHead>
               <TableHead className="text-right">
                 <Dialog className="max-w-4xl w-full">
-                  <DialogTrigger>
-                    <Button variant="outline">View</Button>
+                  <DialogTrigger className='bg-gray-400 text-white px-4 py-2 rounded-md' >
+                    View
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>

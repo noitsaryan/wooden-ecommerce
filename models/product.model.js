@@ -197,7 +197,7 @@ export async function getProducts() {
 export async function getProductsForCard() {
   try {
     const products = await Product.find()
-      .select("title price sku images")
+      .select("title price sku images category subCategory")
       .exec();
     return products;
   } catch (error) {

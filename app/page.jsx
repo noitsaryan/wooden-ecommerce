@@ -3,7 +3,6 @@ import { storage } from "@/appwrite/appwrite.config";
 import Product from "@/components/Cards/Product";
 import HeroSlider from "@/components/HomePage/Slider";
 import NormalButton from "@/components/buttons/NormalButton";
-import { Button } from "@nextui-org/react";
 import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -19,7 +18,6 @@ const page = () => {
 
   const fetchProduct = async () => {
     const res = await axios.get('/api/get-product-cards')
-    console.log(res)
     setResponse(res)
   }
 

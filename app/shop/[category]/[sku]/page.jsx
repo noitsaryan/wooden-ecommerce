@@ -70,7 +70,7 @@ function page() {
               </p>
             </div>
             <PinCode />
-            <CtaButton amount={ value * response.price } price={response.price} totalPrice={response.price * value} sku={response.sku} />
+            <CtaButton amount={ value * response.price } price={response.price} totalPrice={response.price * value}  sku={response.sku} quantity={value} />
             <ProductAccord maintenance={response.maintenance} warranty={response.warranty} />
           </section>
         </section>

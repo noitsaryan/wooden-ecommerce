@@ -1,4 +1,4 @@
-import ForgetForm from "@/components/forms/forgetForm";
+import ForgetForm from "@/components/forms/ForgetForm";
 import Image from "next/image";
 
 function Page() {
