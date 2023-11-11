@@ -52,14 +52,13 @@ const ForgetForm = () => {
         <h2 className="text-2xl text-black font-semibold">Forgot Password?</h2>
         <p className="text-xs text-Border">Enter your email id to reset your password.</p>
       </div>
-
       <Input
         type="email"
         variant={variants}
         label="Email"
         onChange={(e) => setEmail(e.target.value)}
       />
-      <Button onClick={verify} disabled={ !email < 0 ? true : false }  className="bg-Primary  w-full outline-none rounded text-white text-lg">
+      <Button onClick={verify} className="bg-Primary  w-full outline-none rounded text-white text-lg">
         Verify
       </Button>
     </section>
