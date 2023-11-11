@@ -131,7 +131,7 @@ export function Search() {
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => route.push('/account')} >Account</DropdownMenuItem>
             <DropdownMenuItem onClick={() => route.push('/account/orders')} >Orders</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => route.push('/account/cart')} >Cart</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => route.push('/account/carts')} >Cart</DropdownMenuItem>
             <Button variant="outline" className="w-full" onClick={() => signOut()}>Logout</Button>
           </DropdownMenuContent>
             : <DropdownMenuContent className="absolute -right-2">
@@ -148,7 +148,7 @@ export function Search() {
     <div className='space-x-4 sm:flex hidden'>
 
       <HoverCard>
-        <HoverCardTrigger href="/account">
+        <HoverCardTrigger href="/account/userdata">
           <PersonOutlinedIcon className='text-3xl hover:text-Dark/40 cursor-pointer transition-all text-Dark' />
         </HoverCardTrigger>
         <HoverCardContent className="absolute right-0 w-44"  >
@@ -157,9 +157,9 @@ export function Search() {
               <div className='space-y-2 flex flex-col justify-center'>
                 <h1 className='font-semibold text-Dark'> My Account </h1>
                 <hr />
-                <Link href="/account" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Account</Link>
+                <Link href="/account/userdata" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Account</Link>
                 <Link href="/account/order" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Orders</Link>
-                <Link href="/account/cart" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Cart</Link>
+                <Link href="/account/carts" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Cart</Link>
                 <Button variant="destructive" onClick={() => signOut()}>Logout</Button>
               </div> :
               <div className='space-y-2 flex flex-col justify-center'>
@@ -171,7 +171,7 @@ export function Search() {
           }
         </HoverCardContent>
       </HoverCard>
-      <Link href='/account/cart'>
+      <Link href='/account/carts'>
         <ShoppingCartOutlinedIcon className='text-3xl hover:text-Dark/40 cursor-pointer transition-all text-Dark' />
       </Link>
     </div>

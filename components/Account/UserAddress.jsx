@@ -1,14 +1,25 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Button } from "@nextui-org/react";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+import { updateUser } from "@/utils/lib/users";
 
 const UserAddress = () => {
+  const [response, setResponse] = useState()
+  const { data: session } = useSession()
   const [fields, setFields] = useState({
     street_name: "",
     flat_no: "",
     landmark: "",
     pincode: "",
   });
+
+  const { street_name,
+    flat_no,
+    landmark,
+    pincode,
+  } = fields;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -17,13 +28,44 @@ const UserAddress = () => {
       [name]: value,
     }));
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    await update()
     console.log(fields);
   };
-  const isFormValid = Object.values(fields).every(
-    (value) => value.trim() !== ""
-  );
+
+  const fetchUser = async () => {
+    const res = await axios.post('/api/get-user-by-id', {
+      user: session?.user?.email,
+      order: false
+    })
+    setResponse(res.data.res)
+  }
+
+  const update = async () => {
+    const shipping_address = `Street:${street_name}, Flat:${flat_no}, Landmark:${landmark}, Pin Code:${pincode}`
+    const address = {
+      shipping_address,
+      billing_address: response.address.billing_address
+    }
+    if (!street_name ||
+      !flat_no ||
+      !landmark ||
+      !pincode) {
+      return;
+    } else {
+      const res = await updateUser(session?.user?.email, address, "address")
+    }
+    window.location.reload()
+  }
+
+  useEffect(() => {
+    fetchUser()
+  }, [session])
+
+  if (!response) {
+    return <p> No Data to display </p>
+  }
 
   return (
     <>
@@ -33,7 +75,7 @@ const UserAddress = () => {
           variant="bordered"
           label="Current Shipping Address:"
           isReadOnly
-          placeholder="No address available"
+          placeholder={response?.address?.shipping_address}
         />
         <hr />
         <h3>Update Address</h3>
@@ -83,7 +125,6 @@ const UserAddress = () => {
             size="md"
             variant="solid"
             type="submit"
-            disabled={!isFormValid}
           >
             Update
           </Button>

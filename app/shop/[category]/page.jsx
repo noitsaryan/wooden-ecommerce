@@ -20,7 +20,6 @@ function page() {
         return imageLink.href;
     }
 
-
     useEffect(() => {
         fetchProducts(category)
     }, [])

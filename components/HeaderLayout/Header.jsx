@@ -27,7 +27,7 @@ function Header() {
   }, []);
 
   return (
-    <header className={`py-3 px-8 z-10 ${isSticky ? 'fixed top-0 left-0 right-0 bg-white shadow-md' : ''}`}>
+    <header className={`py-3  px-8 z-50 ${isSticky ? 'fixed top-0 left-0 right-0 bg-white shadow-md' : ''}`}>
       <nav className='flex items-center justify-between'>
         <div>
           <Link href="/">

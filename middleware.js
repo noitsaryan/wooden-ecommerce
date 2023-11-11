@@ -14,7 +14,7 @@ export async function middleware(request) {
         }
         return;
     }
-    if(request.nextUrl.pathname.startsWith("/account")){
+    if(request.nextUrl.pathname.startsWith("/account/userdata")){
         const checkCookie = request.cookies.has('next-auth.session-token')
         if(!checkCookie){
             return NextResponse.redirect('http://localhost:3000/login')
@@ -23,5 +23,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/account", "/admin-panel"],
+  matcher: ["/account/:path*", "/admin-panel"],
 };
