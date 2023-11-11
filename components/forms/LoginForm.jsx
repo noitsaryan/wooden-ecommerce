@@ -58,7 +58,6 @@ function LoginForm() {
       </div>
 
       <Input
-        className={inputStyle}
         type="email"
         variant={variants}
         label="Email"
@@ -66,7 +65,6 @@ function LoginForm() {
       />
 
       <Input
-        className={inputStyle}
         label="Password"
         variant={variants}
         onChange={(e) => setPassword(e.target.value)}
