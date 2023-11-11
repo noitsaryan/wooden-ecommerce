@@ -8,17 +8,21 @@ import { useToast } from "../ui/use-toast";
 const ForgetForm = () => {
   const [email, setEmail] = useState(String)
   const variants = ["flat", "bordered", "underlined", "faded"];
-  const inputStyle = {
-    erWrapper: "bg-white  pb-3",
-    inputWrapper: [
-      "bg-white",
-      "rounded",
-      "text-black",
-      "shadow-none",
-      "border",
-      "border-Border w-full h-12 p-1 px-3 ",
-    ],
-  };
+  // const inputStyle = {
+  //   erWrapper: "bg-white  pb-3",
+  //   inputWrapper: [
+  //     "bg-white",
+  //     "rounded",
+  //     "text-black",
+  //     "shadow-none",
+  //     "border",
+  //     "border-Border w-full h-12 p-1 px-3 ",
+  //   ],
+  // };
+
+
+
+  // console.log(data)
 
   const {toast} = useToast()
 
@@ -50,7 +54,6 @@ const ForgetForm = () => {
       </div>
 
       <Input
-        className={...inputStyle}
         type="email"
         variant={variants}
         label="Email"
