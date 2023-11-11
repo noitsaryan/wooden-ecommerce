@@ -46,6 +46,7 @@ function Orders() {
           ...user
         })
       })
+      console.log(array)
       setOrder(array)
     } catch (error) {
       console.log(error.message)
@@ -95,7 +96,7 @@ function Orders() {
                 <TableCell className="font-medium">{e?.[0]._id}</TableCell>
                 <TableCell className="uppercase">{e?.[0].product_sku}</TableCell>
                 <TableCell>{e.email}</TableCell>
-                <TableCell>{e?.phone}</TableCell>
+                <TableCell>{e?.phone_no}</TableCell>
                 <TableCell className="text-right">{e?.[0].payments.payment_id}</TableCell>
                 <TableCell className="text-right capitalize">{e?.[0].status.state[e?.[0].status.state.length - 1]?.stage
                 }</TableCell>
@@ -202,4 +203,4 @@ function Orders() {
   )
 }
 
-export default MyOrders
+export default Orders

@@ -55,7 +55,7 @@ export function Search() {
         pathname === "/admin-panel" ?
           <>
             <HoverCard>
-              <HoverCardTrigger href="/dashboard" className='flex items-center space-x-4 '>
+              <HoverCardTrigger href="/account" className='flex items-center space-x-4 '>
                 <PersonOutlinedIcon className='text-3xl hover:text-Dark/40 cursor-pointer transition-all text-Dark' />
               </HoverCardTrigger>
               <HoverCardContent className="absolute right-0 w-44"  >
@@ -129,9 +129,9 @@ export function Search() {
           session.status === 'authenticated' ? <DropdownMenuContent className="absolute -right-2">
             <DropdownMenuLabel>Menu</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => route.push('/dashboard')} >Account</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => route.push('/orders')} >Orders</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => route.push('/cart')} >Cart</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => route.push('/account')} >Account</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => route.push('/account/orders')} >Orders</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => route.push('/account/cart')} >Cart</DropdownMenuItem>
             <Button variant="outline" className="w-full" onClick={() => signOut()}>Logout</Button>
           </DropdownMenuContent>
             : <DropdownMenuContent className="absolute -right-2">
@@ -148,7 +148,7 @@ export function Search() {
     <div className='space-x-4 sm:flex hidden'>
 
       <HoverCard>
-        <HoverCardTrigger href="/dashboard">
+        <HoverCardTrigger href="/account">
           <PersonOutlinedIcon className='text-3xl hover:text-Dark/40 cursor-pointer transition-all text-Dark' />
         </HoverCardTrigger>
         <HoverCardContent className="absolute right-0 w-44"  >
@@ -157,21 +157,21 @@ export function Search() {
               <div className='space-y-2 flex flex-col justify-center'>
                 <h1 className='font-semibold text-Dark'> My Account </h1>
                 <hr />
-                <Link href="/dashboard" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Account</Link>
-                <Link href="/order" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Orders</Link>
-                <Link href="/cart" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Cart</Link>
+                <Link href="/account" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Account</Link>
+                <Link href="/account/order" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Orders</Link>
+                <Link href="/account/cart" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Cart</Link>
                 <Button variant="destructive" onClick={() => signOut()}>Logout</Button>
               </div> :
               <div className='space-y-2 flex flex-col justify-center'>
                 <h1 className='font-semibold text-Dark'> Sign Up </h1>
                 <hr />
-                <Link href="/dashboard" className='text-Dark/50 transition-all pl-1 rounded-lg pr-3 py-1' >Already a user?</Link>
+                <Link href="/login" className='text-Dark/50 transition-all pl-1 rounded-lg pr-3 py-1' >Already a user?</Link>
                 <Button variant="outline" onClick={() => route.push('/login')}>Login</Button>
               </div>
           }
         </HoverCardContent>
       </HoverCard>
-      <Link href='/cart'>
+      <Link href='/account/cart'>
         <ShoppingCartOutlinedIcon className='text-3xl hover:text-Dark/40 cursor-pointer transition-all text-Dark' />
       </Link>
     </div>

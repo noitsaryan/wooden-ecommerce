@@ -1,7 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+*::-webkit-scrollbar {
+  width: 3px;               /* width of the entire scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+  background: white;        /* color of the tracking area */
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -75,4 +83,3 @@
     list-style: disc !important;
   }
 }
-

@@ -26,8 +26,8 @@ export async function createProduct(
       category,
       subCategory,
       size,
-  warranty,
-  maintenance
+      warranty,
+      maintenance,
     });
     return res;
   } catch (error) {
@@ -41,9 +41,13 @@ export async function updateProduct(
   specification,
   color,
   images,
-  sku
+  sku,
+  size,
+  warranty,
+  maintenance
 ) {
   try {
+
     const res = await axios.put("/api/update-product", {
       title,
       price,
@@ -52,6 +56,9 @@ export async function updateProduct(
       color,
       images,
       sku,
+      size,
+      warranty,
+      maintenance,
     });
     return res;
   } catch (error) {
@@ -61,7 +68,7 @@ export async function updateProduct(
 export async function deleteProduct(sku) {
   try {
     const res = await axios.post("/api/delete-product", {
-      sku
+      sku,
     });
     return res;
   } catch (error) {

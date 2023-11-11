@@ -20,7 +20,7 @@ const ProductSchema = new Schema({
     type: String,
   },
   specification: {
-    type: Object,
+    type: Array,
   },
   variation: {
     color: {
@@ -76,7 +76,7 @@ export const createProduct = async (
       color,
       size,
     };
-    
+
     if (!title) {
       return "title is missing";
     }
@@ -167,7 +167,7 @@ export const updateProduct = async (
     }
     const variation = {
       color,
-      size
+      size,
     };
     product.title = title;
     product.price = price;
@@ -200,6 +200,25 @@ export async function getProductsForCard() {
       .select("title price sku images")
       .exec();
     return products;
+  } catch (error) {
+    return error.message;
+  }
+}
+
+export async function getProductByCategory(type) {
+  try {
+    const product = await Product.find({ category: type })
+      .select("title price sku images")
+      .exec();
+    return product;
+  } catch (error) {
+    return error.message;
+  }
+}
+export async function getProductBySKU(sku) {
+  try {
+    const product = await Product.findOne({sku}).exec();
+    return product;
   } catch (error) {
     return error.message;
   }

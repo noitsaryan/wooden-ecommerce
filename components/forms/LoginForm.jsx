@@ -6,12 +6,13 @@ import { Input } from "@nextui-org/react";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 import { Button } from "@nextui-org/react";
 import Link from 'next/link';
+import { useToast } from '../ui/use-toast';
 
 function LoginForm() {
   const [email, setEmail] = useState(String)
   const [password, setPassword] = useState(String)
   const router = useRouter(null);
-
+  const {toast} = useToast()
   const variants = ["flat", "bordered", "underlined", "faded"];
   const [isVisible, setIsVisible] = React.useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -33,12 +34,15 @@ function LoginForm() {
         email, password, redirect: false
       })
 
-      if (res.error) {
-        throw new Error(res.error)
+      if (res.error === 'CredentialsSignin') {
+          toast({
+            title: "Email or Password is incorrect",
+            variant: "destructive"
+          })
       }
 
       if (res.ok) {
-        return router.replace('/dashboard')
+        return router.replace('/account')
       }
 
     } catch (error) {
@@ -81,15 +85,13 @@ function LoginForm() {
         }
         type={isVisible ? "text" : "password"}
       />
-      <p className="text-Border text-xs hover:text-Primary hover:cursor-pointer hover:font-semibold transition-all">Forget password</p>
+      <Link href="/forget" className="text-Border text-xs hover:text-Primary hover:cursor-pointer hover:font-semibold transition-all">Forget password</Link>
 
       <Button type='submit' onClick={login} className="bg-Primary  w-full outline-none rounded text-white text-lg">
         Log In
       </Button>
-
-      <h3 className="text-Border text-center text-xs">OR</h3>
       <Link href="/signup">
-        <Button color="primary" variant="bordered" className=" border-Primary  border text-Primary  w-full outline-none rounded text-lg">
+        <Button color="primary" variant="bordered" className=" border-Primary  border text-Primary  w-full outline-none rounded text-lg my-2">
           Register
         </Button>
       </Link>

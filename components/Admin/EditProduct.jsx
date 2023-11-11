@@ -1,57 +1,95 @@
-import { FileEdit } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  ChevronRight,
+  FileEdit
+} from 'lucide-react';
 import {
   Table,
   TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+  TableHead,
+  TableCell,
+} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from '../ui/input'
-import { Label } from '@radix-ui/react-dropdown-menu'
-import { Button } from '../ui/button'
-import { deleteProduct, updateProduct } from '@/utils/lib/products'
-import { useToast } from '../ui/use-toast'
+} from "@/components/ui/dialog";
+import { Input } from '../ui/input';
+import { Label, createDropdownMenuScope } from '@radix-ui/react-dropdown-menu';
+import { Button } from '../ui/button';
+import { deleteProduct, updateProduct } from '@/utils/lib/products';
+import { useToast } from '../ui/use-toast';
 
 function EditProduct() {
-  const [product, setProduct] = useState(Array)
-  const [title, setTitle] = useState()
-  const [price, setPrice] = useState()
-  const [description, setDescription] = useState()
-  const [color, setColor] = useState()
-  const [name, setName] = useState()
-  const [value, setValue] = useState()
-  const [sizeName, setSizeName] = useState()
-  const [sizePrice, setSizePrice] = useState()
-  const [measurement, setMeasurement] = useState()
-  const [specs, setSpecs] = useState()
-  const { toast } = useToast()
-  async function getProducts() {
-    const res = await fetch('/api/get-products')
-    const data = await res.json()
-    setProduct(data)
-    return data
+  const [products, setProducts] = useState([]);
+  const [details, setDetails] = useState({
+    title: String,
+    price: Number,
+    description: String,
+    warranty: String,
+    maintenance: String,
+  })
+  const [editedSpecifications, setEditedSpecifications] = useState({});
+  const [editedSizes, setEditedSizes] = useState([]);
+  const [editedColors, setEditedColors] = useState([]);
+  const { toast } = useToast();
+  const { title, price, description, warranty, maintenance } = details
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setDetails((prevFormData) => ({
+      ...prevFormData,
+      [name]: value
+    }))
   }
+
+  async function getProducts() {
+    const res = await fetch('/api/get-products');
+    const data = await res.json();
+    console.log(data)
+    setProducts(data);
+  }
+
+  async function updateProducts(sku, images) {
+    try {
+      const specs = editedSpecifications[sku]
+      console.log(specs)
+      const size = editedSizes[sku]
+      console.log(size)
+      const colors = editedColors[sku]
+      console.log(colors)      
+      const res = await updateProduct(title || products.title, price || products.price, description || products.description, specs || products.specification, colors || products.variation.color, images, sku, size || products.variation.size, warranty || products.warranty, maintenance || products.maintenance)
+      console.log(res)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  async function deleteProductData(sku) {
+    const res = await deleteProduct(sku);
+    if (res.data.message === "Product deleted successfully!") {
+      toast({
+        title: "Product Deleted Successfully"
+      });
+      getProducts();
+    }
+  }
+
   useEffect(() => {
-    getProducts()
-  }, [])
+    getProducts();
+  }, []);
+
   return (
     <main>
-      <div className='flex items-center justify-center  '>
+      <div className='flex items-center justify-center'>
         <FileEdit className='mx-2' />
-        <h1 className='text-center text-2xl font-medium'> Edit Product </h1>
+        <h1 className='text-center text-2xl font-medium'>Edit Product</h1>
       </div>
-      <Table className="max-w-4xl mx-auto my-8" >
+      <Table className="max-w-4xl mx-auto my-8">
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">SKU</TableHead>
@@ -61,109 +99,133 @@ function EditProduct() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {
-            product && product.map((e, i) => {
-              return <>
-                <TableRow key={i}>
-                  <TableCell className="font-medium uppercase"> {e.sku} </TableCell>
-                  <TableCell>{e.title}</TableCell>
-                  <TableCell>{e.price}</TableCell>
-                  <TableCell className="text-right">
-                    <Dialog>
-                      <DialogTrigger className='ring-1 px-4 rounded-md ring-slate-200 hover:bg-slate-200 font-medium transition-all py-1'>Edit</DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle>Edit Product</DialogTitle>
-                          <DialogDescription className="flex flex-col gap-2 my-2">
-                            <span>
-                              <Label> Title </Label>
-                              <Input onChange={(e) => setTitle(e.target.value)} value={title || e.title} />
-                            </span>
-                            <span>
-                              <Label> Price </Label>
-                              <Input onChange={(e) => setPrice(e.target.value)} value={price || e.price} />
-                            </span>
-                            <span>
-                              <Label> Description </Label>
-                              <Input onChange={(e) => setDescription(e.target.value)} value={description || e.description} />
-                            </span>
-                            <span>
-                              <Label> Specification </Label>
-                              {
-                                e.specification && Object.keys(e.specification).map((key, i) => {
-                                  return <div className='flex items-center my-2' key={i} >
-                                    <Input value={key} />
-                                    <p className='mx-1'> : </p>
-                                    <Input value={e.specification[key]} />
-                                  </div>
-                                })
-                              }
-                            </span>
-                            <span>
-                              <Label> Color </Label>
-                              {
-                                e.variation.color.map((e, i) => {
-                                  return <div className='flex items-center my-2' key={i}>
-                                    <Input onChange={(e) => setColor(e.target.value)} value={color || `${e}`} key={i} />
-                                  </div>
-                                })
-                              }
-                              <Label> Size </Label>
-                              {
-                                e.variation.size && e.variation.size.map((e, i) => {
-                                  return <div className='flex items-center my-2' key={i}>
-                                    <Input
-                                      onChange={(e) => setSizeName(e.target.value)}
-                                      value={sizeName || e.name}
-                                    />
-                                    <Input
-                                      onChange={(e) => setMeasurement(e.target.value)}
-                                      value={measurement || e.measure}
-                                    />
-                                    <Input
-                                      onChange={(e) => setSizePrice(e.target.value)}
-                                      value={sizePrice || e.price}
-                                    />
-                                  </div>
-                                })
-                              }
-                            </span>
-                            <Button onClick={async () => {
-                              const specification = {
-                                name, value
-                              }
-                              const response = await updateProduct(title || e.title, price || e.price, description || e.description, specification || e.specification, color || e.color, e.images, e.sku)
-                              console.log(response)
-                            }}>
-                              Update Product
-                            </Button>
-                            <Button className="bg-red-500 hover:bg-red-400"
-                              onClick={async () => {
-                                const res = await deleteProduct(e.sku)
-                                if (res.data.message === "Product deleted successfully!") {
-                                  toast({
-                                    title: "Product Deleted Successfully"
-                                  })
-                                }
-                                window.location.reload()
+          {products && products.map((product, index) => (
+            <TableRow key={index}>
+              <TableHead className="w-[100px]">{product.sku}</TableHead>
+              <TableHead>{product.title}</TableHead>
+              <TableHead>{product.price}</TableHead>
+              <TableHead className="text-right">
+                <Dialog className="max-w-4xl w-full">
+                  <DialogTrigger>
+                    <Button variant="outline">View</Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Edit / Delete Product</DialogTitle>
+                      <div className="space-y-2 max-h-[60vh] overflow-y-scroll">
+                        <Label>Title</Label>
+                        <Input placeholder={product.title} name="title"
+                          value={title} onChange={handleChange} />
+                        <Label>Price</Label>
+                        <Input placeholder={product.price} name="price"
+                          value={price} onChange={handleChange} />
+                        <Label>Description</Label>
+                        <Input placeholder={product.description} name="description"
+                          value={description} onChange={handleChange} />
+                        <Label>Warranty</Label>
+                        <Input placeholder={product.warranty} name="warranty"
+                          value={warranty} onChange={handleChange} />
+                        <Label>Maintenance</Label>
+                        <Input placeholder={product.maintenance} name="maintenance"
+                          value={maintenance} onChange={handleChange} />
+                        <Label> Specification </Label>
+                        {product.specification.map((data, i) => (
+                          <div className='flex items-center gap-2' key={i}>
+                            <Input
+                              placeholder={data.name}
+                              onChange={(e) => {
+                                const newSpecifications = { ...editedSpecifications };
+                                newSpecifications[product.sku] = newSpecifications[product.sku] || [];
+                                newSpecifications[product.sku][i] = {
+                                  ...newSpecifications[product.sku][i],
+                                  name: e.target.value,
+                                };
+                                setEditedSpecifications(newSpecifications);
                               }}
-                            >
-                              Delete this product
-                            </Button>
-                          </DialogDescription>
-                        </DialogHeader>
-                      </DialogContent>
-                    </Dialog>
-                  </TableCell>
-                </TableRow>
-              </>
-            })
-          }
+                            />
+                            <Input
+                              placeholder={data.value}
+                              onChange={(e) => {
+                                const newSpecifications = { ...editedSpecifications };
+                                newSpecifications[product.sku] = newSpecifications[product.sku] || [];
+                                newSpecifications[product.sku][i] = {
+                                  ...newSpecifications[product.sku][i],
+                                  value: e.target.value,
+                                };
+                                setEditedSpecifications(newSpecifications);
+                              }}
+                            />
+                          </div>
+                        ))}
+                        <Label> Color </Label>
+                        {product.variation.color.map((color, i) => (
+                          <Input
+                            placeholder={color}
+                            key={i}
+                            onChange={(e) => {
+                              const newColors = { ...editedColors };
+                              newColors[product.sku] = newColors[product.sku] || [];
+                              newColors[product.sku][i] = e.target.value;
+                              setEditedColors(newColors);
+                            }}
+                          />
+                        ))}
+                        <Label> Size </Label>
+                        {product.variation.size.map((size, i) => (
+                          <div className='flex items-center gap-2' key={i}>
+                            <Input
+                              placeholder={size.name}
+                              onChange={(e) => {
+                                const newSizes = { ...editedSizes };
+                                newSizes[product.sku] = newSizes[product.sku] || [];
+                                newSizes[product.sku][i] = {
+                                  ...newSizes[product.sku][i],
+                                  name: e.target.value,
+                                };
+                                setEditedSizes(newSizes);
+                              }}
+                            />
+                            <Input
+                              placeholder={size.price}
+                              onChange={(e) => {
+                                const newSizes = { ...editedSizes };
+                                newSizes[product.sku] = newSizes[product.sku] || [];
+                                newSizes[product.sku][i] = {
+                                  ...newSizes[product.sku][i],
+                                  price: e.target.value,
+                                };
+                                setEditedSizes(newSizes);
+                              }}
+                            />
+                            <Input
+                              placeholder={size.measures}
+                              onChange={(e) => {
+                                const newSizes = { ...editedSizes };
+                                newSizes[product.sku] = newSizes[product.sku] || [];
+                                newSizes[product.sku][i] = {
+                                  ...newSizes[product.sku][i],
+                                  measures: e.target.value,
+                                };
+                                setEditedSizes(newSizes);
+                              }}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                      <div>
+                        <Button className="w-full bg-green-500 hover:bg-green-300 " onClick={async () => await updateProducts(product.sku, product.images)} >Update Product</Button>
+                        <Button className="w-full bg-red-500 hover:bg-red-300 " onClick={() => deleteProductData(product.sku)}>Delete Product</Button>
+                      </div>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
+              </TableHead>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
-
     </main>
-  )
+  );
 }
 
-export default EditProduct
+export default EditProduct;

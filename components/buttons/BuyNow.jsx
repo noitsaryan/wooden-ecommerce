@@ -1,5 +1,7 @@
 'use client'
 
+import { Button } from "../ui/button";
+
 function BuyNow({
     amount,
     order_id,
@@ -65,9 +67,9 @@ function BuyNow({
     };
 
     return (
-        <button onClick={() => makePayment(amount, order_id)}>
+        <Button onClick={() => makePayment(amount, order_id)}>
             Buy Now
-        </button>
+        </Button>
     )
 }
 

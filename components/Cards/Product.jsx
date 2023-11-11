@@ -4,7 +4,7 @@ import React from 'react'
 import {BsBoxSeam} from 'react-icons/bs'
 function Product({link, title, price, sku}) {
   return (
-    <Link href={`/shop/${sku}`} className="cursor-pointer">
+    <Link href={`/shop/category/${sku}`} className="cursor-pointer">
       <div className='bg-cover overflow-hidden bg-white rounded-md'>
         <Image src={link} width={400} height={400} alt="productImg" className='object-fit rounded hover:scale-105 transition-all duration-300 cursor-pointer' />
       </div>

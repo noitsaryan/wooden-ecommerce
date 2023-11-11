@@ -9,7 +9,7 @@ async function page() {
 
     
     const session = await getServerSession(authOptions);
-    if (session) redirect('/dashboard') 
+    if (session) redirect('/account') 
     return (
         <>
          <main className="w-screen h-screen flex items-center justify-center bg-slate-50 p-2">
