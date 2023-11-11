@@ -183,7 +183,7 @@ export function Search() {
                     onChange={(e) => setSearchItem(e.target.value)}
                   />
                 </span>
-                <SearchProduct response={response} searchItem={searchItem} position={"translate-x-0"} />
+                <SearchProduct response={response} searchItem={searchItem} position={"translate-x-0 left-0 right-0 w-full"} />
               </DialogContent>
             </Dialog>
             <DropdownMenu>
@@ -288,77 +288,5 @@ export function Search() {
         </>
       )}
     </>
-<<<<<<< HEAD
   );
-=======
-          : <>
-    <div className="hidden sm:flex w-full max-w-sm items-center space-x-2 border-2 p-1 rounded-full">
-      <input type="search" placeholder="Search Products" className="border-none outline-none rounded-full px-2" />
-        <SearchRoundedIcon className='bg-black rounded-full p-1 text-3xl text-white' />
-    </div>
-    <div className='flex items-center gap-4'>
-      <Dialog>
-        <DialogTrigger>
-          <SearchRoundedIcon className='cursor-pointer sm:hidden' />
-        </DialogTrigger>
-        <DialogContent>
-          <h1 className='text-md font-medium'> Search Products </h1>
-          <Input type="search" placeholder="Search" />
-        </DialogContent>
-      </Dialog>
-      <DropdownMenu className="flex">
-        <DropdownMenuTrigger><LuUserCircle className='text-2xl cursor-pointer sm:hidden' /></DropdownMenuTrigger>
-        {
-          session.status === 'authenticated' ? <DropdownMenuContent className="absolute -right-2 z-50">
-            <DropdownMenuLabel>Menu</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => route.push('/account')} >Account</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => route.push('/account/orders')} >Orders</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => route.push('/account/carts')} >Cart</DropdownMenuItem>
-            <Button variant="outline" className="w-full" onClick={() => signOut()}>Logout</Button>
-          </DropdownMenuContent>
-            : <DropdownMenuContent className="absolute -right-2">
-              <DropdownMenuLabel>Sign Up</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Already a user?</DropdownMenuItem>
-              <Button variant="outline" onClick={() => route.push('/login')} className="w-full">
-                Login
-              </Button>
-            </DropdownMenuContent>
-        }
-      </DropdownMenu>
-    </div>
-    <div className='space-x-4 sm:flex hidden'>
-
-      <HoverCard>
-        <HoverCardTrigger href="/account">
-        <LuUserCircle className='text-3xl hover:text-Dark/40 cursor-pointer transition-all text-Dark' />
-        
-        </HoverCardTrigger>
-        <HoverCardContent className="absolute right-0 w-44"  >
-          {
-            session.status === 'authenticated' ?
-              <div className='space-y-2 flex flex-col justify-center'>
-                <h1 className='font-semibold text-Dark'> My Account </h1>
-                <hr />
-                <Link href="/account/userdata" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Account</Link>
-                <Link href="/account/order" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Orders</Link>
-                <Link href="/account/carts" className='hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1' >Cart</Link>
-                <Button variant="destructive" onClick={() => signOut()}>Logout</Button>
-              </div> :
-              <div className='space-y-2 flex flex-col justify-center'>
-                <h1 className='font-semibold text-Dark'> Sign Up </h1>
-                <hr />
-                <Link href="/login" className='text-Dark/50 transition-all pl-1 rounded-lg pr-3 py-1' >Already a user?</Link>
-                <Button variant="outline" onClick={() => route.push('/login')}>Login</Button>
-              </div>
-          }
-        </HoverCardContent>
-      </HoverCard>
-      <Link href='/account/carts'>
-        <ShoppingCartOutlinedIcon className='text-3xl hover:text-Dark/40 cursor-pointer transition-all text-Dark' />
-      </Link>
-    </div>
-  </>
->>>>>>> b4a0ce85bfe5f9ce40a6e7f8dbf8aa5d00e65ab7
 }
