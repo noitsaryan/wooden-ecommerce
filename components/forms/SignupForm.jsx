@@ -77,7 +77,7 @@ const SignupForm = () => {
 
       <div className="flex gap-1 md:flex-row flex-col">
         <Input
-          classNames={...inputStyle}
+          className={...inputStyle}
           type="text"
           variant={variants}
           name="first_name"
@@ -86,7 +86,7 @@ const SignupForm = () => {
           label="First Name"
         />
         <Input
-          classNames={...inputStyle}
+          className={...inputStyle}
           type="text"
           variant={variants}
           name="last_name"
@@ -96,7 +96,7 @@ const SignupForm = () => {
         />
       </div>
       <Input
-        classNames={...inputStyle}
+        className={...inputStyle}
         type="email"
         variant={variants}
         name="email"
@@ -105,7 +105,7 @@ const SignupForm = () => {
         label="Email"
       />
       <Input
-        classNames={inputStyle}
+        className={inputStyle}
         label="Password"
         variant={variants}
         name="password"

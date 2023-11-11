@@ -6,7 +6,7 @@ import Statistics from '@/components/Admin/Statistics'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
 
-function page() {
+const Page = () =>  {
   const params = useSearchParams()
   const topic = params.get('topic')
   return (
@@ -18,4 +18,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

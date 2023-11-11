@@ -153,7 +153,7 @@ function page() {
 
   useEffect(() => {
     fetchUserDetails();
-  }, [session.data]);
+  }, [session]);
 
 
   return (

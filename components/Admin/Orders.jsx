@@ -102,7 +102,7 @@ function Orders() {
                 <TableCell className="text-right">
 
                   <Dialog>
-                    <DialogTrigger> <Button className="bg-gray-500"> More </Button> </DialogTrigger>
+                    <DialogTrigger className='bg-gray-500 px-4 py-2 rounded-md text-white'> More  </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
                         <DialogTitle>Order Details</DialogTitle>

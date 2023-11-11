@@ -101,8 +101,8 @@ function EditProduct() {
               <TableHead>{product.price}</TableHead>
               <TableHead className="text-right">
                 <Dialog className="max-w-4xl w-full">
-                  <DialogTrigger>
-                    <Button variant="outline">View</Button>
+                  <DialogTrigger className='bg-gray-400 text-white px-4 py-2 rounded-md' >
+                    View
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>

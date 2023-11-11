@@ -50,7 +50,7 @@ const ForgetForm = () => {
       </div>
 
       <Input
-        classNames={...inputStyle}
+        className={...inputStyle}
         type="email"
         variant={variants}
         label="Email"

@@ -188,11 +188,11 @@ function AddProduct() {
               <div>
                 {
                   sizeArray && sizeArray.map((e, i) => {
-                    return <div className='space-y-2'>
+                    return <div className='space-y-2' key={i}>
                       <Input
                         value={e.name}
                         disabled
-                        key={i}
+                        
                         className="my-1"
                       />
                       <Input
@@ -225,10 +225,10 @@ function AddProduct() {
                 {
                   customArray && customArray.map((e, i) => {
                     return <>
-                      <div className='flex items-center'>
+                      <div className='flex items-center' key={i}>
                         <Input
                           placeholder={e.name}
-                          key={i}
+                          
                           className="my-1"
                         />
                         <p className='mx-1'>:</p>

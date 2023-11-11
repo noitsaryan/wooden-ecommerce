@@ -7,10 +7,10 @@ import axios from 'axios'
 import { Mail } from 'lucide-react'
 import React, { useState } from 'react'
 
-function page() {
-  const { toast } = useToast()
+const Page = () => {
   const [email, setEmail] = useState(String)
   const [password, setPassword] = useState(String)
+  const { toast } = useToast()
   const adminLogin = async () => {
     try {
       const response = await axios.post('/api/admin-login', {
@@ -69,4 +69,4 @@ function page() {
   )
 }
 
-export default page
+export default Page
