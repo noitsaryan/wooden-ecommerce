@@ -11,7 +11,16 @@ function BuyNow({
     totalPrice,
     user_id,
     email
-}) {
+}
+) {
+    console.log(amount,
+        order_id,
+        product_sku,
+        quantity,
+        price,
+        totalPrice,
+        user_id,
+        email)
     const initializeRazorpay = () => {
         return new Promise((resolve) => {
             const script = document.createElement("script");
@@ -28,7 +37,7 @@ function BuyNow({
         });
     };
 
-    const makePayment = async (amount, order_id) => {
+    const makePayment = async () => {
         const res = await initializeRazorpay();
 
         if (!res) {
@@ -38,17 +47,19 @@ function BuyNow({
 
         const options = {
             key: process.env.RAZORPAY_KEY,
-            name: "Ashok Interiors",
+            name: "WinHome Wooden Furnitures",
             currency: "INR",
-            amount: amount,
+            amount: parseInt(quantity * price),
             order_id: order_id,
             description: "Thankyou for purchasing our product!",
-            phone: 7896541230,
             image:
                 "https://ashok-interiors.vercel.app/_next/image?url=%2Fmainlogo.png&w=750&q=75",
             handler: async function (response) {
-                const {razorpay_payment_id, razorpay_signature } =
+                const { razorpay_payment_id, razorpay_signature } =
                     response;
+                const quantity = parseInt(quantity)
+                const price = parseInt(price)
+                const totalPrice = parseInt(totalPrice)
                 const order = await axios.post('/api/create-order', {
                     product_sku,
                     quantity,
@@ -67,7 +78,7 @@ function BuyNow({
     };
 
     return (
-        <Button onClick={() => makePayment(amount, order_id)}>
+        <Button onClick={makePayment}>
             Buy Now
         </Button>
     )
