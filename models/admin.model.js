@@ -34,7 +34,6 @@ export async function adminLogin(email, password, token) {
       .exec();
     if (!admin) return "Email does not exists";
     const isTrue = await compare(password, admin.authentication.password);
-    console.log(isTrue)
     console.log(password)
     if (!isTrue) return "Password didn't matched";
     sendMail(
