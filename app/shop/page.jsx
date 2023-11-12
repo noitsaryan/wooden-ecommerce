@@ -15,17 +15,18 @@ function page() {
     try {
       const res = await axios.get('/api/get-product-cards');
       setResponse(res);
-      const firstImage = res.data.map((e) => e.images?.[0]); // Close the parenthesis here
-
     } catch (error) {
       console.error("Error fetching product:", error);
     }
   };
 
-  const getFilePreview =  (image_id) => {
+  const getFilePreview = (image_id) => {
 
     const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', image_id);
-    return imageLink.href;
+
+    // Replace "preview" with "view" in the URL
+    let modifiedUrl = imageLink.href.replace('/preview?', '/view?');
+    return modifiedUrl;
   }
 
 
@@ -35,15 +36,15 @@ function page() {
 
   return (
     <main className='p-4 space-y-5'>
-     
+
       <section className='w-full  bg-slate-50 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-2 gap-6'>
         {
           response && response.data.map((e, i) => (
-            <Product key={i} sku={e.sku} title={e.title} price={e.price} link={getFilePreview(e.images[0])} /> 
+            <Product key={i} sku={e.sku} title={e.title} price={e.price} link={getFilePreview(e.images[0])} />
           ))
         }
       </section>
-      
+
     </main>
   )
 }

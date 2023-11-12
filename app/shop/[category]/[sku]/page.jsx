@@ -34,7 +34,8 @@ function page() {
   const getFilePreviews = (imgArray) => {
     const imageLinks = imgArray.map(image_id => {
       const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', image_id);
-      return imageLink.href;
+      let modifiedUrl = imageLink.href.replace('/preview?', '/view?');
+      return modifiedUrl;
     });
     return imageLinks;
   };
