@@ -59,10 +59,10 @@ function Header() {
       <AccordionItem key="1" aria-label="Accordion 1" title="Collection">
         
          <div  className='flex flex-col gap-2 text-lg font-light' >
-         <Link href="/" className='cursor-pointer hover:opacity-70 transition-all'>Residence</Link>
-          <Link href="/" className='cursor-pointer hover:opacity-70 transition-all'>Commercial</Link>
-          <Link href="/" className='cursor-pointer hover:opacity-70 transition-all'>Lighting</Link>
-          <Link href="/" className='cursor-pointer hover:opacity-70 transition-all'>Studios</Link>
+         <Link href="/shop/residence" className='cursor-pointer hover:opacity-70 transition-all'>Residence</Link>
+          <Link href="/shop/commercial" className='cursor-pointer hover:opacity-70 transition-all'>Commercial</Link>
+          <Link href="/shop/lighting" className='cursor-pointer hover:opacity-70 transition-all'>Lighting</Link>
+          <Link href="/shop/studios" className='cursor-pointer hover:opacity-70 transition-all'>Studios</Link>
          </div>
         
       </AccordionItem>

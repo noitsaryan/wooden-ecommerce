@@ -5,14 +5,15 @@ import HeroSlider from "@/components/HomePage/Slider";
 import NormalButton from "@/components/buttons/NormalButton";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const page = () => {
   const [response, setResponse] = useState()
   const CtgImg = [
     { link: "/CategoryImg/1.jpg", title: 'Residence' },
-    { link: "/CategoryImg/2.jpg", title: 'Commercial' },
-    { link: "/CategoryImg/3.jpg", title: 'Studios' },
+    { link: "/CategoryImg/3.jpg", title: 'Commercial' },
+    { link: "/CategoryImg/2.jpg", title: 'Studios' },
     { link: "/CategoryImg/4.jpg", title: 'Lighting' }
   ]
 
@@ -39,7 +40,7 @@ const page = () => {
       <section className='mb-8 grid md:mx-8 grid-cols-2 md:grid-cols-4 place-items-center gap-4 px-2 mt-4'>
         {
           CtgImg.map((elem, i) => (
-            <div className= "md:w-full" key={i}>
+            <Link href={`/shop/${elem.title.toLocaleLowerCase()}`} className= "md:w-full" key={i}>
               <Image
                 src={elem.link}
                 width={300}
@@ -48,7 +49,7 @@ const page = () => {
                 className="object-cover  hover:shadow-lg  transition-all w-full md:max-h-[50vh] hover:-translate-y-2 cursor-pointer overflow-hidden"
               />
               <h2 className="font-light text-2xl drop-shadow-md text-center ">{elem.title}</h2>
-            </div>
+            </Link>
 
           ))
         }

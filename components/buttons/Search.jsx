@@ -183,10 +183,10 @@ export function Search() {
             </div>
             <SearchProduct response={item} searchItem={searchItem} position={"translate-x-52 md:translate-x-0 top-20  "} />
           </section>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4  md:hidden sm:hidden">
             <Dialog>
               <DialogTrigger>
-                <SearchRoundedIcon className="cursor-pointer sm:hidden" />
+                <SearchRoundedIcon className="cursor-pointer" />
               </DialogTrigger>
               <DialogContent className="space-y-12">
                 <span>

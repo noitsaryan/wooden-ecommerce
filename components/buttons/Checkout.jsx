@@ -32,7 +32,7 @@ function Checkout({ amount, sku, price, totalPrice, value, style }) {
         userData()
     },[])
     return (
-        <Button onClick={() => checkout(amount)} className= {`${style} bg-Primary h-12 rounded-md border border-Primary`} >
+        <Button onClick={() => checkout(amount)} className= {`${style} bg-Primary h-12 rounded-md border border-Primary text-white`} >
             Buy now
         </Button>
     )

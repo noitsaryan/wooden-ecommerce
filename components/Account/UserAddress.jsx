@@ -119,7 +119,7 @@ const UserAddress = () => {
                     placeholder="Enter Picode"
                   />
                   <Button
-                    className="bg-Primary"
+                    className="bg-Primary text-white"
                     size="md"
                     variant="solid"
                     type="submit"
