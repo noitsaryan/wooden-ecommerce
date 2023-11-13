@@ -1,20 +1,50 @@
 'use client'
-
 import { Button } from "@nextui-org/react";
-
+import axios from "axios";
+import { useToast } from "../ui/use-toast";
 
 function BuyNow({
-    amount,
     order_id,
     product_sku,
     quantity,
     price,
-    totalPrice,
     user_id,
-    email
+    email,
+    style,
+    disabled,
+    totalPrice,
+    fields
 }
 ) {
-    
+    const { toast } = useToast()
+    const updateUserData = async () => {
+        try {
+            const { shipping, billing, gst, phone } = fields
+            const address = { shipping_address: shipping, billing_address: billing }
+            const user = await axios.post('/api/update-user', {
+                email,
+                data: address,
+                type: 'address'
+            })
+            const gst_no = await axios.post('/api/update-user', {
+                email,
+                data: gst,
+                type: 'gst'
+            })
+            const phone_no = await axios.post('/api/update-user', {
+                email,
+                data: phone,
+                type: 'phone'
+            })
+            if (user?.data === 'Success' && gst_no?.data === 'Success' && phone_no?.data === 'Success') {
+               return toast({
+                    title: 'Success'
+                })
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
     const initializeRazorpay = () => {
         return new Promise((resolve) => {
             const script = document.createElement("script");
@@ -46,24 +76,23 @@ function BuyNow({
             amount: parseInt(quantity * price),
             order_id: order_id,
             description: "Thankyou for purchasing our product!",
-            image:
-                "https://ashok-interiors.vercel.app/_next/image?url=%2Fmainlogo.png&w=750&q=75",
             handler: async function (response) {
                 const { razorpay_payment_id, razorpay_signature } =
                     response;
-                const quantity = parseInt(quantity)
-                const price = parseInt(price)
-                const totalPrice = parseInt(totalPrice)
+                const Quantity = parseInt(quantity)
+                const Price = parseInt(price)
+                const tPrice = parseInt(totalPrice)
                 const order = await axios.post('/api/create-order', {
                     product_sku,
-                    quantity,
-                    price,
-                    totalPrice,
-                    razorpay_payment_id,
-                    razorpay_signature,
+                    quantity: Quantity,
+                    price: Price,
+                    totalPrice: tPrice,
+                    payment_id: razorpay_payment_id,
+                    signature: razorpay_signature,
                     user_id,
                     email
                 })
+                console.log(order)
             },
         };
         const paymentObject = await new window.Razorpay(options);
@@ -71,7 +100,10 @@ function BuyNow({
     };
 
     return (
-        <Button className="bg-Primary text-white" onClick={makePayment}>
+        <Button disabled={disabled} className={`bg-Primary  text-white ${style}`} onClick={() => {
+            makePayment();
+            updateUserData()
+        }}>
             Buy Now
         </Button>
     )

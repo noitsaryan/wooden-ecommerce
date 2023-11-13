@@ -2,20 +2,11 @@
 import BuyNow from "@/components/buttons/BuyNow";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { Input, Checkbox, } from "@nextui-org/react";
 import axios from "axios";
 import { storage } from "@/appwrite/appwrite.config";
-import { useSession } from "next-auth/react";
-import Product from "@/components/Cards/Product";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-
+import Image from "next/image";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@nextui-org/react";
 
 function page() {
   const params = useSearchParams();
@@ -29,343 +20,112 @@ function page() {
   const email = params.get("email");
   const [image, setImage] = useState("");
   const [user, setUser] = useState();
-  const session = useSession()
+  const [response, setResponse] = useState({});
+  const [check, setCheck] = useState({});
+  const [fields, setFields] = useState({
+    shipping: String, gst: Number, phone: Number, billing: String
+  })
+  const { shipping, billing, gst, phone } = fields;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFields((prev) => ({
+      ...prev, [name]: value
+    }))
+  }
+
+  const fetchUser = async () => {
+    try {
+      const user = await axios.post('/api/get-user-by-id', {
+        user: email, order: false
+      })
+      setFields({
+        shipping: user.data?.res?.address.shipping_address,
+        billing: user.data?.res?.address.shipping_address,
+        gst: user.data?.res?.gst_no,
+        phone: user.data?.res?.phone_no
+      })
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
   const fetchProduct = async () => {
     try {
-      const res = await axios.post('/api/get-product-id', {
-        sku: product_sku,
-      });
+      const product = await axios.post('/api/get-product-id', {
+        sku: product_sku
+      })
+      setResponse(product.data)
+      const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', product.data?.images?.[0])
+      const updatedImage = imageLink.href.replace('/preview?', '/view?')
+      setImage(updatedImage)
 
-      setProduct(res.data);
-
-      const images = await getImage(res.data.images[0]);
-      setImage(images);
-      fetchUserDetails()
     } catch (error) {
-      console.error("Error fetching product:", error);
-    }
-  };
-
-  const getImage = async (id) => {
-    try {
-      const imageLink = await storage.getFilePreview('65477266d57cd5b74b8c', id);
-      return imageLink.href;
-    } catch (error) {
-      console.error("Error fetching image:", error);
-      return "";
-    }
-  };
-
-  const fetchUserDetails = async () => {
-    if (!session) {
-      return;
-    }
-
-    const email = session?.data?.user?.email;
-
-    if (!email) {
-      return;
-    }
-
-    const response = await axios.post('/api/get-user-by-id', {
-      user: email,
-      order: false,
-    });
-
-    if (!response) {
-      return;
-    }
-    setUser(response);
-  };
-
-  const [phone, setPhone] = useState(null);
-  const [check, setCheck] = useState(false);
-  const [gstin, setGstin] = useState(null);
-  const [address1, setaddress1] = useState({
-    strtName: "",
-    bldgName: "",
-    Landmark: "",
-    zipcode: "",
-  });
-  const [address2, setaddress2] = useState({
-    strtName: "",
-    bldgName: "",
-    Landmark: "",
-    zipcode: "",
-  });
-  const [isSelected, setIsSelected] = React.useState(false);
-  const [product, setProduct] = useState({})
-  // For Shipping Address
-  const ShipAddress = (event) => {
-    let { name, value } = event.target;
-    setaddress1({
-      ...address1,
-      [name]: value,
-    });
-  };
-  const BillAdress = (event) => {
-    let { name, value } = event.target;
-    setaddress2({
-      ...address2,
-      [name]: value,
-    });
-  };
-
-  let shipngAddress = `Street Name: ${address1.strtName}, Building Name / Flat No: ${address1.bldgName}, Landmark: ${address1.Landmark}, Pincode: ${address1.zipcode}`;
-
-  let bilgAddress = `Street Name: ${address2.strtName}, Building Name / Flat No: ${address2.bldgName}, Landmark: ${address2.Landmark}, Pincode: ${address2.zipcode}, GSTIN No. : ${gstin}`;
-
-
-  const updateUser = async (type) => {
-    try {
-      if (type === 'address') {
-        if(!shipngAddress || !bilgAddress ){
-          return;
-        }
-        const response = await axios.post('/api/update-user', {
-          email, type: "address", data: {
-            shipping_address: shipngAddress,
-            billing_address: bilgAddress
-          }
-        })
-      } else if (type === 'phone') {
-        if(!phone){
-          return;
-        }
-        const response = await axios.post('/api/update-user', {
-          email, type: "phone", data: phone
-        })
-      } else if (type === 'gst') {
-        if(!gstin){
-          return;
-        }
-        const response = await axios.post('/api/update-user', {
-          email, type: "gst", data: gstin
-        })
-      }
-    } catch (error) {
+      console.log(error.message)
     }
   }
 
   useEffect(() => {
-    fetchProduct();
+    fetchProduct()
+    fetchUser();
   }, [])
 
-  useEffect(() => {
-    fetchUserDetails();
-  }, [session]);
-
-
   return (
-    <main className="h-auto w-full">
-      <h2 className="w-full text-center p-2  font-semibold text-2xl  ">
-        Checkout
-      </h2>
-      <section className="flex gap-2 w-full h-full p-4 md:flex-row flex-col-reverse">
-        <section className="w-full md:w-3/4 h-full border-slate-400 rounded-md border  p-4 md:p-8 flex flex-col gap-3">
-          <div>
-            <h2 className="text-xl font-light ">Shipping Address:</h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-3">
-              <Input
-                type="text"
-                label="Street Name"
-                required
-                size="sm"
-                variant="bordered"
-                name="strtName"
-                labelPlacement="outside"
-                placeholder="Enter Street Name"
-                onChange={ShipAddress}
-              />
-              <Input
-                type="text"
-                label="Building Name"
-                required
-                name="bldgName"
-                size="sm"
-                variant="bordered"
-                placeholder="Enter Building Name"
-                labelPlacement="outside"
-                onChange={ShipAddress}
-              />
-
-              <Input
-                type="text"
-                label="Landmark"
-                placeholder="Enter Landmark Name"
-                required
-                size="sm"
-                variant="bordered"
-                name="Landmark"
-                labelPlacement="outside"
-                onChange={ShipAddress}
-              />
-
-              <Input
-                type="number"
-                label="Pincode"
-                placeholder="Enter Pincode"
-                required
-                size="sm"
-                variant="bordered"
-                name="zipcode"
-                labelPlacement="outside"
-                onChange={ShipAddress}
-              />
-            </div>
-          </div>
+    <main className=" flex md:flex-row flex-col items-start gap-4 p-4">
+      <section className="flex flex-col-reverse gap-4 w-full sm:w-4/12">
+        <div className="bg-gray-50 p-8 space-y-3 border">
+          <h1 className="text-xl font-semibold uppercase"> Price Details </h1>
           <hr />
-          <div>
-            <h2 className="text-xl font-light ">Billing Address:</h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-3">
-              <Input
-                type="text"
-                label="Street Name"
-                required
-                size="sm"
-                variant="bordered"
-                name="strtName"
-                labelPlacement="outside"
-                value={address2.strtName}
-                placeholder="Enter Street Name"
-                onChange={BillAdress}
-              />
-              <Input
-                type="text"
-                label="Building Name"
-                required
-                size="sm"
-                variant="bordered"
-                value={address2.bldgName}
-                name="bldgName"
-                placeholder="Enter Building Name"
-                labelPlacement="outside"
-                onChange={BillAdress}
-              />
-
-              <Input
-                type="text"
-                label="Landmark"
-                placeholder="Enter Landmark Name"
-                required
-                size="sm"
-                variant="bordered"
-                value={address2.Landmark}
-                name="Landmark"
-                labelPlacement="outside"
-                onChange={BillAdress}
-              />
-
-              <Input
-                type="number"
-                label="Pincode"
-                placeholder="Enter Pincode"
-                required
-                size="sm"
-                variant="bordered"
-                value={address2.zipcode}
-                name="zipcode"
-                labelPlacement="outside"
-                onChange={BillAdress}
-              />
-            </div>
-            <Input
-              type="number"
-              label="GST No."
-              placeholder="Enter GST (15 Digit)"
-              required
-              size="sm"
-              variant="bordered"
-              name="gstin"
-              labelPlacement="outside"
-              onChange={(e) => setGstin(e.target.value)}
-            />
-
-            <span className="mt-2 font-semibold text-xs opacity-70 flex items-center  gap-2">
-              <Checkbox
-                isSelected={isSelected}
-                onValueChange={setIsSelected}
-                onClick={(e) => {
-                  isSelected ? setCheck(true) : setCheck(false);
-
-                  isSelected
-                    ? setaddress2({
-                      ...address2,
-                    })
-                    : setaddress2({
-                      ...address1,
-                    });
-                }}
-              >
-                <span className="text-xs"> Same as shipping address </span>
-              </Checkbox>
-            </span>
-          </div>
+          <h1 className="font-semibold"> Price: Rs {parseInt(price).toLocaleString()} </h1>
           <hr />
-          <div>
-            <hr />
-            <span className="flex flex-col  w-full md:w-64 ">
-              <Input
-                type="number"
-                size="sm"
-                labelPlacement="outside"
-                label="Phone No"
-                className="p-1 rounded"
-                placeholder="Enter Your Phone Number (10 Digit)"
-                required
-                variant="bordered"
-                onChange={(e) => setPhone(e.target.value)}
-                min={9999999999}
-                max={9999999999}
-              />
-            </span>
-            <p className="font-semibold text-xs opacity-70">
-              This phone number should be active
-            </p>
-          </div>
-          <div onClick={async () => {
-            await updateUser('address');
-            await updateUser('phone')
-            await updateUser('gst')
-          }}>
-            <BuyNow
-              amount={parseFloat(quantity * parseFloat(price))}
-              order_id={order_id}
-              product_sku={product_sku}
-              quantity={quantity}
-              price={price}
-              totalPrice={totalPrice}
-              user_id={user_id}
-              email={email}
-            />
-          </div>
-        </section>
-        <section className="md:w-3/12 h-full p-2 w-full border-slate-400  rounded-md border  py-5">
-          <h2 className="font-light text-xl">Order Summary</h2>
-          <Product
-            title={product.title}
+          <h1 className="font-semibold"> Quantity: {quantity} </h1>
+          <hr />
+          <h1 className="font-semibold"> Total Payable: Rs {parseInt(totalPrice).toLocaleString()}  </h1>
+          <BuyNow
+            order_id={order_id}
+            product_sku={product_sku}
+            quantity={quantity}
             price={price}
-            sku={product_sku}
-            link={image}
-          />
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">Quantity</TableHead>
-                <TableHead className="w-[100px]">Total Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell>{quantity}</TableCell>
-                <TableCell className="">₹{parseFloat(quantity * parseFloat(price)).toLocaleString()}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-
-        </section>
+            user_id={user_id}
+            email={email}
+            style="w-full rounded-sm" disabled={!shipping || !phone ? true : false} fields={fields} />
+        </div>
+        <div className="bg-gray-50 border p-3 space-y-3">
+          <h1 className="text-lg font-semibold uppercase">Order Summary</h1>
+          <hr />
+          <div className="flex items-start gap-2 p-2">
+            <Image priority src={image} width={120} height={120} alt="product_image" />
+            <div>
+              <h1 className="font-medium text-lg"> {response.title} </h1>
+              <h1 className="opacity-70"> SKU: <span className="uppercase">{response.sku}</span> </h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="sm:w-8/12 w-full">
+        <div>
+          <div className="bg-gray-50 border p-2">
+            <h1 className="text-xl font-semibold">Delivery & Billing Address</h1>
+          </div>
+          <div className="space-y-3 py-3">
+            <div className="space-y-2 bg-gray-50 p-3 border">
+              <label htmlFor="shipping" className="text-sm text-Primary">Shipping Address*</label>
+              <Input placeholder=" Shipping Address" name="shipping" onChange={handleChange} value={shipping} />
+              <label htmlFor="phone" className="text-sm text-Primary">Mobile Number*</label>
+              <Input type="number" placeholder=" Mobile Number" name="phone" onChange={handleChange} value={phone} />
+            </div>
+            <div className="space-y-2 bg-gray-50 p-3 border">
+              <div className="flex items-center space-x-2">
+                <Checkbox id="terms" onChange={(e) => setCheck(e.target.checked)}  />
+                <p> Buying For Your Business? </p>
+              </div>
+              <label htmlFor="shipping" className="text-sm text-Primary">Billing Address*</label>
+              <Input disabled={check? false : true} placeholder=" Billing Address" name="billing" onChange={handleChange} value={billing} />
+              <label htmlFor="shipping" className="text-sm text-Primary">GST No*</label>
+              <Input disabled={check? false : true} placeholder=" GST Number" name="gst" onChange={handleChange} value={gst} />
+            </div>
+          </div>
+        </div>
       </section>
     </main>
   );

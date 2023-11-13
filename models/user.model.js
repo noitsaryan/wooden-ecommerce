@@ -49,13 +49,7 @@ const UserSchema = new Schema(
       },
     },
     gst_no: {
-      type: Number,
-      validate: {
-        validator: function (v) {
-          return /^[0-9]{15}$/.test(v);
-        },
-        message: "GST must be a 15-digit number.",
-      },
+      type: String,
     },
     phone_no: {
       type: Number,
