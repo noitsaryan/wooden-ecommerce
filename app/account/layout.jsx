@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
                     <Link href="/account/orders" className='text-3xl text-Primary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'><FiBox /> <p className='text-sm'>orders</p></Link>
                     <Link href="/account/carts" className='text-3xl text-Primary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'>< FiShoppingBag /><p className='text-sm'>cart</p></Link>
                     <Link href="/account/address" className='text-3xl text-Primary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'>< FiHome /><p className='text-sm'>address</p></Link>
-                    <Link href="/account/userdata" className='text-3xl text-Primary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'>< FiUser /><p className='text-sm'>user</p></Link>
+                    <Link href="/account/userdata" className='text-3xl text-Primary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'>< FiUser /><p className='text-sm'>User</p></Link>
                     <Link href="/account/new-password" className='text-3xl text-Primary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'>< FiLock /><p className='text-sm'>password</p></Link>
                     <button onClick={signOut}  className='text-3xl text-Primary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'><FiLogOut /><p className='text-sm' >logout</p></button>
 
