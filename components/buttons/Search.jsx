@@ -165,9 +165,9 @@ export function Search() {
                 className="border-none outline-none rounded-full px-2"
                 onChange={(e) => setSearchItem(e.target.value)}
               />
-              <SearchRoundedIcon className="bg-black rounded-full p-1 text-3xl text-white" />
+              <SearchRoundedIcon className="bg-Primary rounded-full p-1 text-3xl text-white" />
             </div>
-            <SearchProduct response={response} searchItem={searchItem} />
+            <SearchProduct response={response} searchItem={searchItem} position={"translate-x-52 md:translate-x-0  "} />
           </section>
           <div className="flex items-center gap-4">
             <Dialog>
@@ -183,7 +183,7 @@ export function Search() {
                     onChange={(e) => setSearchItem(e.target.value)}
                   />
                 </span>
-                <SearchProduct response={response} searchItem={searchItem} position={"translate-x-0 left-0 right-0 w-full"} />
+                <SearchProduct response={response} searchItem={searchItem} position={"translate-x-0 w-full"} />
               </DialogContent>
             </Dialog>
             <DropdownMenu>

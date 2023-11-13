@@ -1,19 +1,20 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 function Footer() {
   return (
-      <footer className="bg-slate-50  mt-3 shadow dark:bg-gray-900">
+      <footer className="bg-white  border-t-1  mt-3 shadow dark:bg-gray-900">
         <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
-              <Link href="/">
-                <h1 className="text-Dark text-2xl font-bold"> WinHome </h1>
-              </Link>
+            <Link href="/">
+            <Image src="/LOGO/Pasted-20231113-142228.svg" width={500} height={500} alt='LOGO' className='w-52 '/>
+          </Link>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               <div>
-                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                <h2 className="mb-6 text-sm font-semibold text-Primary uppercase dark:text-white">
                   Shop
                 </h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium space-y-4">
@@ -29,7 +30,7 @@ function Footer() {
                 </ul>
               </div>
               <div>
-                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                <h2 className="mb-6 text-sm font-semibold text-Primary uppercase dark:text-white">
                   Follow us
                 </h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
@@ -42,7 +43,7 @@ function Footer() {
                 </ul>
               </div>
               <div>
-                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                <h2 className="mb-6 text-sm font-semibold text-Primary uppercase dark:text-white">
                   Legal
                 </h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium">

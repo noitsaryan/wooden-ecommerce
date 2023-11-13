@@ -37,7 +37,7 @@ function page() {
   return (
     <main className='p-4 space-y-5'>
 
-      <section className='w-full  bg-slate-50 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-2 gap-6'>
+      <section className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-2 gap-6'>
         {
           response && response.data.map((e, i) => (
             <Product key={i} sku={e.sku} title={e.title} price={e.price} link={getFilePreview(e.images[0])} />

@@ -52,7 +52,7 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        Primary: "#ffd52b",
+        Primary: "#ac342c",
         Secondary: "#ffe370",
         Dark: "#36454F",
       },

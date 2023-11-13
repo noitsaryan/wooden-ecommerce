@@ -48,7 +48,7 @@ const PinCode = () => {
       />
       <button
           onClick={fetchPin}
-        className="text-Secondary  p-2  rounded-lg"
+        className="text-Primary  p-2  rounded-lg"
       >
         Apply
       </button>

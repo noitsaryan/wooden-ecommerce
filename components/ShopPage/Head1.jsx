@@ -22,7 +22,7 @@ const Head1 = () => {
   };
 
   return (
-    <h2 className='font-bold text-3xl text-center'>
+    <h2 className='font-light text-3xl text-center'>
       {path === "/shop"
         ? "SHOP"
         : path === "/shop/residence"
@@ -34,7 +34,7 @@ const Head1 = () => {
         : path === "/shop/lighting"
         ? "LIGHTING"
         : null}
-      <p className='text-sm font-medium'>{getCategoryDescription()}</p>
+      <p className='text-sm font-light'>{getCategoryDescription()}</p>
     </h2>
   );
 };

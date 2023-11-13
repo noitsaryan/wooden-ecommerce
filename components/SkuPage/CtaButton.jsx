@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useToast } from "../ui/use-toast"
 import AddCart from '../buttons/AddCart';
-import { Button } from '../ui/button'
+import { Button } from '@nextui-org/react'
+
 
 const CtaButton = ({ amount, price, totalPrice, sku, quantity }) => {
   const router = useRouter()
@@ -47,7 +48,7 @@ const CtaButton = ({ amount, price, totalPrice, sku, quantity }) => {
     <div className='grid grid-cols-2 gap-3 px-4'>
 
       <AddCart email={session?.user?.email}  sku={sku} />
-      <Button onClick={checkout} className="bg-Primary rounded-md ring-2 ring-Primary hover:bg-white hover:text-Primary" >
+      <Button onClick={checkout} className="bg-Primary text-white" >
         Buy now
       </Button>
     </div>

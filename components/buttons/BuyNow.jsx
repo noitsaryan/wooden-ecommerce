@@ -1,6 +1,7 @@
 'use client'
 
-import { Button } from "../ui/button";
+import { Button } from "@nextui-org/react";
+
 
 function BuyNow({
     amount,
@@ -70,7 +71,7 @@ function BuyNow({
     };
 
     return (
-        <Button onClick={makePayment}>
+        <Button className="bg-Primary text-white" onClick={makePayment}>
             Buy Now
         </Button>
     )
