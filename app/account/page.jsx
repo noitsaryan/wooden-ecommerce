@@ -1,8 +1,10 @@
+'use client'
+import Orders from '@/components/Account/MyOrders'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>ACCOUNT</div>
+    <Orders/>
   )
 }
 

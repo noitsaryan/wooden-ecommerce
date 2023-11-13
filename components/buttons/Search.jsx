@@ -216,7 +216,7 @@ export function Search() {
                   >
                     Orders
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => route.push("/account/cart")}>
+                  <DropdownMenuItem onClick={() => route.push("/account/carts")}>
                     Cart
                   </DropdownMenuItem>
                   <Button
