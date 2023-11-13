@@ -69,10 +69,10 @@ const CartCard = ({ sku, id }) => {
           width={500}
           height={500}
           alt='product_ordered_img'
-          className='w-44 bg-slate-100'
+          className='md:w-32 md:h-32 h-24 w-24 bg-slate-100'
         />
         <div className='flex flex-col'>
-          <p className='md:w-full w-40 overflow-hidden truncate font-semibold'> </p>
+          <p className='md:w-full w-24 overflow-hidden truncate font-semibold'> </p>
           <h3 className='font-semibold'>{response?.title}</h3>
           <h3 className='font-semibold'>Price: Rs. {response?.price.toLocaleString()}</h3>
           <span className='space-x-2 mt-2'>
@@ -86,11 +86,11 @@ const CartCard = ({ sku, id }) => {
                 value={quantity}
                 style="max-h-8"
               />
-              <Button onClick={remove} size='sm' variant='bordered' className='border border-Primary'>
+              <Button onClick={remove} size='sm' variant='bordered' className='border border-Primary text-Primary'>
                 Remove
               </Button>
             </div>
-            <Button className="border flex w-36 justify-around  rounded-md select-none bg-transparent my-3">
+            <Button className="border flex w-36 justify-around  rounded-md select-none bg-transparent my-3 text-Primary">
               <p onClick={() => setQuantity((prev) => prev - 1)}>-</p>
               <p> {quantity < 1 ? setQuantity(1) : quantity} </p>
               <p onClick={() => setQuantity((prev) => prev + 1)}>+</p>
