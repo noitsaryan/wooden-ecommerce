@@ -6,11 +6,11 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"
 function Slider() {
 
   const slideImg=[
-    "/HeroSecImg/_D0A5957.webp",
-    "/HeroSecImg/714404c1-8e38-4b1b-ad85-e46c50ef7f23.webp",
-    "/HeroSecImg/1P2A4525.webp",
-    "/HeroSecImg/FB_IMG_1688702749578.webp",
-    "/HeroSecImg/FB_IMG_1688702751912.webp"
+    "/HeroSecTxtImg/3.jpg",
+    "/HeroSecTxtImg/4.jpg",
+    "/HeroSecTxtImg/2.jpg",
+    "/HeroSecTxtImg/1.jpg",
+    "/HeroSecTxtImg/5.jpg"
   ]
   return (
     <>
@@ -24,7 +24,7 @@ function Slider() {
             width={1000}
             height={1000}
             alt='banner_image'
-            className=' h-[70vh] object-cover'
+            className=' md:h-[90vh] object-cover'
             priority={true}
           />)
           )

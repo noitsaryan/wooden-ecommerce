@@ -13,6 +13,7 @@ export default function RootLayout({ children }) {
 
   return (
     <main className='p-4 space-y-5'>
+      <hr />
       <Head1 />
       {!shouldHideDiv && (
         <div className={`w-full flex md:justify-between mx-auto items-center md:flex-row flex-col gap-5 justify-center`}>
@@ -20,7 +21,6 @@ export default function RootLayout({ children }) {
           {/* <RangeSlider setRangeValue={setRangeValue}/> */}
         </div>
       )}
-      <hr />
       {children}
       <span className='w-full flex items-center justify-center'>
         {

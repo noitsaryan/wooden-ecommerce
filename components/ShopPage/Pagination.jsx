@@ -42,7 +42,7 @@ export default function Paginate() {
         className={cn(
           className,
           isActive &&
-          "text-white bg-yellow-400 font-bold",
+          "text-[#ac342c] font-bold",
         )}
         onClick={() => setPage(value)}
       >
@@ -55,7 +55,7 @@ export default function Paginate() {
     <Pagination
       disableCursorAnimation
       showControls
-      total={5}
+      total={1}
       initialPage={1}
       className="gap-2"
       radius="full"

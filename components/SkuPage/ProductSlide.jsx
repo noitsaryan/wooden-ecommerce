@@ -42,7 +42,7 @@ const ProductSlide = ({image, name}) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-6 overflow-y-hidden p-2 gap-2 rounded-md my-2">
+      <div className="grid grid-cols-4 md:grid-cols-6 overflow-y-hidden p-2 gap-2 rounded-md my-2">
         {image.map((e, i) => (
             <Image
               width={150}

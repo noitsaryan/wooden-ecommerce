@@ -25,11 +25,11 @@ function page() {
     }, [])
     return (
         <>
-            <section className={`w-full  bg-slate-50 ${ response.length > 0 ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4' : '' } p-2 gap-6`}>
+            <section className={`w-full   ${ response.length > 0 ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4' : '' } p-2 gap-6`}>
                 {
                     response.length>0 ? response && response.map((e, i) => (
                         <Product key={i} sku={e.sku} title={e.title} price={e.price} link={getFilePreview(e.images[0])} />
-                    )) : <h1 className='text-center text-xl'> Can't Find What You Are Looking For! </h1>
+                    )) : <h1 className='text-center text-lg   text-Primary p-1'> Can't Find What You Are Looking For! </h1>
                 }
             </section>
         </>

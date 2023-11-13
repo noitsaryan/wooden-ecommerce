@@ -6,7 +6,7 @@ function Product({ link, title, price, sku }) {
   let modifiedUrl = link.replace('/preview?', '/view?');
   return (
     <Link href={`/shop/category/${sku}`} className="cursor-pointer">
-      <div className='bg-cover overflow-hidden bg-white rounded-md'>
+      <div className='bg-cover overflow-hidden bg-slate-50 border rounded-md'>
         <Image priority src={modifiedUrl || "/"} width={400} height={400} alt="productImg" className='object-fit h-auto w-auto rounded hover:scale-105 transition-all duration-300 cursor-pointer' />
       </div>
       <div className='p-1'>

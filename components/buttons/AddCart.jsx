@@ -1,7 +1,8 @@
 import React from 'react'
-import { Button } from '../ui/button'
+
 import axios from 'axios'
 import { useToast } from '../ui/use-toast'
+import { Button } from '@nextui-org/react'
 
 function AddCart({sku, email}) {
     const {toast} = useToast()
@@ -22,7 +23,7 @@ function AddCart({sku, email}) {
         }
     }
   return (
-   <Button onClick={addCart} className="ring-Primary ring-2 bg-white text-Primary hover:bg-Primary hover:text-white">
+   <Button onClick={addCart} variant='bordered' className="border-Primary text-Primary" >
     Add Cart
    </Button>
   )
