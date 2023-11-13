@@ -19,9 +19,8 @@ function page() {
   const user_id = params.get("user_id");
   const email = params.get("email");
   const [image, setImage] = useState("");
-  const [user, setUser] = useState();
   const [response, setResponse] = useState({});
-  const [check, setCheck] = useState({});
+  const [check, setCheck] = useState(false);
   const [fields, setFields] = useState({
     shipping: String, gst: Number, phone: Number, billing: String
   })
@@ -119,9 +118,9 @@ function page() {
                 <Checkbox id="terms" onChange={(e) => setCheck(e.target.checked)}  />
                 <p> Buying For Your Business? </p>
               </div>
-              <label htmlFor="shipping" className="text-sm text-Primary">Billing Address*</label>
+              <label htmlFor="shipping" className="text-sm text-Primary">Billing Address</label>
               <Input disabled={check? false : true} placeholder=" Billing Address" name="billing" onChange={handleChange} value={billing} />
-              <label htmlFor="shipping" className="text-sm text-Primary">GST No*</label>
+              <label htmlFor="shipping" className="text-sm text-Primary">GST No</label>
               <Input disabled={check? false : true} placeholder=" GST Number" name="gst" onChange={handleChange} value={gst} />
             </div>
           </div>

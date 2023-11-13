@@ -48,17 +48,31 @@ export function Search() {
   const params = useSearchParams();
   const [response, setResponse] = useState([]);
   const close = useRef();
+  const [item, setItem] = useState([])
   const [searchItem, setSearchItem] = useState(null);
-  const fetchProducts = async (type) => {
-    const res = await axios.post("/api/get-product-category", {
-      type,
+  const fetchProducts = async () => {
+    const res = await axios.get("/api/get-product-cards", {
     });
+    console.log(res.data)
     setResponse(res.data);
   };
 
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setSearchItem(value)
+    console.log(value)
+
+    const filteredResults = response && response.filter(item =>
+      item.title.toLowerCase().includes(value.toLowerCase())
+    );
+    setItem(filteredResults)
+      ;
+  }
+
   useEffect(() => {
-    fetchProducts(searchItem);
-  }, [searchItem]);
+    fetchProducts()
+  }, [])
+
   return (
     <>
       {pathname === "/admin-panel" ? (
@@ -163,11 +177,11 @@ export function Search() {
                 type="search"
                 placeholder="Search Products"
                 className="border-none outline-none rounded-full px-2"
-                onChange={(e) => setSearchItem(e.target.value)}
+                onChange={handleChange}
               />
               <SearchRoundedIcon className="bg-Primary rounded-full p-1 text-3xl text-white" />
             </div>
-            <SearchProduct response={response} searchItem={searchItem} position={"translate-x-52 md:translate-x-0  "} />
+            <SearchProduct response={item} searchItem={searchItem} position={"translate-x-52 md:translate-x-0 top-20  "} />
           </section>
           <div className="flex items-center gap-4">
             <Dialog>
@@ -180,10 +194,10 @@ export function Search() {
                   <Input
                     type="search"
                     placeholder="Search"
-                    onChange={(e) => setSearchItem(e.target.value)}
+                    onChange={handleChange}
                   />
                 </span>
-                <SearchProduct response={response} searchItem={searchItem} position={"translate-x-0 w-full"} />
+                <SearchProduct response={item} searchItem={searchItem} position={"translate-x-0 w-full"} />
               </DialogContent>
             </Dialog>
             <DropdownMenu>
