@@ -213,12 +213,12 @@ export const update = async (email, userData, type, cartType) => {
     } else if (type === "cart") {
       // Syntax for params => { sku: String }
       user.cart.push(userData);
-      if(cartType === 'array'){
-        user.cart = userData
+      if (cartType === "array") {
+        user.cart = userData;
       }
     }
     await user.save();
-    return user;
+    return "Success";
   } catch (error) {
     return error.message;
   }
@@ -256,7 +256,7 @@ export const authenticateUser = async (email) => {
     const subject = `Password Reset Link | Kasho`;
     const html = `<h1>Here is your link: ${link}</h1>`;
     const response = await sendMail(subject, email, html);
-    return 'Mail Sent';
+    return "Mail Sent";
   } catch (error) {
     return error.message;
   }
@@ -277,7 +277,7 @@ export const changePassword = async (new_password, token, email) => {
     }
     const hashed = await hash(new_password, 10);
     user.authentication.password = hashed;
-    user.authentication.token = randomToken(16)
+    user.authentication.token = randomToken(16);
     await user.save();
     return user;
   } catch (error) {
@@ -302,6 +302,26 @@ export const updateOrderId = async (order_id, user_id) => {
     );
 
     return updateOrder;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const deleteSKU = async (sku_id) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { "cart._id": sku_id },
+      { $pull: { cart: { _id: sku_id } } },
+      { new: true }
+    );
+
+    if (!user) {
+      // If no user found with the provided SKU ID
+      return "User not found or SKU not in user's cart.";
+    }
+
+    // The user object here will contain the updated user document
+    return 'Success';
   } catch (error) {
     return error.message;
   }

@@ -4,11 +4,28 @@ import Image from 'next/image'
 import axios from 'axios'
 import { storage } from '@/appwrite/appwrite.config'
 import Checkout from '../buttons/Checkout'
+import { useToast } from '../ui/use-toast'
 
-const CartCard = ({ sku, id, removeCart }) => {
+const CartCard = ({ sku, id }) => {
   const [response, setResponse] = useState();
   const [image, setImage] = useState('');
   const [quantity, setQuantity] = useState(1)
+  const {toast} = useToast()
+  const remove = async () => {
+    try {
+      const cart = await axios.post('/api/delete-cart', {
+        sku_id: id
+      });
+      if(cart.data === 'Success') {
+        toast({
+          title: `SKU: ${sku}, removed successfully`
+        })
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
   const fetchProduct = async () => {
     if (sku) {
       try {
@@ -28,7 +45,8 @@ const CartCard = ({ sku, id, removeCart }) => {
   const getFilePreview = async (imageId) => {
     try {
       const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', imageId);
-      setImage(imageLink.href);
+      const link = imageLink.href.replace('/preview?', '/view?')
+      setImage(link);
     } catch (error) {
       console.error("Error fetching image:", error);
     }
@@ -68,7 +86,7 @@ const CartCard = ({ sku, id, removeCart }) => {
                 value={quantity}
                 style="max-h-8"
               />
-              <Button onClick={() => removeCart(id)} size='sm' variant='bordered' className='border border-Primary'>
+              <Button onClick={remove} size='sm' variant='bordered' className='border border-Primary'>
                 Remove
               </Button>
             </div>
