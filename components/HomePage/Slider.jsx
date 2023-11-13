@@ -5,12 +5,12 @@ import { Carousel } from 'react-responsive-carousel'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 function Slider() {
 
-  const slideImg=[
-    "/HeroSecTxtImg/3.jpg",
-    "/HeroSecTxtImg/4.jpg",
-    "/HeroSecTxtImg/2.jpg",
-    "/HeroSecTxtImg/1.jpg",
-    "/HeroSecTxtImg/5.jpg"
+  const slideImg=[ 
+    "/HeroTxtImg/3.jpg",
+    "/HeroTxtImg/4.jpg",
+    "/HeroTxtImg/2.jpg",
+    "/HeroTxtImg/1.jpg",
+    "/HeroTxtImg/5.jpg"
   ]
   return (
     <>
@@ -24,7 +24,7 @@ function Slider() {
             width={1000}
             height={1000}
             alt='banner_image'
-            className=' md:h-[90vh] object-cover'
+            className=' md:h-[80vh] object-cover object-center'
             priority={true}
           />)
           )
