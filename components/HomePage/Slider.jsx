@@ -6,8 +6,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"
 function Slider() {
 
   const slideImg=[ 
-    "/HeroTxtImg/2.jpg",
     "/HeroTxtImg/5.jpeg",
+    "/HeroTxtImg/2.jpg",
     "/HeroTxtImg/1.jpg",
     "/HeroTxtImg/3.jpg",
     "/HeroTxtImg/4.jpg",
@@ -24,7 +24,7 @@ function Slider() {
             width={1000}
             height={1000}
             alt='banner_image'
-            className=' md:h-[80vh] object-cover object-center'
+            className=' md:h-[85vh] object-cover object-center'
             priority={true}
           />)
           )

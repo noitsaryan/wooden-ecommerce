@@ -9,7 +9,7 @@ function Footer() {
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
             <Link href="/">
-            <Image src="/LOGO/Pasted-20231113-142228.svg" width={500} height={500} alt='LOGO' className='w-52 '/>
+            <h1 className='text-3xl font-semibold text-Primary'>ASHOFY</h1>
           </Link>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
@@ -48,12 +48,12 @@ function Footer() {
                 </h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
                   <li className="mb-4">
-                    <Link href="#" className="hover:underline">
-                      Return and Refund 
+                    <Link href="/return_policy" className="hover:underline">
+                      Return Policy
                     </Link>
                   </li>
                   <li>
-                    <Link href="#" className="hover:underline">
+                    <Link href="/terms_and_condition" className="hover:underline">
                       Terms &amp; Conditions
                     </Link>
                   </li>
