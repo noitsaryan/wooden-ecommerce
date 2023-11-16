@@ -53,7 +53,7 @@ export async function POST(req) {
     await sendMail(
       `New Order`,
       email,
-      `ORder Details: SKU: ${product_sku}, Quantity: ${quantity}, Price: ${price}, Total Price: ${totalPrice}, Payment Id: ${payment_id}, Payment Signature: ${signature}, UserId: ${user_id}, Email: ${email} `
+      `ORder Details: SKU: ${product_sku},<br/> Quantity: ${quantity},<br/> Price: ${price},<br/> Total Price: ${totalPrice},<br/> Payment Id: ${payment_id},<br/> Payment Signature: ${signature},<br/> UserId: ${user_id},<br/> Email: ${email} `
     );
 
     return NextResponse.json(res);

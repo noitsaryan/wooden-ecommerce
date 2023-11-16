@@ -39,7 +39,10 @@ export async function adminLogin(email, password, token) {
     sendMail(
       "Authentication Token",
       email,
-      `here is you link: http://localhost:3000/admin-panel?token=${token}&topic=statistics`
+      `
+      You requested an Admin Dashboard access, Click on the following link
+      <br/>
+      Authentication Link : https://www.ashofy.com/admin-panel?token=${token}&topic=orders`
     );
     admin.authentication.token = token;
     await admin.save();

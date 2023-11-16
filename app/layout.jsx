@@ -9,8 +9,8 @@ import { Toaster } from '@/components/ui/toaster'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'WinHome',
-  description: 'Decor your space with us! WinHome is an online ecommerce furniture store.',
+  title: 'Ashofy',
+  description: 'Decor your space with us! Ashofy is an online ecommerce furniture store.',
 }
 
 export default function RootLayout({ children }) {

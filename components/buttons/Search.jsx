@@ -53,7 +53,6 @@ export function Search() {
   const fetchProducts = async () => {
     const res = await axios.get("/api/get-product-cards", {
     });
-    console.log(res.data)
     setResponse(res.data);
   };
 
@@ -111,19 +110,6 @@ export function Search() {
                   Close
                 </SheetClose>
                 <div className="flex flex-col gap-4">
-                  <Link
-                    href={`/admin-panel?token=${params.get(
-                      "token"
-                    )}&topic=statistics`}
-                  >
-                    <Button
-                      variant="outline"
-                      className="w-full"
-                      onClick={() => close.current.click()}
-                    >
-                      <BarChart4 size={15} className="mx-1" /> Statistics
-                    </Button>
-                  </Link>
                   <Link
                     href={`/admin-panel?token=${params.get(
                       "token"

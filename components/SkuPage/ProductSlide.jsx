@@ -1,23 +1,38 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 import BreadcrumbNav from "./BreadcrumbNav";
+import { storage } from '@/appwrite/appwrite.config'; // Import storage if not already imported
 
-const ProductSlide = ({image, name}) => {
+const ProductSlide = ({ image, name }) => {
   const [imageNo, setImageNo] = useState(0);
-  // const image = [
-  //   "/testSKu/data_wooden-sofa_regina-wooden-sofa_updated_indigo-blue_updated_4-810x702 (1).webp",
-  //   "/testSKu/data_A-website-fabric-shoot_Indigo-blue_1-810x702.webp",
-  //   "/testSKu/data_wooden-sofa_regina-wooden-sofa_updated_indigo-blue_updated_16-810x702.webp",
-  //   "/testSKu/data_wooden-sofa_regina-wooden-sofa_updated_indigo-blue_updated_15-810x702.jpg",
-  //   "/testSKu/data_wooden-sofa_regina-wooden-sofa_updated_indigo-blue_updated_18-810x702 (1).jpg",
-  //   "/testSKu/data_wooden-sofa_regina-wooden-sofa_updated_indigo-blue_updated_3Info-810x702.jpg"
-  // ]
+  const [images, setImages] = useState([]);
+
+  const getPreview = () => {
+    const array = [];
+    image.map(imageItem => {
+      // Check if the image item is an object or a string
+      if (typeof imageItem === 'object' && imageItem.link) {
+        array.push(imageItem.link);
+      } else if (typeof imageItem === 'string') {
+        const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', imageItem);
+        let modifiedUrl = imageLink.href.replace('/preview?', '/view?');
+        array.push(modifiedUrl);
+      }
+    });
+    setImages(array);
+  };
+
+  useEffect(() => {
+    getPreview();
+  }, [image]);
+
+  console.log('Slide', image);
+
   return (
     <div className="flex flex-col items-center p-1 bg-white rounded-md relative  ">
       <BreadcrumbNav pName={name} />
-
       <div className="flex items-center justify-center relative flex-col w-full">
         <figure className="w-full object-fit overflow-hidden">
           <Image
@@ -25,7 +40,7 @@ const ProductSlide = ({image, name}) => {
             height={500}
             alt="Product_Image"
             className="w-full h-full bg-slate-100 rounded-md transition-all"
-            src={image[imageNo] || "/"}
+            src={images[imageNo] || "/"}
           />
         </figure>
         <div className="absolute flex items-center  w-full justify-between px-3 text-4xl text-black drop-shadow-m font-semibold">
@@ -36,24 +51,24 @@ const ProductSlide = ({image, name}) => {
           <RiArrowRightSLine
             className="cursor-pointer"
             onClick={() =>
-              setImageNo(imageNo === image.length - 1 ? 0 : imageNo + 1)
+              setImageNo(imageNo === images.length - 1 ? 0 : imageNo + 1)
             }
           />
         </div>
       </div>
 
       <div className="grid grid-cols-4 md:grid-cols-6 overflow-y-hidden p-2 gap-2 rounded-md my-2">
-        {image.map((e, i) => (
-            <Image
-              width={150}
-              height={150}
-              alt="Product Image"
-              key={i}
-              className={` cursor-pointer ${i == imageNo ? "border-Primary " : "border"
-                } border Primary rounded`}
-              onClick={() => setImageNo(i)}
-              src={e}
-            />
+        {images.map((src, i) => (
+          <Image
+            width={150}
+            height={150}
+            alt="Product Image"
+            key={i}
+            className={` cursor-pointer ${i === imageNo ? "border-Primary " : "border"
+              } border Primary rounded`}
+            onClick={() => setImageNo(i)}
+            src={src || "/"}
+          />
         ))}
       </div>
     </div>

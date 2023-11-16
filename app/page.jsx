@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 
 const page = () => {
   const [response, setResponse] = useState()
+  const [image, setImage] = useState([])
   const CtgImg = [
     { link: "/CategoryImg/1.jpg", title: 'Residence' },
     { link: "/CategoryImg/3.jpg", title: 'Commercial' },
@@ -20,13 +21,10 @@ const page = () => {
   const fetchProduct = async () => {
     const res = await axios.get('/api/get-product-cards')
     setResponse(res)
+    const array = []
+    res.data.map((e) => { array.push(e.images) })
+    setImage(array)
   }
-
-  const getFilePreview = (image_id) => {
-
-    const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', image_id);
-    return imageLink.href;
-}
 
   useEffect(() => {
     fetchProduct();
@@ -40,7 +38,7 @@ const page = () => {
       <section className='mb-8 grid md:mx-8 grid-cols-2 md:grid-cols-4 place-items-center gap-4 px-2 mt-4'>
         {
           CtgImg.map((elem, i) => (
-            <Link href={`/shop/${elem.title.toLocaleLowerCase()}`} className= "md:w-full" key={i}>
+            <Link href={`/shop/${elem.title.toLocaleLowerCase()}`} className="md:w-full" key={i}>
               <Image
                 src={elem.link}
                 width={300}
@@ -61,21 +59,21 @@ const page = () => {
         </span>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           {
-            response && response.data.map((e,i) => {
+            response && response.data.map((e, i) => {
               return <Product
                 sku={e.sku}
                 title={e.title}
                 key={i}
-                link={getFilePreview(e.images[0])}
+                link={image[i]}
                 price={e.price}
-                />
+              />
             })
           }
         </div>
       </section>
-     
-      <NormalButton name="Check More Products"  link="/shop" extraClass={"mt-7"} />
-      
+
+      <NormalButton name="Check More Products" link="/shop" extraClass={"mt-7"} />
+
     </main>
   );
 };

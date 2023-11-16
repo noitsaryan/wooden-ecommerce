@@ -248,7 +248,10 @@ export const authenticateUser = async (email) => {
     const token = user?.authentication?.token;
     const link = `http://localhost:3000/reset?token_id=${token}&user=${email}`;
     const subject = `Password Reset Link | Kasho`;
-    const html = `<h1>Here is your link: ${link}</h1>`;
+    const html = `
+    You requested a password reset link:
+    <br/>
+    <b>Follow this link: ${link}</b>`;
     const response = await sendMail(subject, email, html);
     return "Mail Sent";
   } catch (error) {

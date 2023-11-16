@@ -7,7 +7,7 @@ import ProductCustomize from '@/components/SkuPage/ProductCustomize'
 import ProductData from '@/components/SkuPage/ProductData'
 import ProductSlide from '@/components/SkuPage/ProductSlide'
 import Product from "@/components/Cards/Product";
-import {Button} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 
 import axios from 'axios'
 import { useParams } from 'next/navigation'
@@ -18,7 +18,7 @@ function page() {
   const [images, setImages] = useState([])
   const [response, setResponse] = useState({})
   const [recentResponse, setRecentResponse] = useState()
-
+  const [slideImage, setSlideImage] = useState([])
   const [value, setValue] = useState(1)
 
 
@@ -28,31 +28,26 @@ function page() {
         sku
       })
       setResponse(res.data)
-      const imageRes = getFilePreviews(res.data.images)
-      setImages(imageRes)
+      setSlideImage(res.data.images)
     } catch (error) {
       console.log(error.message)
     }
   }
-  const getFilePreviews = (imgArray) => {
-    const imageLinks = imgArray.map(image_id => {
-      const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', image_id);
-      let modifiedUrl = imageLink.href.replace('/preview?', '/view?');
-      return modifiedUrl;
-    });
-    return imageLinks;
-  };
+
 
   const getProducts = async () => {
     const res = await axios.get('/api/get-product-cards')
     setRecentResponse(res)
+    const array = []
+    res.data.map((e) => { array.push(e.images) })
+    setImages(array)
   }
 
   const getProductFilePreview = (image_id) => {
 
     const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', image_id);
     return imageLink.href;
-}
+  }
   useEffect(() => {
     fetchProduct()
     getProducts()
@@ -62,7 +57,7 @@ function page() {
       <main className='md:p-2 flex flex-col items-center justify-center'>
         <section className='grid grid-cols-1 md:grid-cols-2  w-full gap-5 md:p-3 md:max-w-screen-xl'>
           <section>
-            <ProductSlide name={response.title} image={images} />
+            <ProductSlide name={response.title} image={slideImage} />
           </section>
           <section className='md:pt-8'>
             <ProductData title={response.title} price={response.price} description={response.description} specification={response.specification} />
@@ -85,7 +80,7 @@ function page() {
               </p>
             </div>
             <PinCode />
-            <CtaButton amount={ value * response.price } price={response.price} totalPrice={response.price * value}  sku={response.sku} quantity={value} />
+            <CtaButton amount={value * response.price} price={response.price} totalPrice={response.price * value} sku={response.sku} quantity={value} />
             <ProductAccord maintenance={response.maintenance} warranty={response.warranty} />
           </section>
 
@@ -95,15 +90,15 @@ function page() {
 
 
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-        {
-            recentResponse && recentResponse.data.slice(1,5).map((e,i) => {
+          {
+            recentResponse && recentResponse.data.slice(1, 5).map((e, i) => {
               return <Product
                 sku={e.sku}
                 title={e.title}
                 key={i}
-                link={getProductFilePreview(e.images[0])}
+                link={images[i]}
                 price={e.price}
-                />
+              />
             })
           }
         </section>
