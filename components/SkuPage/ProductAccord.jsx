@@ -25,10 +25,7 @@ export default function ProductAccord({warranty, maintenance}) {
       <AccordionItem key="3" aria-label="Return Policy" title="Return Policy">
         <h2>
           <ul className="list-disc text-sm opacity-75 space-y-2">
-            <li> Made to order items cannot be returned or exchanged.</li>
-            <li>
-              Returns accepted within 7 days of delivery in case of damaged
-              goods.
+            <li> The product cannot be returned ones ordered since all the product on the website are MAKE TO ORDER (MTO)
             </li>
           </ul>
         </h2>
