@@ -73,7 +73,7 @@ function page() {
                 Rs.
                 {
                   <span className="">
-                    &#x20B9;{(52000 * value).toLocaleString()}
+                    &#x20B9;{(response.title * value).toLocaleString()}
                   </span>
                 }
                 <span className='text-Primary'>(incl. of all taxes)</span>
