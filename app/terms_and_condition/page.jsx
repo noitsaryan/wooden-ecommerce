@@ -61,6 +61,19 @@ const page = () => {
           <li>Any disputes arising out of or relating to these terms and conditions shall be resolved exclusively by the courts of [your jurisdiction].</li>
         </ul>
       </div>
+      <div>
+        <b>8. Shipping Policy:</b>
+        <ul>
+          <li>Ones the order is placed the shipment will be done in next 2-4 weeks ( min-2 weeks and max-4 weeks depending on the order) followed by the delivery in next 2-3 business days.</li>
+        </ul>
+      </div>
+
+      <div>
+        <b>9. Customer Care:</b>
+        <ul>
+          <li>For any query regarding the order, customer can directly reach us through email provided on the website.</li>
+        </ul>
+      </div>
 
       <div>
         Please note that these terms and conditions are subject to change, and you are encouraged to review the latest version on the Ashofy website regularly.
