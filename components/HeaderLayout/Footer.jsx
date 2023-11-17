@@ -47,14 +47,19 @@ function Footer() {
                   Legal
                 </h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
-                  <li className="mb-4">
+                  <li>
                     <Link href="/return_policy" className="hover:underline">
                       Return Policy
                     </Link>
                   </li>
-                  <li>
+                  <li  className="my-4">
                     <Link href="/terms_and_condition" className="hover:underline">
                       Terms &amp; Conditions
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/contacts" className="hover:underline">
+                     Contacts
                     </Link>
                   </li>
                 </ul>
