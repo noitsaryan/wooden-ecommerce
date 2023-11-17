@@ -64,7 +64,7 @@ function page() {
             <ProductCustomize isTrue={response.variation?.size && response.variation?.size.price > 1 ? true : false} />
             <div className="flex-col md:flex-row flex items-center font-light m-4 gap-2">
               <p>Quantity</p>
-              <Button className="border flex w-36 justify-around p-2 rounded-md select-none bg-transparent">
+              <Button className="border grid grid-cols-3 w-36 justify-around p-2 rounded-md select-none bg-transparent">
                 <p onClick={() => setValue((prev) => prev - 1)}>-</p>
                 <p> {value < 1 ? setValue(1) : value} </p>
                 <p onClick={() => setValue((prev) => prev + 1)}>+</p>
@@ -73,7 +73,7 @@ function page() {
                 Rs.
                 {
                   <span className="">
-                    &#x20B9;{(response.title * value).toLocaleString()}
+                    &#x20B9;{(parseInt(response.price) * value).toLocaleString()}
                   </span>
                 }
                 <span className='text-Primary'>(incl. of all taxes)</span>
