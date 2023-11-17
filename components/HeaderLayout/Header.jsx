@@ -41,7 +41,7 @@ function Header() {
        
 
           <Link href="/">
-            <h1 className='text-3xl font-semibold text-Primary'>ASHOFY</h1>
+           <Image src="/LOGO/YOUR SPACE.svg" width={500} height={500} alt='LOGO' className='w-44'/>
           </Link>
         <span className='md:flex hidden'><NavMenu/></span>
         <div className='flex items-center justify-center gap-8'>
