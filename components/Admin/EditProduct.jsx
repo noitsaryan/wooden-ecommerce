@@ -47,6 +47,7 @@ function EditProduct() {
       <Table className="max-w-4xl mx-auto">
         <TableHeader>
           <TableRow>
+            <TableHead className="w-40">Image</TableHead>
             <TableHead className="w-40">Title</TableHead>
             <TableHead>SKU</TableHead>
             <TableHead>Price</TableHead>

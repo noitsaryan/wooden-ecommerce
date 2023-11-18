@@ -21,7 +21,6 @@ function page() {
   const [slideImage, setSlideImage] = useState([])
   const [value, setValue] = useState(1)
 
-
   const fetchProduct = async () => {
     try {
       const res = await axios.post('/api/get-product-id', {
@@ -36,22 +35,22 @@ function page() {
 
 
   const getProducts = async () => {
-    const res = await axios.get('/api/get-product-cards')
+    const res = await axios.post('/api/get-product-category', {
+      type: response.subCategory
+    })
     setRecentResponse(res)
     const array = []
     res.data.map((e) => { array.push(e.images) })
     setImages(array)
   }
 
-  const getProductFilePreview = (image_id) => {
-
-    const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', image_id);
-    return imageLink.href;
-  }
   useEffect(() => {
     fetchProduct()
-    getProducts()
   }, [])
+
+  useEffect(() => {
+    getProducts()
+  },[response])
   return (
     <>
       <main className='md:p-2 flex flex-col items-center justify-center'>
@@ -91,7 +90,7 @@ function page() {
 
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           {
-            recentResponse && recentResponse.data.slice(1, 5).map((e, i) => {
+            recentResponse && recentResponse.data.map((e, i) => {
               return <Product
                 sku={e.sku}
                 title={e.title}

@@ -30,6 +30,11 @@ const page = () => {
     fetchProduct();
   }, [])
 
+  useEffect(() => {
+    console.log(image)
+
+  }, [image])
+
   return (
     <main className="flex flex-col">
       <HeroSlider />

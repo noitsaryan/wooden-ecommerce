@@ -5,6 +5,7 @@ import {
     TableCell,
     TableRow,
 } from "@/components/ui/table";
+import { RiDeleteBin5Line } from "react-icons/ri";
 import {
     Dialog,
     DialogContent,
@@ -13,7 +14,6 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import {Button} from '../ui/button'
 import { Input } from '../ui/input';
 import { storage } from '@/appwrite/appwrite.config';
 import Image from 'next/image';
@@ -23,6 +23,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { Button } from '../ui/button';
 import { updateProduct } from '@/utils/lib/products';
 import axios from 'axios';
+import { useToast } from '../ui/use-toast';
 
 const ImageArray = ({ content }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: content.id });
@@ -75,8 +76,9 @@ function ProductEdit({ values }) {
     });
 
     const [images, setImages] = useState([]);
+    const [firstImages, setFirstImages] = useState([]);
     const [colorState, setColorState] = useState([]);
-
+    const { toast } = useToast()
     const handleChange = (e) => {
         const { value, name } = e.target;
         setInput((prev) => ({
@@ -88,16 +90,59 @@ function ProductEdit({ values }) {
     const getPreview = () => {
         try {
             const array = [];
+
             data && data.images.map((e, i) => {
-                const image = storage.getFilePreview('65477266d57cd5b74b8c', e);
+                let image;
+
+                // Check if it's an array of objects or array of IDs
+                if (typeof e === 'object' && e.link && e.id) {
+                    // If it's an object with link and id, use it directly
+                    image = { href: e.link, id: e.id };
+                } else if (typeof e === 'string') {
+                    // If it's a string, pass it through storage.getFilePreview function
+                    image = storage.getFilePreview('65477266d57cd5b74b8c', e);
+                } else {
+                    // Handle other cases as needed
+                    console.log(`Unsupported data format at index ${i}`);
+                    return;
+                }
+
                 const updatedLink = image.href.replace('/preview?', '/view?');
                 array.push({ link: updatedLink, id: `image-${i}` });
             });
+
             setImages(array);
         } catch (error) {
             console.log(error.message);
         }
     };
+
+
+    const isArrayofObjects = (value) => {
+        return Array.isArray(value) && value.length > 0 && typeof value[0] === 'object';
+    };
+
+    const getFilePreview = (image) => {
+        if (isArrayofObjects(image)) {
+            const firstImage = image[0].link || '';
+            setFirstImages(firstImage)
+            return;
+        }
+        if (Array.isArray(image) && image.length > 0 && typeof image[0] === 'string') {
+            const firstImage = getModifiedUrl(image[0])
+            setFirstImages(firstImage)
+            return;
+        }
+        if (typeof image === 'string') {
+            return getModifiedUrl(image);
+        }
+        return '';
+    };
+    const getModifiedUrl = (image) => {
+        const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', image);
+        return imageLink.href.replace('/preview?', '/view?');
+    };
+
 
     const handleDragEnd = (result) => {
         const { active, over } = result;
@@ -188,7 +233,11 @@ function ProductEdit({ values }) {
     const updateProducts = async () => {
         try {
             const response = await updateProduct(input.title, parseInt(input.price), input.description, data.specification, data.variation.color, images, input.sku, data.variation.size, input.warranty, input.maintenance)
-            console.log(response)
+            if (response.data) {
+                toast({
+                    title: 'Product Updated'
+                })
+            }
         } catch (error) {
             console.log(error.message)
         }
@@ -224,12 +273,22 @@ function ProductEdit({ values }) {
                 size: values.variation.size,
             },
         });
+        getFilePreview(values.images)
         getPreview();
     }, [values]);
+
 
     return (
         <TableBody>
             <TableRow>
+                <TableCell className="font-medium">
+                    <Image
+                        src={firstImages}
+                        alt='Edit_product_Image'
+                        width={100}
+                        height={100}
+                    />
+                </TableCell>
                 <TableCell className="font-medium">{values.title}</TableCell>
                 <TableCell className="uppercase">{values.sku}</TableCell>
                 <TableCell>Rs. {parseFloat(values.price).toLocaleString()}</TableCell>
@@ -439,7 +498,18 @@ function ProductEdit({ values }) {
                             </DialogHeader>
                         </DialogContent>
                     </Dialog>
-                    <Button onClick={deleteProduct}>Delete</Button>
+                    <Dialog>
+                        <DialogTrigger className='mx-2'><RiDeleteBin5Line /></DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Delete Product</DialogTitle>
+                                <div className='space-y-3 py-3'>
+                                    <p>Your Product : <span className='uppercase '>{values.sku}</span> will be deleted permanently?</p>
+                                    <Button onClick={deleteProduct} className="bg-red-600 rounded-md mx-2 h-9">Delete</Button>
+                                </div>
+                            </DialogHeader>
+                        </DialogContent>
+                    </Dialog>
                 </TableCell>
             </TableRow>
         </TableBody>

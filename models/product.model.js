@@ -207,7 +207,7 @@ export async function getProductsForCard() {
 
 export async function getProductByCategory(type) {
   try {
-    const product = await Product.find({ category: type })
+    const product = await Product.find({ subCategory: type })
       .select("title price sku images")
       .exec();
     return product;

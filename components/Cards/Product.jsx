@@ -5,6 +5,7 @@ import { BsBoxSeam } from 'react-icons/bs';
 import { storage } from '@/appwrite/appwrite.config';
 
 function Product({ link, title, price, sku }) {
+  
   const isArrayofObjects = (value) => {
     return Array.isArray(value) && value.length > 0 && typeof value[0] === 'object';
   };
