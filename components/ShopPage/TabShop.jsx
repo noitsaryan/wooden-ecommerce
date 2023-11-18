@@ -16,7 +16,7 @@ export default function TabShop() {
           <Tab key="/shop" title="All" href="/shop" />
           <Tab key="/shop/residence" title="Residence" href="/shop/residence" />
           <Tab key="/shop/commercial" title="Commercial" href="/shop/commercial" />
-          <Tab key="/shop/studios" title="Studios" href="/shop/studios" />
+          <Tab key="/shop/studio" title="Studio" href="/shop/studio" />
           <Tab key="/shop/lighting" title="Lighting" href="/shop/lighting" />
 
         </Tabs>

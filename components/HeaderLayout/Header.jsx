@@ -32,6 +32,8 @@ function Header() {
   }, []);
 
   const [navDisplay, setNavDisplay]=useState(false)
+
+  const furnitureArray=['Bed', 'Chair', 'Dining Table', 'Center Table', 'Wardrobe', 'Mandir', 'Door', 'Main Door', 'Studio Door', 'Shoes Rack', 'Diffuser']
   
 
 
@@ -68,8 +70,12 @@ function Header() {
       </AccordionItem>
       <AccordionItem key="2" aria-label="Accordion 2" title="Furnitures ">
       <div  className='flex flex-col gap-2 text-lg font-light' >
-         <Link href="/" className='cursor-pointer hover:opacity-70 transition-all'>Bed</Link>
-          <Link href="/" className='cursor-pointer hover:opacity-70 transition-all'>Cupboard</Link>
+         {
+          furnitureArray.map((elem, i)=>(
+            <Link href={`/shop/${elem.toLowerCase()}`} className='cursor-pointer hover:opacity-70 transition-all'>{elem}</Link>
+          ))
+         }
+
           </div>
       </AccordionItem>
       <AccordionItem key="3" aria-label="Accordion 3" title="Lighting">

@@ -15,20 +15,20 @@ function page() {
         })
         setResponse(res.data)
     }
-    const getFilePreview = (image_id) => {
-        const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', image_id);
-        return imageLink.href;
-    }
+    const isArrayofObjects = (value) => {
+        return Array.isArray(value) && value.length > 0 && typeof value[0] === 'object';
+    };
+
 
     useEffect(() => {
         fetchProducts(category)
     }, [])
     return (
         <>
-            <section className={`w-full   ${ response.length > 0 ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4' : '' } p-2 gap-6`}>
+            <section className={`w-full   ${response.length > 0 ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4' : ''} p-2 gap-6`}>
                 {
-                    response.length>0 ? response && response.map((e, i) => (
-                        <Product key={i} sku={e.sku} title={e.title} price={e.price} link={getFilePreview(e.images[0])} />
+                    response.length > 0 ? response && response.map((e, i) => (
+                        <Product key={i} sku={e.sku} title={e.title} price={e.price} link={e.images} />
                     )) : <h1 className='text-center text-lg   text-Primary p-1'> Can't Find What You Are Looking For! </h1>
                 }
             </section>

@@ -9,6 +9,7 @@ import {BiChevronDown} from 'react-icons/bi'
 import Link from 'next/link'
 
 function NavMenu() {
+    const furnitureArray=['Bed', 'Chair', 'Dining Table', 'Center Table', 'Wardrobe', 'Mandir', 'Door', 'Main Door', 'Studio Door', 'Shoes Rack', 'Diffuser']
     return (
         <div className='flex flex-col md:flex-row items-start gap-6 text-xl md:text-base md:items-center '>
             <HoverCard>
@@ -23,8 +24,11 @@ function NavMenu() {
             <HoverCard>
                 <HoverCardTrigger className='cursor-pointer  flex items-center'>Furnitures <BiChevronDown/></HoverCardTrigger>
                 <HoverCardContent className="flex flex-col gap-2">
-                    <Link href="/" className='hover:opacity-60 transition-all' >Bed</Link>
-                    <Link href="/" className='hover:opacity-60 transition-all' >Cupboard</Link>
+                {
+          furnitureArray.map((elem, i)=>(
+            <Link href={`/shop/${elem.toLowerCase().replace(' ', '-')}`} className='cursor-pointer hover:opacity-70 transition-all'>{elem}</Link>
+          ))
+         }
                 </HoverCardContent>
             </HoverCard>
             <HoverCard>
