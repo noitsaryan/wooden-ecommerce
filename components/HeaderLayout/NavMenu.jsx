@@ -26,11 +26,12 @@ function NavMenu() {
                 <HoverCardContent className="flex flex-col gap-2">
                 {
           furnitureArray.map((elem, i)=>(
-            <Link href={`/shop/${elem.toLowerCase().replace(' ', '-')}`} className='cursor-pointer hover:opacity-70 transition-all'>{elem}</Link>
+            <Link href={`/shop/${elem.toLowerCase().replace(' ', '-')}`} key={i} className='cursor-pointer hover:opacity-70 transition-all'>{elem}</Link>
           ))
          }
                 </HoverCardContent>
             </HoverCard>
+            
             <HoverCard>
                 <HoverCardTrigger className='cursor-pointer flex items-center'>Lighting <BiChevronDown/></HoverCardTrigger>
                 <HoverCardContent className="flex flex-col gap-2">
@@ -40,7 +41,15 @@ function NavMenu() {
                     <Link href="/" className='hover:opacity-60 transition-all' >Decor Lighting</Link>
                 </HoverCardContent>
             </HoverCard>
-            <Link href="/"> Project </Link>
+            <HoverCard>
+                <HoverCardTrigger className='cursor-pointer flex items-center'>Services <BiChevronDown/></HoverCardTrigger>
+                <HoverCardContent className="flex flex-col gap-2">
+                    <Link href="/" className='hover:opacity-60 transition-all' >Interiors</Link>
+                    <Link href="/" className='hover:opacity-60 transition-all' >Contractors</Link>
+                    <Link href="/" className='hover:opacity-60 transition-all' >Decorators</Link>
+                    <Link href="/" className='hover:opacity-60 transition-all' >Acoustics</Link>
+                </HoverCardContent>
+            </HoverCard>
 
         </div>
     )

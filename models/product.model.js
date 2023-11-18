@@ -215,6 +215,18 @@ export async function getProductByCategory(type) {
     return error.message;
   }
 }
+
+export async function getProductByMainCategory(type) {
+  try {
+    const product = await Product.find({ category: type })
+      .select("title price sku images")
+      .exec();
+    return product;
+  } catch (error) {
+    return error.message;
+  }
+}
+
 export async function getProductBySKU(sku) {
   try {
     const product = await Product.findOne({sku}).exec();

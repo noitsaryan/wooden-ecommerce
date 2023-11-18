@@ -72,7 +72,7 @@ function Header() {
       <div  className='flex flex-col gap-2 text-lg font-light' >
          {
           furnitureArray.map((elem, i)=>(
-            <Link href={`/shop/${elem.toLowerCase()}`} className='cursor-pointer hover:opacity-70 transition-all'>{elem}</Link>
+            <Link href={`/shop/${elem.toLowerCase()}`} key={i} className='cursor-pointer hover:opacity-70 transition-all'>{elem}</Link>
           ))
          }
 
@@ -86,11 +86,17 @@ function Header() {
           <Link href="/" className='cursor-pointer hover:opacity-70 transition-all'>Decor Lighting</Link>
           </div>
       </AccordionItem>
+      <AccordionItem key="4" aria-label="Accordion 3" title="Services">
+      <div  className='flex flex-col gap-2 text-lg font-light' >
+         <Link href="/" className='cursor-pointer hover:opacity-70 transition-all'> Interiors </Link>
+          <Link href="/" className='cursor-pointer hover:opacity-70 transition-all'>Contractors</Link>
+          <Link href="/" className='cursor-pointer hover:opacity-70 transition-all'>Decorators</Link>
+          <Link href="/" className='cursor-pointer hover:opacity-70 transition-all'>Acoustics</Link>
+          </div>
+      </AccordionItem>
      
     </Accordion>
-    <hr />
     <br />
-  <Link href="/" className='mx-2 text-xl'>Project</Link>
     
         </div> 
 

@@ -10,14 +10,20 @@ function page() {
     const params = useParams();
     const { category } = params;
     const fetchProducts = async (type) => {
-        const res = await axios.post('/api/get-product-category', {
-            type
-        })
-        setResponse(res.data)
+        if (category === 'residence' || 'commercial' || 'studio' || 'lighting') {
+            const res = await axios.post('/api/get-product-category', {
+                type
+            })
+            setResponse(res.data);
+            return;
+        } else {
+            const res = await axios.post('/api/get-product-subcategory', {
+                type
+            })
+            setResponse(res.data)
+            return;
+        }
     }
-    const isArrayofObjects = (value) => {
-        return Array.isArray(value) && value.length > 0 && typeof value[0] === 'object';
-    };
 
 
     useEffect(() => {

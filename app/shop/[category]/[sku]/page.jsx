@@ -35,7 +35,7 @@ function page() {
 
 
   const getProducts = async () => {
-    const res = await axios.post('/api/get-product-category', {
+    const res = await axios.post('/api/get-product-subcategory', {
       type: response.subCategory
     })
     setRecentResponse(res)
