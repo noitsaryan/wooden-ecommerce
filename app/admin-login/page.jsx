@@ -24,7 +24,7 @@ const Page = () => {
   return (
     <main className='space-y-8 py-24 px-4'>
       <div>
-        <h1 className='text-center text-2xl'> WinHome </h1>
+        <h1 className='text-center text-2xl'> Ashofy </h1>
         <p className='text-center'> Admin Login </p>
       </div>
       <div className='mx-auto max-w-sm '>

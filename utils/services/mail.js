@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer'
+import nodemailer from "nodemailer";
 
 export async function sendMail(subject, toEmail, html) {
   var transporter = nodemailer.createTransport({
@@ -13,20 +13,19 @@ export async function sendMail(subject, toEmail, html) {
     from: process.env.NODEMAILER_EMAIL,
     to: toEmail,
     subject: subject,
-    html: html
+    html: html,
   };
 
   await new Promise((res, rej) => {
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
+        rej(error);
         throw new Error(error);
-        rej(error)
       } else {
-        res(info)
+        res(info);
         console.log("Email Sent");
         return true;
       }
     });
-  })
-
+  });
 }
