@@ -13,6 +13,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import {Button} from '../ui/button'
 import { Input } from '../ui/input';
 import { storage } from '@/appwrite/appwrite.config';
 import Image from 'next/image';
@@ -21,6 +22,7 @@ import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } 
 import { CSS } from '@dnd-kit/utilities';
 import { Button } from '../ui/button';
 import { updateProduct } from '@/utils/lib/products';
+import axios from 'axios';
 
 const ImageArray = ({ content }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: content.id });
@@ -192,6 +194,17 @@ function ProductEdit({ values }) {
         }
     }
 
+    const deleteProduct = async () => {
+        try {
+            const product = await axios.post('/api/delete-product', {
+                sku: values.sku
+            })
+            console.log(product)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
     useEffect(() => {
         setInput({
             category: values.category,
@@ -213,12 +226,6 @@ function ProductEdit({ values }) {
         });
         getPreview();
     }, [values]);
-
-    // useEffect(() => {
-    //     console.log(data.variation.color)
-    //     console.log(data.variation.size)
-    //     console.log(data.specification)
-    // },[data])
 
     return (
         <TableBody>
@@ -432,6 +439,7 @@ function ProductEdit({ values }) {
                             </DialogHeader>
                         </DialogContent>
                     </Dialog>
+                    <Button onClick={deleteProduct}>Delete</Button>
                 </TableCell>
             </TableRow>
         </TableBody>
