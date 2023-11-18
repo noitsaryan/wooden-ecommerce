@@ -1,8 +1,10 @@
 import { updateProduct } from "@/models/product.model";
+import { connectDB } from "@/utils/db";
 import { NextResponse } from "next/server";
 
 export async function PUT(req) {
   try {
+    await connectDB();
     const {
       sku,
       title,
