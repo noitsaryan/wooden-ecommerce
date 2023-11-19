@@ -55,7 +55,7 @@ const SearchProduct = ({ searchItem, response, position }) => {
             <Image src={image[i] || "/"} width={500} height={500} alt='product_ordered_img' className=' w-20 bg-slate-100' />
             <div className='flex flex-col'>
               <p className='w-64 overflow-hidden truncate text-sm font-semibold'>{elem?.title}</p>
-              <h3 className='font-light'>Rs.{elem?.price}</h3>
+              <h3 className='font-light'>Rs.{parseInt(elem?.price).toLocaleString()}</h3>
               <Link href={`/shop/category/${elem?.sku}`}>
                 <Button size='sm' className='bg-Primary text-white'>
                   View Product

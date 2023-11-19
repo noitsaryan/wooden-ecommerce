@@ -34,8 +34,8 @@ export async function adminLogin(email, password, token) {
       .exec();
     if (!admin) return "Email does not exists";
     const isTrue = await compare(password, admin.authentication.password);
-    console.log(password)
     if (!isTrue) return "Password didn't matched";
+    console.log('Mailed')
     sendMail(
       "Authentication Token",
       email,
@@ -44,6 +44,7 @@ export async function adminLogin(email, password, token) {
       <br/>
       Authentication Link : https://www.ashofy.com/admin-panel?token=${token}&topic=orders`
     );
+    console.log('Not Mailed')
     admin.authentication.token = token;
     await admin.save();
     const newToken = sign(token, process.env.JWT_KEY)

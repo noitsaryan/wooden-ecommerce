@@ -252,7 +252,7 @@ export const authenticateUser = async (email) => {
     You requested a password reset link:
     <br/>
     <b>Follow this link: ${link}</b>`;
-    const response = await sendMail(subject, email, html);
+    await sendMail(subject, email, html);
     return "Mail Sent";
   } catch (error) {
     return error.message;
