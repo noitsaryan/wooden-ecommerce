@@ -14,6 +14,12 @@ export async function middleware(request) {
         }
         return;
     }
+    if(request.nextUrl.pathname.startsWith("/account")){
+        const checkCookie = request.cookies.has('next-auth.session-token')
+        if(!checkCookie){
+            return NextResponse.redirect('https://ashofy.com/login')
+        }
+    }
     if(request.nextUrl.pathname.startsWith("/account/:path*")){
         const checkCookie = request.cookies.has('next-auth.session-token')
         if(!checkCookie){
@@ -23,5 +29,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/account/:path*", "/admin-panel"],
+  matcher: ["/account", "/account/:path*", "/admin-panel"],
 };

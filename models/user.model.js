@@ -246,8 +246,8 @@ export const authenticateUser = async (email) => {
       return "Email does not exists";
     }
     const token = user?.authentication?.token;
-    const link = `http://localhost:3000/reset?token_id=${token}&user=${email}`;
-    const subject = `Password Reset Link | Kasho`;
+    const link = `https://www.ashofy.com/reset?token_id=${token}&user=${email}`;
+    const subject = `Password Reset Link | Ashofy`;
     const html = `
     You requested a password reset link:
     <br/>

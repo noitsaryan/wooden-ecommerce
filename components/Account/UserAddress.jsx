@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { useToast } from "../ui/use-toast";
 
 const UserAddress = () => {
   const [response, setResponse] = useState()
@@ -23,7 +24,7 @@ const UserAddress = () => {
     pincode: "",
   });
   const {street_name, flat_no, landmark, pincode} = fields
-
+  const {toast} = useToast()
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFields((prevFields) => ({
@@ -48,7 +49,11 @@ const UserAddress = () => {
       type: 'address',
       data: {billing_address: billing, shipping_address: address}
     })
-    console.log(updateAddress)
+    if(updateAddress.data.response === 'Success'){
+      toast({
+        title: 'Address Updated Successfully'
+      })
+    }
   }
 
   useEffect(() => {

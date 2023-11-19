@@ -5,40 +5,34 @@ import { BsBoxSeam } from 'react-icons/bs';
 import { storage } from '@/appwrite/appwrite.config';
 
 function Product({ link, title, price, sku }) {
-  
+
   const isArrayofObjects = (value) => {
     return Array.isArray(value) && value.length > 0 && typeof value[0] === 'object';
   };
 
   const getFilePreview = (image) => {
-    // If it's an array of objects, pick the link from the first object
     if (isArrayofObjects(image)) {
       const firstImage = image[0].link || '';
       return firstImage
     }
 
-    // If it's an array of strings, pick the first string and pass it to the function
     if (Array.isArray(image) && image.length > 0 && typeof image[0] === 'string') {
       return getModifiedUrl(image[0]);
     }
 
-    // If it's a single string, pass it to the function
     if (typeof image === 'string') {
       return getModifiedUrl(image);
     }
 
-    // Return a default value or handle other cases as needed
     return '';
   };
 
-  // Function to get the modified URL
   const getModifiedUrl = (image) => {
     const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', image);
     return imageLink.href.replace('/preview?', '/view?');
   };
 
   const imageSrc = getFilePreview(link) || "/";
-
   return (
     <Link href={`/shop/category/${sku}`} className="cursor-pointer">
       <div className='bg-cover overflow-hidden bg-slate-50 border rounded-md'>

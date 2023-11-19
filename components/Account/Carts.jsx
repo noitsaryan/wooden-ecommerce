@@ -23,7 +23,7 @@ const Carts = () => {
     fetchUser()
   }, [session])
 
-  if (!response) {
+  if ( response && response.length === 0) {
     return <div className='w-full md:h-screen  h-[50vh] flex items-center justify-center flex-col gap-2'>
     <RiShoppingBag3Line className='text-8xl text-Primary'/>
     <span className='flex items-center justify-center flex-col gap-1'>

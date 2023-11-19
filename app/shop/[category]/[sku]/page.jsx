@@ -15,7 +15,6 @@ import React, { useEffect, useState } from 'react'
 
 function page() {
   const { sku } = useParams()
-  const [images, setImages] = useState([])
   const [response, setResponse] = useState({})
   const [recentResponse, setRecentResponse] = useState()
   const [slideImage, setSlideImage] = useState([])
@@ -33,15 +32,11 @@ function page() {
     }
   }
 
-
   const getProducts = async () => {
     const res = await axios.post('/api/get-product-subcategory', {
       type: response.subCategory
     })
     setRecentResponse(res)
-    const array = []
-    res.data.map((e) => { array.push(e.images) })
-    setImages(array)
   }
 
   useEffect(() => {
@@ -95,7 +90,7 @@ function page() {
                 sku={e.sku}
                 title={e.title}
                 key={i}
-                link={images[i]}
+                link={e.images}
                 price={e.price}
               />
             })

@@ -7,6 +7,7 @@ import { Button } from "@nextui-org/react";
 import axios from "axios";
 import { useToast } from "../ui/use-toast";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 const SignupForm = () => {
   const variants = ["flat", "bordered", "underlined", "faded"];
   const [isVisible, setIsVisible] = React.useState(false);
@@ -17,6 +18,7 @@ const SignupForm = () => {
     email: "",
     password: ''
   })
+  const route = useRouter()
   const { toast } = useToast()
 
   const { first_name, last_name, email, password } = user;
@@ -62,6 +64,7 @@ const SignupForm = () => {
           title: 'Successfully Registered'
         })
       }
+      route.push('/login')
 
     } catch (error) {
       console.log(error.message)

@@ -1,5 +1,4 @@
 'use client'
-import { storage } from "@/appwrite/appwrite.config";
 import Product from "@/components/Cards/Product";
 import HeroSlider from "@/components/HomePage/Slider";
 import NormalButton from "@/components/buttons/NormalButton";
@@ -10,7 +9,6 @@ import React, { useEffect, useState } from "react";
 
 const page = () => {
   const [response, setResponse] = useState()
-  const [image, setImage] = useState([])
   const CtgImg = [
     { link: "/CategoryImg/1.jpg", title: 'Residence' },
     { link: "/CategoryImg/3.jpg", title: 'Commercial' },
@@ -21,19 +19,11 @@ const page = () => {
   const fetchProduct = async () => {
     const res = await axios.get('/api/get-product-cards')
     setResponse(res)
-    const array = []
-    res.data.map((e) => { array.push(e.images) })
-    setImage(array)
   }
 
   useEffect(() => {
     fetchProduct();
   }, [])
-
-  useEffect(() => {
-    console.log(image)
-
-  }, [image])
 
   return (
     <main className="flex flex-col">
@@ -69,7 +59,7 @@ const page = () => {
                 sku={e.sku}
                 title={e.title}
                 key={i}
-                link={image[i]}
+                link={e.images}
                 price={e.price}
               />
             })

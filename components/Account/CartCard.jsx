@@ -8,7 +8,6 @@ import { useToast } from '../ui/use-toast'
 
 const CartCard = ({ sku, id }) => {
   const [response, setResponse] = useState();
-  const [image, setImage] = useState('');
   const [quantity, setQuantity] = useState(1)
   const {toast} = useToast()
   const remove = async () => {
@@ -33,7 +32,6 @@ const CartCard = ({ sku, id }) => {
           sku,
         });
         setResponse(res.data);
-        getFilePreview(res.data.images[0]);
       } catch (error) {
         console.error("Error fetching product:", error);
       }
@@ -42,16 +40,32 @@ const CartCard = ({ sku, id }) => {
     }
   };
 
-  const getFilePreview = async (imageId) => {
-    try {
-      const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', imageId);
-      const link = imageLink.href.replace('/preview?', '/view?')
-      setImage(link);
-    } catch (error) {
-      console.error("Error fetching image:", error);
-    }
+  const isArrayofObjects = (value) => {
+    return Array.isArray(value) && value.length > 0 && typeof value[0] === 'object';
   };
 
+  const getFilePreview = (image) => {
+    if (isArrayofObjects(image)) {
+      const firstImage = image[0].link || '';
+      return firstImage
+    }
+
+    if (Array.isArray(image) && image.length > 0 && typeof image[0] === 'string') {
+      return getModifiedUrl(image[0]);
+    }
+
+    if (typeof image === 'string') {
+      return getModifiedUrl(image);
+    }
+
+    return '';
+  };
+
+  const getModifiedUrl = (image) => {
+    const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', image);
+    return imageLink.href.replace('/preview?', '/view?');
+  };
+  
   useEffect(() => {
     fetchProduct();
   }, [sku]);
@@ -64,7 +78,7 @@ const CartCard = ({ sku, id }) => {
       <hr />
       <div className='flex gap-3'>
         <Image
-          src={image || "/"}
+          src={response && getFilePreview(response.images) || "/"}
           priority
           width={500}
           height={500}

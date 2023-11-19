@@ -12,7 +12,6 @@ const ProductSlide = ({ image, name }) => {
   const getPreview = () => {
     const array = [];
     image.map(imageItem => {
-      // Check if the image item is an object or a string
       if (typeof imageItem === 'object' && imageItem.link) {
         array.push(imageItem.link);
       } else if (typeof imageItem === 'string') {

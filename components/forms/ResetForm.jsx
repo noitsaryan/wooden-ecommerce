@@ -6,6 +6,7 @@ import { Button } from "@nextui-org/react";
 import { useSearchParams } from 'next/navigation';
 import { useToast } from '../ui/use-toast';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 function ResetForm() {
   const [mPassword, setPassword] = useState({
@@ -20,6 +21,7 @@ function ResetForm() {
   const user = params.get('user')
   const toggleVisibility = () => setIsVisible(!isVisible);
   const toggleConfirmVisibility = () => setConfirmIsVisible(!confirmIsVisible);
+  const route = useRouter()
 
   const {new_pass, cnf_pass} = mPassword 
 
@@ -62,6 +64,7 @@ function ResetForm() {
           toast({
             title: "Successfully Changed Password"
           })
+          route.push('/login')
           return;
         }
       } catch (error) {
