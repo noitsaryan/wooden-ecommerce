@@ -36,7 +36,7 @@ export async function adminLogin(email, password, token) {
     const isTrue = await compare(password, admin.authentication.password);
     if (!isTrue) return "Password didn't matched";
     console.log('Mailed')
-    sendMail(
+    await sendMail(
       "Authentication Token",
       email,
       `
