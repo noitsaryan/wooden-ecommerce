@@ -15,7 +15,7 @@ const ProductSlide = ({ image, name }) => {
       if (typeof imageItem === 'object' && imageItem.link) {
         array.push(imageItem.link);
       } else if (typeof imageItem === 'string') {
-        const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', imageItem);
+        const imageLink = storage.getFilePreview('655a5d3abb5e5f5b80cc', imageItem);
         let modifiedUrl = imageLink.href.replace('/preview?', '/view?');
         array.push(modifiedUrl);
       }

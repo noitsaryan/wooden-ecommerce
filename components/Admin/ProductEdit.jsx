@@ -79,6 +79,7 @@ function ProductEdit({ values }) {
     const [firstImages, setFirstImages] = useState([]);
     const [colorState, setColorState] = useState([]);
     const { toast } = useToast()
+
     const handleChange = (e) => {
         const { value, name } = e.target;
         setInput((prev) => ({
@@ -86,42 +87,31 @@ function ProductEdit({ values }) {
             [name]: value,
         }));
     };
-
     const getPreview = () => {
         try {
             const array = [];
-
             data && data.images.map((e, i) => {
                 let image;
-
-                // Check if it's an array of objects or array of IDs
                 if (typeof e === 'object' && e.link && e.id) {
-                    // If it's an object with link and id, use it directly
                     image = { href: e.link, id: e.id };
                 } else if (typeof e === 'string') {
-                    // If it's a string, pass it through storage.getFilePreview function
-                    image = storage.getFilePreview('65477266d57cd5b74b8c', e);
+                    image = storage.getFilePreview('655a5d3abb5e5f5b80cc', e);
                 } else {
-                    // Handle other cases as needed
                     console.log(`Unsupported data format at index ${i}`);
                     return;
                 }
-
                 const updatedLink = image.href.replace('/preview?', '/view?');
                 array.push({ link: updatedLink, id: `image-${i}` });
             });
-
+            console.log(array)
             setImages(array);
         } catch (error) {
             console.log(error.message);
         }
     };
-
-
     const isArrayofObjects = (value) => {
         return Array.isArray(value) && value.length > 0 && typeof value[0] === 'object';
     };
-
     const getFilePreview = (image) => {
         if (isArrayofObjects(image)) {
             const firstImage = image[0].link || '';
@@ -139,11 +129,9 @@ function ProductEdit({ values }) {
         return '';
     };
     const getModifiedUrl = (image) => {
-        const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', image);
+        const imageLink = storage.getFilePreview('655a5d3abb5e5f5b80cc', image);
         return imageLink.href.replace('/preview?', '/view?');
     };
-
-
     const handleDragEnd = (result) => {
         const { active, over } = result;
         if (active.id === over.id) {
@@ -156,7 +144,6 @@ function ProductEdit({ values }) {
             return array;
         });
     };
-
     const handleAddColor = () => {
         const newColor = input.newColor;
         if (!data.variation.color.includes(newColor)) {
@@ -175,7 +162,6 @@ function ProductEdit({ values }) {
             newColor: '',
         }));
     };
-
     const handleAddSize = () => {
         const newName = input.newName;
         const newMeasure = input.newMeasure;
@@ -198,7 +184,6 @@ function ProductEdit({ values }) {
             }));
         }
     };
-
     const handleAddSpecification = () => {
         const newName = input.newSpecName;
         const newValue = input.newSpecValue;
@@ -216,7 +201,6 @@ function ProductEdit({ values }) {
             }));
         }
     };
-
     const changeColor = (e, i) => {
         const updatedColors = [...data.variation.color];
         updatedColors[i] = e.target.value;
@@ -229,7 +213,6 @@ function ProductEdit({ values }) {
             },
         }));
     }
-
     const updateProducts = async () => {
         try {
             const response = await updateProduct(input.title, parseInt(input.price), input.description, data.specification, data.variation.color, images, input.sku, data.variation.size, input.warranty, input.maintenance)
@@ -238,11 +221,11 @@ function ProductEdit({ values }) {
                     title: 'Product Updated'
                 })
             }
+            window.location.reload()
         } catch (error) {
             console.log(error.message)
         }
     }
-
     const deleteProduct = async () => {
         try {
             const product = await axios.post('/api/delete-product', {
@@ -253,7 +236,6 @@ function ProductEdit({ values }) {
             console.log(error.message)
         }
     }
-
     useEffect(() => {
         setInput({
             category: values.category,
@@ -276,8 +258,6 @@ function ProductEdit({ values }) {
         getFilePreview(values.images)
         getPreview();
     }, [values]);
-
-
     return (
         <TableBody>
             <TableRow>

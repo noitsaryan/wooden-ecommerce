@@ -55,7 +55,7 @@ function page() {
         sku: product_sku
       })
       setResponse(product.data)
-      const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', product.data?.images?.[0])
+      const imageLink = storage.getFilePreview('655a5d3abb5e5f5b80cc', product.data?.images?.[0])
       const updatedImage = imageLink.href.replace('/preview?', '/view?')
       setImage(updatedImage)
 

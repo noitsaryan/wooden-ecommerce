@@ -24,7 +24,7 @@ const OrderCard = ({ sku, price, quantity, status, payment, totalPrice }) => {
     // Make sure response is not null and has the images array
     if (response && response.images && response.images.length > 0) {
       const fileId = response.images[0];
-      const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', fileId);
+      const imageLink = storage.getFilePreview('655a5d3abb5e5f5b80cc', fileId);
       setImage(imageLink.href);
     }
   };

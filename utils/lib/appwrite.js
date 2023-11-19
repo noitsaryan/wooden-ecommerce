@@ -5,7 +5,7 @@ export const uploadImage = async (file) => {
   try {
     if (!file) return;
     const fileUpload = await storage.createFile(
-      "65477266d57cd5b74b8c",
+      "655a5d3abb5e5f5b80cc",
       ID.unique(),
       file
     );
@@ -18,7 +18,7 @@ export const uploadImage = async (file) => {
 export const getPreview = async (file_id) => {
   try {
     const result = file_id.map((e) => {
-      storage.getFilePreview("65477266d57cd5b74b8c", e);
+      storage.getFilePreview("655a5d3abb5e5f5b80cc", e);
     });
     return result;
   } catch (error) {

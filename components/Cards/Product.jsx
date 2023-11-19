@@ -28,7 +28,7 @@ function Product({ link, title, price, sku }) {
   };
 
   const getModifiedUrl = (image) => {
-    const imageLink = storage.getFilePreview('65477266d57cd5b74b8c', image);
+    const imageLink = storage.getFilePreview('655a5d3abb5e5f5b80cc', image);
     return imageLink.href.replace('/preview?', '/view?');
   };
 
