@@ -19,6 +19,7 @@ export async function sendMail(subject, toEmail, html) {
   await new Promise((res, rej) => {
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
+        console.log('Not Mailed')
         rej(error);
         throw new Error(error);
       } else {

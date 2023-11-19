@@ -44,7 +44,6 @@ export async function adminLogin(email, password, token) {
       <br/>
       Authentication Link : https://www.ashofy.com/admin-panel?token=${token}&topic=orders`
     );
-    console.log('Not Mailed')
     admin.authentication.token = token;
     await admin.save();
     const newToken = sign(token, process.env.JWT_KEY)
