@@ -12,17 +12,17 @@ export default function RootLayout({ children }) {
   // const [rangeValue, setRangeValue]=useState([])
 
   return (
-    <main className='p-4 space-y-5'>
+    <main className='p-4 space-y-6'>
       <hr />
       <Head1 />
       {!shouldHideDiv && (
         <div className={`w-full flex md:justify-between mx-auto items-center md:flex-row flex-col gap-5 justify-center`}>
-          <TabShop />
+          <TabShop  />
           {/* <RangeSlider setRangeValue={setRangeValue}/> */}
         </div>
       )}
       {children}
-      <span className='w-full flex items-center justify-center'>
+      <span className='w-full  flex items-center justify-center'>
         {
             !shouldHideDiv && (
         <Paginate />
