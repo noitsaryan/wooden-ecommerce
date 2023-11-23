@@ -1,26 +1,23 @@
+// ContactPage.js
+
 import Link from "next/link";
 import React from "react";
 
-const page = () => {
+const ContactPage = () => {
   return (
-    <section className="p-2 flex flex-col items-center justify-center w-screen space-y-9">
-      <h2 className="bg-Primary px-1 text-white text-3xl font-light ">
-        Contacts
-      </h2>
-      <div className="max-w-3xl space-y-10">
-        <ul>
-          <li>
-            <b>Operational Address: </b> Shop No-03, C-23, Poonam Sagar Complex, Mira Road(E), Thane,
-            Maharashtra, Pin - 401107
-          </li>
-          <li> <b className="font-bold">Email: </b> <Link href="mailto:info@ashofy.com" className="hover:text-Primary hover:underline">info@ashofy.com</Link>
-          </li>
-          <li> <b className="font-bold">Phone: </b>+91 98192 15088
-          </li>
-        </ul>
-      </div>
-    </section>
+
+    <div className="max-w-2xl mx-auto mt-8 p-8 bg-white rounded shadow">
+      <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
+      <p className="mb-4">Last updated: 23/11/23</p>
+      < h2 className="text-2xl font-bold mt-4" > 1. Details</h2 >
+      <ul className="list-disc ml-6">
+        <li>Operational Address: Shop No-03, C-23, Poonam Sagar Complex, Mira Road(E), Thane,
+          Maharashtra, Pin - 401107</li>
+        <li>Email: info@ashofy.com</li>
+        <li>Phone: +91 98192 15088</li>
+      </ul>
+    </div >
   );
 };
 
-export default page;
+export default ContactPage;

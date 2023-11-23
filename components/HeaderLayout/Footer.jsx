@@ -48,8 +48,18 @@ function Footer() {
                 </h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
                   <li>
-                    <Link href="/return_policy" className="hover:underline">
-                      Return Policy
+                    <Link href="/privacy_policy" className="hover:underline">
+                      Privacy Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/cancellation_refund" className="hover:underline">
+                      Cancellation &amp; Refund
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/shipping_delivery" className="hover:underline">
+                      Shipping &amp; Delivery
                     </Link>
                   </li>
                   <li  className="my-4">

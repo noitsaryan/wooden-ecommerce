@@ -1,86 +1,46 @@
-import React from 'react'
+// TermsAndConditions.js
 
-const page = () => {
-  return (
-    <section className='p-2 flex flex-col items-center justify-center w-screen space-y-9'>
-      <h2 className='bg-Primary px-1 text-white text-3xl font-light '>Terms and Conditions - Ashofy</h2>
-     <div  className='max-w-3xl space-y-7'>
-     <div>
-        <b>1. Acceptance of Terms:</b>
-        <ul>
-          <li>By using the Ashofy website ("the Site") and its services, you agree to comply with and be bound by the following terms and conditions.</li>
-          <li>If you do not agree with any part of these terms and conditions, please do not use the Site.</li>
-        </ul>
-      </div>
+import React from 'react';
 
-      <div>
-        <b>2. Products and Services:</b>
-        <ul>
-          <li>Ashofy offers furniture and interior decor products for sale through the Site.</li>
-          <li>All products are subject to availability, and Ashofy reserves the right to modify or discontinue any product at any time without prior notice.</li>
-        </ul>
-      </div>
+const TermsAndConditions = () => {
+    return (
+        <div className="max-w-2xl mx-auto mt-8 p-8 bg-white rounded shadow">
+            <h1 className="text-4xl font-bold mb-6">Terms and Conditions</h1>
+            <p className="mb-4">Effective Date: 23/11/23</p>
 
-      <div>
-        <b>3. Pricing and Payment:</b>
-        <ul>
-          <li>All prices displayed on the Site are in the local currency and are inclusive of applicable taxes.</li>
-          <li>Ashofy strives to ensure accurate pricing information, but in the event of a pricing error, Ashofy reserves the right to cancel or refuse any orders placed at the incorrect price.</li>
-          <li>Payment for orders must be made through the available payment methods provided on the Site.</li>
-        </ul>
-      </div>
+            <h2 className="text-2xl font-bold mt-4">1. Contact Information</h2>
+            <p>If you have any questions or concerns regarding these Terms and Conditions, please contact us at info@ashofy.com.</p>
 
-      <div>
-        <b>4. Intellectual Property:</b>
-        <ul>
-          <li>The Site and its contents, including but not limited to text, graphics, images, logos, and software, are the property of Ashofy and are protected by intellectual property laws.</li>
-          <li>You may not reproduce, distribute, modify, or create derivative works of any part of the Site without prior written consent from Ashofy.</li>
-        </ul>
-      </div>
+            <h2 className="text-2xl font-bold mt-4">2. Limitation of Liability and Disclaimer of Warranties</h2>
+            <p>By using the Ashofy website, you agree that:</p>
+            <ul className="list-disc ml-6">
+                <li>We are not responsible for any damage or loss related to your use of the website.</li>
+                <li>We do not guarantee the accuracy, completeness, or timeliness of the information on the website.</li>
+                <li>We disclaim all warranties, express or implied, including but not limited to the implied warranties of merchantability and fitness for a particular purpose.</li>
+            </ul>
 
-      <div>
-        <b>5. User Conduct:</b>
-        <ul>
-          <li>By using the Site, you agree not to engage in any activities that may disrupt or interfere with the proper functioning of the Site or infringe upon the rights of others.</li>
-          <li>You are solely responsible for any content you submit or post on the Site and must not violate any applicable laws or regulations.</li>
-        </ul>
-      </div>
+            <h2 className="text-2xl font-bold mt-4">3. Rules of Conduct</h2>
+            <p>While using the Ashofy website, you agree to abide by the following rules of conduct:</p>
+            <ul className="list-disc ml-6">
+                <li>Do not violate any applicable laws or regulations.</li>
+                <li>Do not infringe on the rights of others, including intellectual property rights.</li>
+                <li>Do not engage in any form of deceptive or misleading conduct.</li>
+                <li>Do not upload or transmit any harmful or malicious content.</li>
+                <li>Do not interfere with the proper functioning of the website.</li>
+            </ul>
 
-      <div>
-        <b>6. Limitation of Liability:</b>
-        <ul>
-          <li>Ashofy shall not be liable for any direct, indirect, incidental, consequential, or exemplary damages arising out of your use of the Site or any products purchased through the Site.</li>
-          <li>Ashofy's liability, if any, shall be limited to the amount paid by you for the specific product or service giving rise to the claim.</li>
-        </ul>
-      </div>
+            <h2 className="text-2xl font-bold mt-4">4. User Restrictions</h2>
+            <p>When using the Ashofy website, you are restricted from:</p>
+            <ul className="list-disc ml-6">
+                <li>Attempting to gain unauthorized access to the website or any of its features.</li>
+                <li>Using the website for any unlawful purpose.</li>
+                <li>Engaging in any conduct that restricts or inhibits any other user from using or enjoying the website.</li>
+                <li>Reverse engineering, decompiling, or disassembling any part of the website.</li>
+            </ul>
 
-      <div>
-        <b>7. Governing Law:</b>
-        <ul>
-          <li>These terms and conditions shall be governed by and construed in accordance with the laws of [your jurisdiction].</li>
-          <li>Any disputes arising out of or relating to these terms and conditions shall be resolved exclusively by the courts of [your jurisdiction].</li>
-        </ul>
-      </div>
-      <div>
-        <b>8. Shipping Policy:</b>
-        <ul>
-          <li>Ones the order is placed the shipment will be done in next 2-4 weeks ( min-2 weeks and max-4 weeks depending on the order) followed by the delivery in next 2-3 business days.</li>
-        </ul>
-      </div>
+            <p className="mt-6">These Terms and Conditions are subject to change. Changes will take effect immediately upon their posting on the website.</p>
+        </div>
+    );
+};
 
-      <div>
-        <b>9. Customer Care:</b>
-        <ul>
-          <li>For any query regarding the order, customer can directly reach us through email provided on the website.</li>
-        </ul>
-      </div>
-
-      <div>
-        Please note that these terms and conditions are subject to change, and you are encouraged to review the latest version on the Ashofy website regularly.
-      </div>
-     </div>
-    </section>
-  )
-}
-
-export default page
+export default TermsAndConditions;
