@@ -43,7 +43,7 @@ function Header() {
        
 
           <Link href="/">
-          <Image src="/LOGO/ashofy_logo.svg" width={500} height={500} alt='LOGO' className='w-44'/>
+          <Image src="/LOGO/ashofy_logo.svg" width={500} height={500} alt='LOGO' className='w-52'/>
           </Link>
         <span className='md:flex hidden'><NavMenu/></span>
         <div className='flex items-center justify-center gap-8'>

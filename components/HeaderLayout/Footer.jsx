@@ -9,7 +9,7 @@ function Footer() {
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
             <Link href="/">
-            <Image src="/LOGO/ashofy_logo.svg" width={500} height={500} alt='LOGO' className='w-52'/>
+            <Image src="/LOGO/ashofy_logo.svg" width={500} height={500} alt='LOGO' className='w-56'/>
           </Link>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
