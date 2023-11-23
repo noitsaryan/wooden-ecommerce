@@ -10,11 +10,13 @@ const page = () => {
       <div className="max-w-3xl space-y-10">
         <ul>
           <li>
-            <b>Address: </b> Shop No-03, C-23, Poonam Sagar Complex, Mira Road(E), Thane,
+            <b>Operational Address: </b> Shop No-03, C-23, Poonam Sagar Complex, Mira Road(E), Thane,
             Maharashtra, Pin - 401107
           </li>
-          <li> <b>Email: </b> <Link href="mailto:info@ashokinteriors.com" className="hover:text-Primary hover:underline">Email: info@ashokinteriors.com</Link>
-</li>
+          <li> <b className="font-bold">Email: </b> <Link href="mailto:info@ashofy.com" className="hover:text-Primary hover:underline">info@ashofy.com</Link>
+          </li>
+          <li> <b className="font-bold">Phone: </b>+91 98192 15088
+          </li>
         </ul>
       </div>
     </section>
