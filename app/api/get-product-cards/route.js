@@ -6,7 +6,11 @@ export async function GET() {
   try {
     await connectDB();
     const product = await getProductsForCard();
-    return NextResponse.json(product);
+
+    const response = NextResponse.json(product);
+    response.headers.set("Cache-Control", "no-cache");
+
+    return response;
   } catch (error) {
     return NextResponse.json({
       message: error.message,
