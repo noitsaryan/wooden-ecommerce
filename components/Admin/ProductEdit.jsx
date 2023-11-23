@@ -103,9 +103,7 @@ function ProductEdit({ values }) {
                 const updatedLink = image.href.replace('/preview?', '/view?');
                 array.push({ link: updatedLink, id: `image-${i}` });
             });
-            console.log(array)
             setImages(array);
-            console.log('Ive ranned')
         } catch (error) {
             console.log(error.message);
         }
@@ -269,10 +267,10 @@ function ProductEdit({ values }) {
         getFilePreview(values.images)
         getPreview();
     }, [values]);
+
     useEffect(() => {
         getPreview();
     }, [data])
-
     return (
         <TableBody>
             <TableRow>
