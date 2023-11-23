@@ -48,18 +48,7 @@ export async function updateProduct(
 ) {
   try {
 
-    const res = await axios.put("/api/update-product", {
-      title,
-      price,
-      description,
-      specification,
-      color,
-      images,
-      sku,
-      size,
-      warranty,
-      maintenance,
-    });
+    
     return res;
   } catch (error) {
     return error.message;

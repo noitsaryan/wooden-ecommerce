@@ -215,13 +215,23 @@ function ProductEdit({ values }) {
     }
     const updateProducts = async () => {
         try {
-            const response = await updateProduct(input.title, parseInt(input.price), input.description, data.specification, data.variation.color, images, input.sku, data.variation.size, input.warranty, input.maintenance)
+            const response = await axios.put("/api/update-product", {
+                title: input.title,
+                price: parseInt(input.price),
+                description: input.description,
+                specification: data.specification,
+                color: data.variation.color,
+                images,
+                sku: input.sku,
+                size: data.variation.size,
+                warranty: input.warranty,
+                maintenance: input.maintenance,
+            });
             if (response.data) {
                 toast({
                     title: 'Product Updated'
                 })
             }
-            window.location.reload()
         } catch (error) {
             console.log(error.message)
         }
