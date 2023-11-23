@@ -1,29 +1,17 @@
-'use client'
-import Product from "@/components/Cards/Product";
 import HeroSlider from "@/components/HomePage/Slider";
+import ProductShopPage from "@/components/ProductShopPage";
 import NormalButton from "@/components/buttons/NormalButton";
-import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const page = () => {
-  const [response, setResponse] = useState()
   const CtgImg = [
     { link: "/CategoryImg/1.jpg", title: 'Residence' },
     { link: "/CategoryImg/3.jpg", title: 'Commercial' },
     { link: "/CategoryImg/2.jpg", title: 'Studios' },
     { link: "/CategoryImg/4.jpg", title: 'Lighting' }
   ]
-
-  const fetchProduct = async () => {
-    const res = await axios.get('/api/get-product-cards')
-    setResponse(res)
-  }
-
-  useEffect(() => {
-    fetchProduct();
-  }, [])
 
   return (
     <main className="flex flex-col">
@@ -52,19 +40,7 @@ const page = () => {
           <h1 className="text-Dark text-2xl font-light text-center -tracking-2"> LATEST PRODUCTS </h1>
           <h1 className="text-Dark text-sm font-light  text-center"> Check out our latest products </h1>
         </span>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-          {
-            response && response.data.map((e, i) => {
-              return <Product
-                sku={e.sku}
-                title={e.title}
-                key={i}
-                link={e.images}
-                price={e.price}
-              />
-            })
-          }
-        </div>
+        <ProductShopPage />
       </section>
 
       <NormalButton name="Check More Products" link="/shop" extraClass={"mt-7"} />

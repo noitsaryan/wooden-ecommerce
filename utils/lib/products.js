@@ -34,26 +34,6 @@ export async function createProduct(
     return error.message;
   }
 }
-export async function updateProduct(
-  title,
-  price,
-  description,
-  specification,
-  color,
-  images,
-  sku,
-  size,
-  warranty,
-  maintenance
-) {
-  try {
-
-    
-    return res;
-  } catch (error) {
-    return error.message;
-  }
-}
 export async function deleteProduct(sku) {
   try {
     const res = await axios.post("/api/delete-product", {
