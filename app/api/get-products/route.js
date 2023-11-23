@@ -6,7 +6,9 @@ export async function GET() {
     try {
         await connectDB()
         const data = await getProducts();
-        return NextResponse.json(data)
+        const response = NextResponse.json(data)
+        response.headers.set("Cache-Control", "no-cache")
+        return response
     } catch (error) {
         return NextResponse.json({message: error.message})
     }
