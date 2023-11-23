@@ -21,7 +21,6 @@ import { DndContext, closestCenter } from '@dnd-kit/core';
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Button } from '../ui/button';
-import { updateProduct } from '@/utils/lib/products';
 import axios from 'axios';
 import { useToast } from '../ui/use-toast';
 
@@ -89,6 +88,7 @@ function ProductEdit({ values }) {
     };
     const getPreview = () => {
         try {
+            if (!values) { console.log('Not fetched'); return; }
             const array = [];
             data && data.images.map((e, i) => {
                 let image;
@@ -105,6 +105,7 @@ function ProductEdit({ values }) {
             });
             console.log(array)
             setImages(array);
+            console.log('Ive ranned')
         } catch (error) {
             console.log(error.message);
         }
@@ -268,6 +269,10 @@ function ProductEdit({ values }) {
         getFilePreview(values.images)
         getPreview();
     }, [values]);
+    useEffect(() => {
+        getPreview();
+    }, [data])
+
     return (
         <TableBody>
             <TableRow>
