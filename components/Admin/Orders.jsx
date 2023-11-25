@@ -38,22 +38,30 @@ function Orders() {
 
   const getOrders = async () => {
     try {
-      console.log('clicked')
-      const res = await axios.get('/api/get-orders-user')
+      const response = await fetch('/api/get-orders-user', {
+        next: {
+          tags: 'order'
+        }
+      });
+
+      const data = await response.json();
+
       const array = [];
-      const orderLists = res.data.data.map((e) => {
+      const orderLists = data.data.map((e) => {
         const orderList = e.order_lists;
-        const user = e.user_id
+        const user = e.user_id;
         array.push({
           ...orderList,
           ...user
-        })
-      })
-      setOrder(array)
+        });
+      });
+
+      setOrder(array);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
+
 
   const updateStatus = async (id) => {
     try {
@@ -72,16 +80,14 @@ function Orders() {
     }
   }
 
-  const refresh = async () => await getOrders()
 
   useEffect(() => {
     getOrders()
-  },[])
+  }, [])
 
   return (
     <main className='max-w-6xl mx-auto '>
       <h1 className='text-2xl text-center my-4 font-medium'> Order Management </h1>
-      <Button onClick={refresh}>Refresh</Button>
       <Table>
         <TableHeader>
           <TableRow>
