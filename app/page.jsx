@@ -43,7 +43,7 @@ const page = () => {
         <ProductShopPage />
       </section>
 
-      <NormalButton name="Check More Products" link="/shop" extraClass={"mt-7"} />
+      <NormalButton name="Check More Products" link="/shop/all" extraClass={"mt-7"} />
 
     </main>
   );

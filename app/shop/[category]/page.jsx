@@ -1,5 +1,4 @@
 'use client'
-import { storage } from '@/appwrite/appwrite.config';
 import Product from '@/components/Cards/Product';
 import axios from 'axios';
 import { useParams } from 'next/navigation'
@@ -10,16 +9,14 @@ function page() {
     const params = useParams();
     const { category } = params;
     const fetchProducts = async (type) => {
-        if (category === 'residence' || category ==='commercial' || category === 'studio' || category === 'lighting') {
+        if (category === 'residence' || category === 'commercial' || category === 'studio' || category === 'lighting') {
             const res = await axios.post('/api/get-product-category', {
                 type
             })
             setResponse(res.data);
             return;
-        }
-        const res = await axios.post('/api/get-product-subcategory', {
-            type
-        })
+        } 
+        const res = await axios.get('/api/get-products')
         setResponse(res.data)
     }
 
