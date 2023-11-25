@@ -9,6 +9,7 @@ import { useState } from "react";
 export default function RootLayout({ children }) {
   const path = usePathname();
   const shouldHideDiv = path.split("/").length > 3; 
+
   // const [rangeValue, setRangeValue]=useState([])
 
   return (
@@ -25,7 +26,7 @@ export default function RootLayout({ children }) {
       <span className='w-full  flex items-center justify-center'>
         {
             !shouldHideDiv && (
-        <Paginate />
+        <Paginate/>
                 
             )
         }

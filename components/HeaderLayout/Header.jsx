@@ -39,11 +39,11 @@ function Header() {
 
   return (
     <header className={`py-3  px-8 z-50 ${isSticky ? 'fixed top-0 left-0 right-0 bg-white shadow-md' : ''}`}>
-      <nav className='flex items-center justify-between'>
+      <nav className='flex items-center justify-between gap-5'>
        
 
           <Link href="/">
-          <Image src="/LOGO/ashofy_logo.jpg" width={900} height={900} alt='LOGO' className='w-56'/>
+          <Image src="/LOGO/ashofy_logo.jpg" width={900} height={900} alt='LOGO' className='md:w-56 w-44'/>
           </Link>
         <span className='md:flex hidden'><NavMenu/></span>
         <div className='flex items-center justify-center gap-8'>
@@ -51,8 +51,8 @@ function Header() {
         </div>
         {
           navDisplay ? 
-        <RiCloseLine className='text-2xl md:hidden flex' onClick={()=>setNavDisplay(!navDisplay)}/>
-        :<RiMenu3Fill className='text-2xl md:hidden flex' onClick={()=>setNavDisplay(!navDisplay)}/>
+        <RiCloseLine className='text-3xl md:hidden flex' onClick={()=>setNavDisplay(!navDisplay)}/>
+        :<RiMenu3Fill className='text-3xl md:hidden flex' onClick={()=>setNavDisplay(!navDisplay)}/>
         }
       </nav>
       {/* For Phone responsiveness  */}
