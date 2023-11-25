@@ -49,16 +49,40 @@ function page() {
     }
   }
 
+  const isArrayofObjects = (value) => {
+    return Array.isArray(value) && value.length > 0 && typeof value[0] === 'object';
+  };
+
+  const getFilePreview = (image) => {
+    if (isArrayofObjects(image)) {
+      const firstImage = image[0].link || '';
+      return firstImage
+    }
+
+    if (Array.isArray(image) && image.length > 0 && typeof image[0] === 'string') {
+      return getModifiedUrl(image[0]);
+    }
+
+    if (typeof image === 'string') {
+      return getModifiedUrl(image);
+    }
+
+    return '';
+  };
+
+  const getModifiedUrl = (image) => {
+    const imageLink = storage.getFilePreview('655a5d3abb5e5f5b80cc', image);
+    return imageLink.href.replace('/preview?', '/view?');
+  };
+
   const fetchProduct = async () => {
     try {
       const product = await axios.post('/api/get-product-id', {
         sku: product_sku
       })
       setResponse(product.data)
-      const imageLink = storage.getFilePreview('655a5d3abb5e5f5b80cc', product.data?.images?.[0])
-      const updatedImage = imageLink.href.replace('/preview?', '/view?')
-      setImage(updatedImage)
-
+      const imageSrc = getFilePreview(product.data.images) || "/";
+      setImage(imageSrc)
     } catch (error) {
       console.log(error.message)
     }
@@ -115,13 +139,13 @@ function page() {
             </div>
             <div className="space-y-2 bg-gray-50 p-3 border">
               <div className="flex items-center space-x-2">
-                <Checkbox id="terms" onChange={(e) => setCheck(e.target.checked)}  />
+                <Checkbox id="terms" onChange={(e) => setCheck(e.target.checked)} />
                 <p> Buying For Your Business? </p>
               </div>
               <label htmlFor="shipping" className="text-sm text-Primary">Billing Address</label>
-              <Input disabled={check? false : true} placeholder=" Billing Address" name="billing" onChange={handleChange} value={billing} />
+              <Input disabled={check ? false : true} placeholder=" Billing Address" name="billing" onChange={handleChange} value={billing} />
               <label htmlFor="shipping" className="text-sm text-Primary">GST No</label>
-              <Input disabled={check? false : true} placeholder=" GST Number" name="gst" onChange={handleChange} value={gst} />
+              <Input disabled={check ? false : true} placeholder=" GST Number" name="gst" onChange={handleChange} value={gst} />
             </div>
           </div>
         </div>
