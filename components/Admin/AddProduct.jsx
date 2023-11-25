@@ -272,3 +272,4 @@ function AddProduct() {
 }
 
 export default AddProduct
+export const dynamic = "force-dynamic"

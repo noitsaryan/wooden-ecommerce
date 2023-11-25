@@ -62,7 +62,7 @@ const PrivacyPolicy = () => {
             <p>We reserve the right to modify this Privacy Policy at any time. Changes and clarifications will take effect immediately upon their posting on the website.</p>
 
             <h2 className="text-2xl font-bold mt-4">9. Contact Us</h2>
-            <p>If you have any questions or concerns regarding this Privacy Policy, please contact us at info@ashofy.com.</p>
+            <p>If you have any questions or concerns regarding this Privacy Policy, please contact us at ashofy@ashokinteriors.com.</p>
 
             <p className="mt-6">By using our website, you consent to the terms of this Privacy Policy.</p>
         </div>

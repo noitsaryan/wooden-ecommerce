@@ -64,3 +64,4 @@ function EditProduct() {
 }
 
 export default EditProduct
+export const dynamic = "force-dynamic"

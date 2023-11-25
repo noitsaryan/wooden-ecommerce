@@ -9,7 +9,7 @@ const TermsAndConditions = () => {
             <p className="mb-4">Effective Date: 23/11/23</p>
 
             <h2 className="text-2xl font-bold mt-4">1. Contact Information</h2>
-            <p>If you have any questions or concerns regarding these Terms and Conditions, please contact us at info@ashofy.com.</p>
+            <p>If you have any questions or concerns regarding these Terms and Conditions, please contact us at ashofy@ashokinteriors.com.</p>
 
             <h2 className="text-2xl font-bold mt-4">2. Limitation of Liability and Disclaimer of Warranties</h2>
             <p>By using the Ashofy website, you agree that:</p>

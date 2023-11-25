@@ -203,3 +203,4 @@ function Orders() {
 }
 
 export default Orders
+export const dynamic = "force-dynamic"
