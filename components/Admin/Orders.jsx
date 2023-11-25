@@ -35,9 +35,10 @@ function Orders() {
   const [stage, setStage] = useState(String)
   const [message, setMessage] = useState(String)
   const { toast } = useToast()
-  const router = useRouter()
+
   const getOrders = async () => {
     try {
+      console.log('clicked')
       const res = await axios.get('/api/get-orders-user')
       const array = [];
       const orderLists = res.data.data.map((e) => {
@@ -208,4 +209,3 @@ function Orders() {
 }
 
 export default Orders
-export const dynamic = "force-dynamic"
