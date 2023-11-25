@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/collapsible"
 import { ChevronsUpDown, Plus, X } from "lucide-react"
 import { useToast } from '../ui/use-toast'
+import { useRouter } from 'next/navigation'
 
 function Orders() {
   const [orders, setOrder] = useState(Array)
@@ -34,6 +35,7 @@ function Orders() {
   const [stage, setStage] = useState(String)
   const [message, setMessage] = useState(String)
   const { toast } = useToast()
+  const router = useRouter()
   const getOrders = async () => {
     try {
       const res = await axios.get('/api/get-orders-user')
@@ -63,19 +65,22 @@ function Orders() {
         toast({
           title: "Status Updated Successfully"
         })
-        window.location.reload()
       }
     } catch (error) {
       console.log(error.message)
     }
   }
 
+  const refresh = async () => await getOrders()
+
   useEffect(() => {
     getOrders()
-  }, [])
+  },[])
+
   return (
     <main className='max-w-6xl mx-auto '>
       <h1 className='text-2xl text-center my-4 font-medium'> Order Management </h1>
+      <Button onClick={refresh}>Refresh</Button>
       <Table>
         <TableHeader>
           <TableRow>
