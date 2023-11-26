@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 export { default } from "next-auth/middleware";
 
 export async function middleware(request) {
+
     if (request.nextUrl.pathname.startsWith("/admin-panel")) {
         const token = request.nextUrl.searchParams.get('token')
         const cookieToken = request.cookies.get('__admin_token')
@@ -14,18 +15,19 @@ export async function middleware(request) {
         }
         return;
     }
-    if(request.nextUrl.pathname.startsWith("/account")){
-        const checkCookie = request.cookies.has('next-auth.session-token')
+   if(request.nextUrl.pathname.startsWith("/account")){
+        const checkCookie = request.cookies.has('__Secure-next-auth.session-token')
         if(!checkCookie){
             return NextResponse.redirect('https://ashofy.com/login')
         }
     }
     if(request.nextUrl.pathname.startsWith("/account/:path*")){
-        const checkCookie = request.cookies.has('next-auth.session-token')
+        const checkCookie = request.cookies.has('__Secure-next-auth.session-token')
         if(!checkCookie){
             return NextResponse.redirect('https://ashofy.com/login')
         }
     }
+ 
 }
 
 export const config = {
