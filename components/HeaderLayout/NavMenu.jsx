@@ -15,10 +15,10 @@ function NavMenu() {
             <HoverCard>
                 <HoverCardTrigger className='cursor-pointer flex items-center'>Collection <BiChevronDown/></HoverCardTrigger>
                 <HoverCardContent className="flex flex-col gap-2">
-                    <Link href="/shop/residence" className='hover:opacity-60 transition-all' >Residence</Link>
-                    <Link href="/shop/commercial" className='hover:opacity-60 transition-all' >Commercial</Link>
-                    <Link href="/shop/studios" className='hover:opacity-60 transition-all' >Studios</Link>
-                    <Link href="/shop/lighting" className='hover:opacity-60 transition-all' >Lighting</Link>
+                    <Link href="/shop/residence?p=1" className='hover:opacity-60 transition-all' >Residence</Link>
+                    <Link href="/shop/commercial?p=1" className='hover:opacity-60 transition-all' >Commercial</Link>
+                    <Link href="/shop/studios?p=1" className='hover:opacity-60 transition-all' >Studios</Link>
+                    <Link href="/shop/lighting?p=1" className='hover:opacity-60 transition-all' >Lighting</Link>
                 </HoverCardContent>
             </HoverCard>
             <HoverCard>
