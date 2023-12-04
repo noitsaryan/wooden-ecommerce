@@ -252,7 +252,7 @@ export function Search() {
                       Orders
                     </Link>
                     <Link
-                      href="/account/cart"
+                      href="/account/carts"
                       className="hover:bg-slate-100 transition-all pl-1 rounded-lg pr-3 py-1"
                     >
                       Cart
@@ -281,7 +281,7 @@ export function Search() {
                 )}
               </HoverCardContent>
             </HoverCard>
-            <Link href="/account/cart">
+            <Link href="/account/carts">
               <ShoppingCartOutlinedIcon className="text-3xl hover:text-Dark/40 cursor-pointer transition-all text-Dark" />
             </Link>
           </div>
