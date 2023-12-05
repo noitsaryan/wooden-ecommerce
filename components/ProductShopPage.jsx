@@ -22,9 +22,7 @@ function ProductShopPage() {
   return (
     <section className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-2 gap-6">
       {response &&
-        response.data
-          .slice(page ? Math.max(page * 12 - 12, 0) : 0, page ? page * 12 : 12)
-          .map((e, i) => (
+        response.data.map((e, i) => (
             <Product
               key={i}
               sku={e.sku}

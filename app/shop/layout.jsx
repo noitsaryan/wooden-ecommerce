@@ -19,7 +19,6 @@ export default function RootLayout({ children }) {
       {!shouldHideDiv && (
         <div className={`w-full flex md:justify-between mx-auto items-center md:flex-row flex-col gap-5 justify-center`}>
           <TabShop  />
-          {/* <RangeSlider setRangeValue={setRangeValue}/> */}
         </div>
       )}
       {children}
@@ -27,7 +26,6 @@ export default function RootLayout({ children }) {
         {
             !shouldHideDiv && (
         <Paginate/>
-                
             )
         }
       </span>

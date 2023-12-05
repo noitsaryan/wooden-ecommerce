@@ -64,7 +64,7 @@ function Header() {
          <Link href="/shop/residence?p=1" className='cursor-pointer hover:opacity-70 transition-all'>Residence</Link>
           <Link href="/shop/commercial?p=1" className='cursor-pointer hover:opacity-70 transition-all'>Commercial</Link>
           <Link href="/shop/lighting?p=1" className='cursor-pointer hover:opacity-70 transition-all'>Lighting</Link>
-          <Link href="/shop/studios?p=1" className='cursor-pointer hover:opacity-70 transition-all'>Studios</Link>
+          <Link href="/shop/studio?p=1" className='cursor-pointer hover:opacity-70 transition-all'>Studios</Link>
          </div>
         
       </AccordionItem>

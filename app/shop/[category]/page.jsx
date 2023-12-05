@@ -16,10 +16,15 @@ function page() {
                 type
             })
             setResponse(res.data);
-            return;
-        } 
-        const res = await axios.get('/api/get-products')
-        setResponse(res.data)
+        }else{
+            console.log(category)
+            const res = await axios.post('/api/get-product-subcategory', {
+                type: category
+            })
+            console.log("from subcategory", res.data)
+            setResponse(res.data)
+        }
+        
     }
 
     useEffect(() => {
