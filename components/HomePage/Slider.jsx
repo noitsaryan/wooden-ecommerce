@@ -8,9 +8,7 @@ function Slider() {
   const slideImg=[ 
     "/HeroTxtImg/5.jpeg",
     "/HeroTxtImg/2.jpg",
-    "/HeroTxtImg/1.jpg",
     "/HeroTxtImg/3.jpg",
-    "/HeroTxtImg/4.jpg",
   ]
   return (
     <>
