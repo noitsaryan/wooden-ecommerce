@@ -72,7 +72,7 @@ function Header() {
       <div  className='flex flex-col gap-2 text-lg font-light' >
          {
           furnitureArray.map((elem, i)=>(
-            <Link href={`/shop/${elem.toLowerCase()}`} key={i} className='cursor-pointer hover:opacity-70 transition-all'>{elem}</Link>
+            <Link href={`/shop/${elem.replace(/ /g, '-').toLowerCase()}`} key={i} className='cursor-pointer hover:opacity-70 transition-all'>{elem}</Link>
           ))
          }
 

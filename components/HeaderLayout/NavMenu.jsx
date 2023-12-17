@@ -26,7 +26,7 @@ function NavMenu() {
                 <HoverCardContent className="flex flex-col gap-2">
                 {
           furnitureArray.map((elem, i)=>(
-            <Link href={`/shop/${elem.toLowerCase().replace(' ', '-')}?p=1`} key={i} className='cursor-pointer hover:opacity-70 transition-all'>{elem}</Link>
+            <Link href={`/shop/${elem.replace(/ /g, '-').toLowerCase()}?p=1`} key={i} className='cursor-pointer hover:opacity-70 transition-all'>{elem}</Link>
           ))
          }
                 </HoverCardContent>
