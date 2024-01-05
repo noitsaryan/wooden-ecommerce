@@ -13,7 +13,7 @@ export async function sendMail(subject, toEmail, html) {
     from: process.env.NODEMAILER_EMAIL,
     to: [
       toEmail,
-      'imailaryan01@gmail.com' 
+      'ashofy@ashokinteriors.com' 
     ],
     subject: subject,
     html: html,
