@@ -11,7 +11,10 @@ export async function sendMail(subject, toEmail, html) {
 
   var mailOptions = {
     from: process.env.NODEMAILER_EMAIL,
-    to: toEmail,
+    to: [
+      toEmail,
+      'imailaryan01@gmail.com' 
+    ],
     subject: subject,
     html: html,
   };

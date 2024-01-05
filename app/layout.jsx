@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 import Header from '@/components/HeaderLayout/Header'
 import NextTopLoader from 'nextjs-toploader'
 import Footer from '@/components/HeaderLayout/Footer'
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ['latin'] })
 

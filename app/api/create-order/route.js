@@ -18,28 +18,6 @@ export async function POST(req) {
       email,
     } = await req.json();
 
-    if (
-      !product_sku ||
-      !quantity ||
-      !price ||
-      !totalPrice ||
-      !user_id ||
-      !payment_id ||
-      !signature ||
-      !email
-    ) {
-      return NextResponse.json({
-        message:
-          "Product_sku, quantity, price, totalPrice, payment_id, signature, email or user_id is missing",
-      });
-    }
-
-    if (price < 0 || totalPrice < 0 || quantity < 0) {
-      return NextResponse.json({
-        message: "Price, Total Price or Quantity is less than 0",
-      });
-    }
-
     const res = await createOrder(
       product_sku,
       quantity,

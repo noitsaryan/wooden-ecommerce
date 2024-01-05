@@ -67,11 +67,7 @@ const UserSchema = new Schema(
           required: true,
         },
       },
-    ],
-    order: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Order",
-    },
+    ]
   },
   {
     timestamps: true,
@@ -284,26 +280,6 @@ export const changePassword = async (new_password, token, email) => {
 
 // Updating Order Id
 // Params : order_id => order > _id from order schema & user_id is user > _id from user schema
-
-export const updateOrderId = async (order_id, user_id) => {
-  try {
-    const userId = new mongoose.Types.ObjectId(user_id);
-
-    const updateOrder = await User.findOneAndUpdate(
-      { _id: userId },
-      {
-        $set: {
-          order: order_id,
-        },
-      }
-    );
-
-    return updateOrder;
-  } catch (error) {
-    return error.message;
-  }
-};
-
 export const deleteSKU = async (sku_id) => {
   try {
     const user = await User.findOneAndUpdate(

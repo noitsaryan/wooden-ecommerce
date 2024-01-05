@@ -1,5 +1,4 @@
 'use client'
-import { storage } from '@/appwrite/appwrite.config'
 import CtaButton from '@/components/SkuPage/CtaButton'
 import PinCode from '@/components/SkuPage/PinCode'
 import ProductAccord from '@/components/SkuPage/ProductAccord'

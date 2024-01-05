@@ -1,8 +1,6 @@
 import mongoose, { Schema, model, models } from "mongoose";
 import { NextResponse } from "next/server";
-import { updateOrderId } from "./user.model";
 import { User } from "./user.model";
-
 
 const OrderSchema = new Schema(
   {
@@ -45,8 +43,6 @@ const OrderSchema = new Schema(
 );
 
 export const Order = models?.Order || model("Order", OrderSchema);
-
-// Creating New Order
 
 export const createOrder = async (
   product_sku,
@@ -92,17 +88,38 @@ export const createOrder = async (
     if (check_first_user) {
       check_first_user.order_lists.push(order_lists);
       await check_first_user.save();
-      return check_first_user;
+      if (!check_first_user)
+        return {
+          message: "Order not created",
+          success: false,
+        };
+      return {
+        message: "Order created successfully",
+        success: true,
+        data: check_first_user,
+      };
     } else {
       const order = await Order.create({
         order_lists,
         user_id,
       });
-      await updateOrderId(order._id, user_id);
-      return order;
+
+      if (!order)
+        return {
+          message: "Order not created",
+          success: false,
+        };
+      return {
+        message: "Order created successfully",
+        success: true,
+        data: order,
+      };
     }
   } catch (error) {
-    return error.message;
+    return {
+      message: error.message,
+      success: false,
+    };
   }
 };
 
@@ -133,12 +150,12 @@ export const updateOrderStates = async (order_id, stage, message) => {
     completed_stage: true,
   };
 
-  const orderObject = order.order_lists.find(e => e._id == order_id)
-  const check = orderObject?.status.state.find(e => e.stage == stage)
-  if(check) {
-    return 'Status already exists!'
+  const orderObject = order.order_lists.find((e) => e._id == order_id);
+  const check = orderObject?.status.state.find((e) => e.stage == stage);
+  if (check) {
+    return "Status already exists!";
   }
-  orderObject?.status.state.push(statusUpdate)
+  orderObject?.status.state.push(statusUpdate);
 
   await order.save();
 
