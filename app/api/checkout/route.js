@@ -4,8 +4,6 @@ import Razorpay from "razorpay";
 
 export async function POST(req) {
   try {
-    await connectDB();
-
     const { amount } = await req.json();
     const instance = new Razorpay({
       key_id: process.env.RAZORPAY_API_KEY,
@@ -17,9 +15,9 @@ export async function POST(req) {
     };
     const order = await new instance.orders.create(options);
     return NextResponse.json({
-        order
-    })
+      order
+    });
   } catch (error) {
-    return NextResponse.json({message: error.message})
+    return NextResponse.json({ message: error.message });
   }
 }

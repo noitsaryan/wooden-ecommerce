@@ -1,6 +1,7 @@
 import mongoose, { Schema, model, models } from "mongoose";
 import { NextResponse } from "next/server";
 import { User } from "./user.model";
+import { connectDB } from "@/utils/db";
 
 const OrderSchema = new Schema(
   {
@@ -161,3 +162,34 @@ export const updateOrderStates = async (order_id, stage, message) => {
 
   return orderObject;
 };
+
+export const fetchOrders = async (email, index = 0, quantity = 10) => {
+  try {
+      if (!email) return {
+          message: 'User Id does not provided',
+          success: false
+      }
+
+      await connectDB();
+
+      const user = await User.findOne({email: email}).exec();
+      const userId = user._id;
+
+      const orders = await Order.findOne({user_id : userId}).skip(index * quantity).limit(quantity).exec();
+      console.log(orders)
+      if(!orders) return {
+          message: 'User does not exists',
+          success: false
+      }
+      return {
+          message: 'Successfully data fetched',
+          success: true, 
+          data: orders
+      }
+  } catch (error) {
+      return {
+          message: error.message,
+          success: false
+      }
+  }
+}

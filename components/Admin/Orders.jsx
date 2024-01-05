@@ -43,19 +43,19 @@ function Orders() {
           tags: 'order'
         }
       });
-
+      console.log(response)
       const data = await response.json();
 
       const array = [];
-      const orderLists = data.data.map((e) => {
+      data.data.map((e) => {
         const orderList = e.order_lists;
         const user = e.user_id;
         array.push({
-          ...orderList,
-          ...user
+          orders: [...orderList],
+          user: { ...user }
         });
       });
-
+      console.log(array)
       setOrder(array);
     } catch (error) {
       console.log(error.message);
@@ -82,6 +82,10 @@ function Orders() {
 
 
   useEffect(() => {
+    console.log(orders)
+  }, [orders])
+
+  useEffect(() => {
     getOrders()
   }, [])
 
@@ -103,113 +107,113 @@ function Orders() {
         <TableBody>
           {
             orders && orders.map((e, i) => {
-              return <TableRow key={i}>
-                <TableCell className="font-medium">{e?.[0]._id}</TableCell>
-                <TableCell className="uppercase">{e?.[0].product_sku}</TableCell>
-                <TableCell>{e.email}</TableCell>
-                <TableCell>{e?.phone_no}</TableCell>
-                <TableCell className="text-right">{e?.[0].payments.payment_id}</TableCell>
-                <TableCell className="text-right capitalize">{e?.[0].status.state[e?.[0].status.state.length - 1]?.stage
-                }</TableCell>
-                <TableCell className="text-right">
+              return e.orders.map((element, index) => (
+                <TableRow key={index}>
+                  <TableCell className="font-medium">{element._id}</TableCell>
+                  <TableCell>{element.product_sku} </TableCell>
+                  <TableCell>{e.user.email}</TableCell>
+                  <TableCell className="text-right">{e.user.phone_no} </TableCell>
+                  <TableCell className="text-right">{element.payments.payment_id} </TableCell>
+                  <TableCell className="text-right">{element.status.state[element.status.state.length - 1].stage} </TableCell>
+                  <TableCell className="text-right">
 
-                  <Dialog>
-                    <DialogTrigger className='bg-gray-500 px-4 py-2 rounded-md text-white'> More  </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Order Details</DialogTitle>
-                        <DialogDescription className={`max-h-[40vh] ${isOpen ? 'overflow-y-scroll' : ''} `}>
-                          <Collapsible
-                            open={isOpen}
-                            onOpenChange={setIsOpen}
-                            className="w-full space-y-2"
-                          >
-                            <div className="flex items-center justify-between space-x-4 px-4">
+                    <Dialog>
+                      <DialogTrigger className='bg-gray-500 px-4 py-2 rounded-md text-white'> More  </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Order Details</DialogTitle>
+                          <DialogDescription className={`max-h-[40vh] ${isOpen ? 'overflow-y-scroll' : ''} `}>
+                            <Collapsible
+                              open={isOpen}
+                              onOpenChange={setIsOpen}
+                              className="w-full space-y-2"
+                            >
+                              <div className="flex items-center justify-between space-x-4 px-4">
+                                <h4 className="text-sm font-semibold">
+                                  Complete Order Details
+                                </h4>
+                                <CollapsibleTrigger asChild>
+                                  <Button variant="ghost" size="sm" className="w-9 p-0">
+                                    <ChevronsUpDown className="h-4 w-4" />
+                                    <span className="sr-only">Toggle</span>
+                                  </Button>
+                                </CollapsibleTrigger>
+                              </div>
+                              <div className="rounded-md border px-4 py-3 font-mono text-sm">
+                                Name : {e.user?.name.first_name}
+                              </div>
+                              <CollapsibleContent className="space-y-2">
+                                <div className="rounded-md border px-4 py-3 font-mono text-sm">
+                                  Email : {e.user?.email}
+                                </div>
+                                <div className="rounded-md border px-4 py-3 font-mono text-sm">
+                                  Phone : {e.user?.phone_no}
+                                </div>
+                                <div className="rounded-md border px-4 py-3 font-mono text-sm">
+                                  Address <br />
+                                  Shipping Address: {e.user.address?.shipping_address} <br />
+                                  Billing Address: {e.user.address?.billing_address}
+                                </div>
+                                <div className="rounded-md border px-4 py-3 font-mono text-sm">
+                                  GST : {e.user.gst_no} <br />
+                                </div>
+                                <div className="rounded-md border px-4 py-3 font-mono text-sm uppercase">
+                                  SKU : {element.product_sku}
+                                </div>
+                                <div className="rounded-md border px-4 py-3 font-mono text-sm">
+                                  Quantity : {element.quantity}
+                                </div>
+                                <div className="rounded-md border px-4 py-3 font-mono text-sm">
+                                  Amount Paid : ₹ {element.totalPrice}
+                                </div>
+                                <div className="rounded-md border px-4 py-3 font-mono text-sm">
+                                  <p>
+                                    Payments <br />
+                                    Payment Id: {element.payments.payment_id} <br />
+                                    Signature: {element.payments.signature}
+                                  </p>
+                                </div>
+                                {
+                                  element.status.state.map((e, i) => {
+                                    return <div key={i} className="rounded-md border px-4 py-3 font-mono text-sm">
+                                      {i} <br />
+                                      Stage: {e.stage} <br />
+                                      Message: {e.message}
+                                    </div>
+                                  })
+                                }
+                              </CollapsibleContent>
+                            </Collapsible>
+                            <div className='p-4'>
                               <h4 className="text-sm font-semibold">
-                                Complete Order Details
-                              </h4>
-                              <CollapsibleTrigger asChild>
-                                <Button variant="ghost" size="sm" className="w-9 p-0">
-                                  <ChevronsUpDown className="h-4 w-4" />
-                                  <span className="sr-only">Toggle</span>
-                                </Button>
-                              </CollapsibleTrigger>
-                            </div>
-                            <div className="rounded-md border px-4 py-3 font-mono text-sm">
-                              Name : {e?.name.first_name}
-                            </div>
-                            <CollapsibleContent className="space-y-2">
-                              <div className="rounded-md border px-4 py-3 font-mono text-sm">
-                                Email : {e?.email}
-                              </div>
-                              <div className="rounded-md border px-4 py-3 font-mono text-sm">
-                                Phone : {e?.phone_no}
-                              </div>
-                              <div className="rounded-md border px-4 py-3 font-mono text-sm">
-                                Address <br />
-                                Shipping Address: {e.address?.shipping_address} <br />
-                                Billing Address: {e.address?.billing_address}
-                              </div>
-                              <div className="rounded-md border px-4 py-3 font-mono text-sm">
-                                GST : {e?.gst_no} <br />
-                              </div>
-                              <div className="rounded-md border px-4 py-3 font-mono text-sm uppercase">
-                                SKU : {e?.[0].product_sku}
-                              </div>
-                              <div className="rounded-md border px-4 py-3 font-mono text-sm">
-                                Quantity : {e?.[0].quantity}
-                              </div>
-                              <div className="rounded-md border px-4 py-3 font-mono text-sm">
-                                Amount Paid : ₹ {e?.[0].totalPrice}
-                              </div>
-                              <div className="rounded-md border px-4 py-3 font-mono text-sm">
-                                <p>
-                                  Payments <br />
-                                  Payment Id: {e?.[0].payments.payment_id} <br />
-                                  Signature: {e?.[0].payments.signature}
-                                </p>
-                              </div>
-                              {
-                                e?.[0].status.state.map((e, i) => {
-                                  return <div key={i} className="rounded-md border px-4 py-3 font-mono text-sm">
-                                    {i} <br />
-                                    Stage: {e.stage} <br />
-                                    Message: {e.message}
-                                  </div>
-                                })
-                              }
-                            </CollapsibleContent>
-                          </Collapsible>
-                          <div className='p-4'>
-                            <h4 className="text-sm font-semibold">
-                              Update Status
-                            </h4>
-                            <div className='space-y-4 py-2'>
-                              <Input
-                                placeholder="Stage"
-                                onChange={(e) => setStage(e.target.value)}
-                              />
-                              <Input
-                                placeholder="Message"
-                                onChange={(e) => setMessage(e.target.value)}
-                              />
-                              <Button onClick={() => updateStatus(e?.[0]._id)} >
                                 Update Status
-                              </Button>
+                              </h4>
+                              <div className='space-y-4 py-2'>
+                                <Input
+                                  placeholder="Stage"
+                                  onChange={(e) => setStage(e.target.value)}
+                                />
+                                <Input
+                                  placeholder="Message"
+                                  onChange={(e) => setMessage(e.target.value)}
+                                />
+                                <Button onClick={() => updateStatus(element._id)} >
+                                  Update Status
+                                </Button>
+                              </div>
                             </div>
-                          </div>
-                        </DialogDescription>
-                      </DialogHeader>
-                    </DialogContent>
-                  </Dialog>
+                          </DialogDescription>
+                        </DialogHeader>
+                      </DialogContent>
+                    </Dialog>
 
-                </TableCell>
-              </TableRow>
+                  </TableCell>
+                </TableRow>
+              ))
             })
           }
         </TableBody>
       </Table>
-
     </main>
   )
 }

@@ -1,4 +1,3 @@
-'use client'
 import Carts from '@/components/Account/Carts'
 import UserAddress from '@/components/Account/UserAddress'
 import UserData from '@/components/Account/UserData'
@@ -7,7 +6,7 @@ import React from 'react'
 import PasswordChange from '@/components/Account/PasswordChange'
 
 const page = ({ params }) => {
-  const { subaccount } = params
+  const subaccount = params.subaccount;
   return (
     <>
       {

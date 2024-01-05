@@ -1,8 +1,9 @@
 'use client'
-import { createOrder } from "@/actions/payment";
 import { Button } from "@nextui-org/react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useToast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
 
 function BuyNow({
     order_id,
@@ -17,8 +18,11 @@ function BuyNow({
     fields
 }
 ) {
+    const { toast } = useToast()
+    const router = useRouter()
     const updateUserData = async () => {
         try {
+            console.log(user_id)
             const { shipping, billing, gst, phone } = fields
             const address = { shipping_address: shipping, billing_address: billing }
             const user = await axios.post('/api/update-user', {
@@ -68,7 +72,6 @@ function BuyNow({
             alert("Razorpay SDK Failed to load");
             return;
         }
-
         const options = {
             key: 'rzp_test_04gBM2iE6jqZz5',
             name: "Ashofy",
@@ -92,10 +95,18 @@ function BuyNow({
                     user_id,
                     email
                 })
+
                 if (!order) {
-                    toast.error("Order not placed")
+                    toast({
+                        title: 'Order not placed'
+                    })
+                    return;
                 }
-                toast.success("Successfully placed the order")
+                toast({
+                    title: 'Order placed successfully'
+                })
+                console.log(order)
+                router.replace("/account/orders")
             },
         };
         const paymentObject = await new window.Razorpay(options);

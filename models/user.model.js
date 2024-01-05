@@ -67,7 +67,7 @@ const UserSchema = new Schema(
           required: true,
         },
       },
-    ]
+    ],
   },
   {
     timestamps: true,
@@ -143,7 +143,16 @@ export const fetchUserByEmailId = async (email, order) => {
       return res;
     }
     const res = await User.findOne({ email }).exec();
-    return res;
+    if (!res)
+      return {
+        message: "User not found",
+        success: false,
+      };
+    return {
+      message: "User found",
+      success: true,
+      data: res,
+    };
   } catch (error) {
     return error.message;
   }
@@ -294,7 +303,7 @@ export const deleteSKU = async (sku_id) => {
     }
 
     // The user object here will contain the updated user document
-    return 'Success';
+    return "Success";
   } catch (error) {
     return error.message;
   }

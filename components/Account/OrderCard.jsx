@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState } from 'react';
 import OrderStepper from './OrderStepper';
 import { Button } from '@nextui-org/react';
@@ -21,11 +22,12 @@ const OrderCard = ({ sku, price, quantity, status, payment, totalPrice }) => {
   };
 
   const getFilePreviews = () => {
-    // Make sure response is not null and has the images array
-    if (response && response.images && response.images.length > 0) {
+    if (response && response.images.length > 0) {
       const fileId = response.images[0];
       const imageLink = storage.getFilePreview('655a5d3abb5e5f5b80cc', fileId);
-      setImage(imageLink.href);
+      const startIndex = imageLink.toString().indexOf("[object%20Object]");
+      let image = imageLink.toString().slice(0, startIndex) + '65941e84b9e50d3c99fc' + imageLink.toString().slice(startIndex + "[object%20Object]".length)
+      setImage(image);
     }
   };
 
@@ -52,7 +54,7 @@ const OrderCard = ({ sku, price, quantity, status, payment, totalPrice }) => {
           <h2 className='text-sm'>MRP: Rs.{price}</h2>
           <h3 className='font-semibold'>Total: Rs.{totalPrice}</h3>
           <span className='space-x-2 mt-2'>
-            <Button size='sm' className='bg-Primary'>
+            <Button size='sm' className='bg-Primary text-white'>
               Track
             </Button>
           </span>

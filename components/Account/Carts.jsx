@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState } from 'react'
 import CartCard from './CartCard'
 import { useSession } from 'next-auth/react'
@@ -5,7 +6,6 @@ import axios from 'axios'
 import { RiBook2Line, RiShoppingBag3Line } from 'react-icons/ri'
 import { Button } from '@nextui-org/react'
 import Link from 'next/link'
-
 
 const Carts = () => {
   const [response, setResponse] = useState()
