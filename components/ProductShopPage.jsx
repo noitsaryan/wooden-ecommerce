@@ -3,6 +3,7 @@ import Product from "@/components/Cards/Product";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import LoadMore from "./LoadMore";
 
 function ProductShopPage() {
   const [response, setResponse] = useState();
@@ -20,9 +21,10 @@ function ProductShopPage() {
     fetchProduct();
   }, []);
   return (
-    <section className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-2 gap-6">
-      {response &&
-        response.data.map((e, i) => (
+    <>
+      <section className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 p-2 gap-6">
+        {response &&
+          response.data.map((e, i) => (
             <Product
               key={i}
               sku={e.sku}
@@ -31,7 +33,9 @@ function ProductShopPage() {
               link={e.images}
             />
           ))}
-    </section>
+      </section>
+      <LoadMore />
+    </>
   );
 }
 

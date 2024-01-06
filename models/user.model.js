@@ -4,6 +4,7 @@ import { compare, hash } from "bcrypt";
 import { sendMail } from "@/utils/services/mail";
 import { connectDB } from "@/utils/db";
 import randomToken from "random-token";
+import { cookies } from "next/headers";
 
 const UserSchema = new Schema(
   {

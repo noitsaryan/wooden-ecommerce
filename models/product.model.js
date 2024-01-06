@@ -185,18 +185,23 @@ export const updateProduct = async (
   }
 };
 
-export async function getProducts() {
+export async function getProducts(index = 0, quantity = 10) {
   try {
-    const products = await Product.find().exec();
+    const products = await Product.find()
+      .skip(index * quantity)
+      .limit(quantity)
+      .exec();
     return products;
   } catch (error) {
     return error.message;
   }
 }
 
-export async function getProductsForCard() {
+export async function getProductsForCard(index = 0, quantity = 10) {
   try {
     const products = await Product.find()
+      .skip(index * quantity)
+      .limit(quantity)
       .select("title price sku images category subCategory")
       .exec();
     return products;
@@ -229,7 +234,7 @@ export async function getProductByMainCategory(type) {
 
 export async function getProductBySKU(sku) {
   try {
-    const product = await Product.findOne({sku}).exec();
+    const product = await Product.findOne({ sku }).exec();
     return product;
   } catch (error) {
     return error.message;

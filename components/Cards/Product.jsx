@@ -48,8 +48,8 @@ function Product({ link, title, price, sku }) {
       <div className='p-1'>
         <p className='overflow-hidden truncate whitespace-nowrap text-slate-700 text-md'>{title}</p>
         <h3 className='text-lg'>₹{parseInt(price).toLocaleString()}</h3>
-        <p className='text-xs mt-[1px] bg-Primary flex gap-1 w-fit p-1 items-center justify-center text-white'>
-          <BsBoxSeam className='text-md' />
+        <p className='text-xs mt-[1px] bg-Primary flex gap-1 w-fit p-1 items-center justify-center text-white '>
+          <BsBoxSeam className='' />
           MADE TO ORDER
         </p>
       </div>

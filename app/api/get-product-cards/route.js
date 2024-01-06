@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     await connectDB();
+
     const product = await getProductsForCard();
 
     const response = NextResponse.json(product);

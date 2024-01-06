@@ -2,6 +2,7 @@ import { login } from "@/models/user.model";
 import { connectDB } from "@/utils/db";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { cookies } from "next/headers";
 
 export const authOptions = {
   providers: [
@@ -11,11 +12,12 @@ export const authOptions = {
 
       async authorize(credentials) {
         try {
-
           const { email, password } = credentials;
           await connectDB();
           const user = await login(email, password);
-          return user
+          console.log(user)
+          cookies().set("user", user._id);
+          return user;
         } catch (error) {
           console.log(error);
         }
