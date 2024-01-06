@@ -50,10 +50,10 @@ const Reviews = ({ sku }) => {
         {/* <h2>Total Ratings: 4.5K</h2> */}
       </span>
 
-      <div className="h-full w-full grid grid-cols-3 gap-4">
+      <div className="h-full w-full grid grid-cols-1 md:grid-cols-3 gap-4">
         {reviews &&
           reviews.map((e, i) => (
-            <div className="h-full bg-white shadow-sm p-4 flex items-start justify-start flex-col gap-2 rounded-md max-h-32 overflow-hidden overflow-y-scroll">
+            <div key={i} className="h-full bg-white shadow-sm p-4 flex items-start justify-start flex-col gap-2 rounded-md max-h-32 overflow-hidden overflow-y-scroll">
               <span className="flex text-sm items-center justify-center gap-2 font-semibold">
                 {" "}
                 <p className="bg-green-400 p-1 rounded flex items-center justify-center gap-[5px]font-semibold ">
