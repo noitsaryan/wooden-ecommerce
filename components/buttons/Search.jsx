@@ -41,7 +41,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import SearchProduct from "../HeaderLayout/SearchProduct";
 
-export function Search() {
+export function  Search() {
   const session = useSession();
   const route = useRouter();
   const pathname = usePathname();

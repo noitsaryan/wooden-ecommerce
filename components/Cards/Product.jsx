@@ -33,8 +33,18 @@ function Product({ link, title, price, sku }) {
   };
 
   const imageSrc = getFilePreview(link) || "/";
+ 
+  const recentProducts = (skuId) => {
+    const existingItems = JSON.parse(localStorage.getItem('recentProducts')) || [];
+    if (!existingItems.includes(skuId)) {
+      const updatedItems = [...existingItems, skuId];
+      localStorage.setItem('recentProducts', JSON.stringify(updatedItems));
+    }
+  };
+  
+
   return (
-    <Link href={`/shop/category/${sku}`} className="cursor-pointer">
+    <Link href={`/shop/category/${sku}`} className="cursor-pointer" onClick={()=>recentProducts(sku)}>
       <div className='bg-cover overflow-hidden bg-slate-50 border rounded-md'>
         <Image
           priority

@@ -240,3 +240,13 @@ export async function getProductBySKU(sku) {
     return error.message;
   }
 }
+
+
+export async function getRecentViewedProducts(skus) {
+  try {
+    const products = await Product.find({ sku: { $in: skus } }).exec();
+    return products;
+  } catch (error) {
+    return error.message;
+  }
+}
