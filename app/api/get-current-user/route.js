@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const Id = cookies().get("user").value;
+    const Id = cookies().get("user")?.value;
 
     if (!Id)
       return NextResponse.json({
@@ -14,7 +14,9 @@ export async function GET() {
       });
 
     await connectDB();
+
     const user = await User.findOne({ _id: Id }).exec();
+
     if (!user)
       return NextResponse.json({
         success: false,
