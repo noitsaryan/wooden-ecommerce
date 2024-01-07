@@ -1,4 +1,5 @@
 'use client'
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
@@ -7,12 +8,12 @@ function LoadMore() {
     const [data, setData] = useState([])
     useEffect(() => {
         if (inView) {
-            console.log("View")
+            axios.post()
         }
     }, [inView])
     return (
-        <div ref={ref}>
-            <h1> Load More </h1>
+        <div ref={ref} className='flex items-center justify-center'>
+            <span className="loader"></span>
         </div>
     )
 }

@@ -22,7 +22,7 @@ function Slider() {
             width={1000}
             height={1000}
             alt='banner_image'
-            className=' md:h-[85vh] object-cover object-center'
+            className='md:h-[85vh] object-cover object-center'
             priority={true}
           />)
           )
