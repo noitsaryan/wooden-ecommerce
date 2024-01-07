@@ -11,6 +11,7 @@ import { Button } from "@nextui-org/react";
 import axios from 'axios'
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import Reviews from '@/components/ShopPage/Reviews'
 
 function page() {
   const { sku } = useParams()
@@ -78,7 +79,9 @@ function page() {
           </section>
 
         </section>
+       <h2 className="text-Dark text-2xl font-light text-center -tracking-2 uppercase m-6">Ratings and Reviews</h2>
 
+  <Reviews  sku={response.sku}/>
         <h2 className="text-Dark text-2xl font-light text-center -tracking-2 uppercase m-6">Related Products</h2>
 
 
