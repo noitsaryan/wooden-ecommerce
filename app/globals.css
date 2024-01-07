@@ -114,3 +114,6 @@
     transform: rotate(360deg);
   }
 } 
+.react-multi-carousel-track li{
+ padding: 10px;
+}
