@@ -14,12 +14,11 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import axios from "axios";
 
-export default function AddReview({sku}) {
+export default function AddReview({ sku, getReviews }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [rating, setRating] = useState(0);
   const [reviewTxt, setReviewTxt] = useState("");
   const [userId, setUserId] = useState("");
-
 
   const getUser = async () => {
     try {
@@ -29,23 +28,25 @@ export default function AddReview({sku}) {
       console.log(error.message);
     }
   };
- const CreateReview = async () => {
+  const CreateReview = async () => {
     try {
-      const res = await axios.post("/api/create-review",{
-     userId,
-     comment:reviewTxt,
-     sku,
-     rating
+      const res = await axios.post("/api/create-review", {
+        userId,
+        comment:reviewTxt,
+        sku,
+        rating,
       });
-      console.log(res)
+      getReviews();
+
+      console.log(res);
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     getUser();
-  },[])
+  }, []);
 
   return (
     <>
@@ -82,7 +83,7 @@ export default function AddReview({sku}) {
                   color="primary"
                   onPress={onClose}
                   className="bg-Primary"
-                  onClick={()=>CreateReview()}
+                  onClick={() => CreateReview()}
                 >
                   Submit
                 </Button>
