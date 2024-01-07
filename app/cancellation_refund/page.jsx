@@ -16,9 +16,11 @@ const ShippingAndRefund = () => {
             </ul>
 
             <h2 className="text-2xl font-bold mt-4">2. Return or Exchange</h2>
-            <p>We do not accept returns or exchanges except in the case of shipping damage or installation issues. Please follow these steps:</p>
+            <p>We do not accept returns on made to order products except in the case of shipping damage or installation issues. Please follow these steps:</p>
             <ul className="list-disc ml-6">
                 <li>Contact us at ashofy@ashokinteriors.com within 5 days of receiving the damaged product.</li>
+                <li>Made to order marked products will not be returned.</li>
+                <li>In stock marked products can be replaced not returned.</li>
                 <li>Provide clear photos of the damage and a brief description of the issue.</li>
                 <li>We will assess the situation and arrange for the repair of the damaged product.</li>
             </ul>

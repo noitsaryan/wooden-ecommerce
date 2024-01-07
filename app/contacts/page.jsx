@@ -15,6 +15,7 @@ const ContactPage = () => {
           Maharashtra, Pin - 401107</li>
         <li>Email: ashofy@ashokinteriors.com</li>
         <li>Phone: +91 98192 15088</li>
+        <li>Any queries or complaints will be reviewed and replied within 72 hours at ashofy@ashokinteriors.com</li>
       </ul>
     </div >
   );
