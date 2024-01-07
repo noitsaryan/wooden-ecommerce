@@ -117,3 +117,6 @@
 .react-multi-carousel-track li{
  padding: 10px;
 }
+.react-multi-carousel-list button{
+  z-index: 40;
+}
