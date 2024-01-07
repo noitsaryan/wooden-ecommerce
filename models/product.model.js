@@ -198,7 +198,7 @@ export async function getProducts(index = 0, quantity = 10) {
   }
 }
 
-export async function getProductsForCard(index = 0, quantity = 10) {
+export async function getProductsForCard(index = 0, quantity = 8) {
   try {
     const products = await Product.find()
       .skip(index * quantity)

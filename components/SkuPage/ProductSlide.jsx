@@ -34,7 +34,6 @@ const ProductSlide = ({ image, name }) => {
     }
   }, [imageNo]);
 
-  console.log('Slide', image);
 
   return (
     <div className="flex flex-col items-center p-1 bg-white rounded-md relative  ">

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { RadioGroup, Radio } from "@nextui-org/react";
 
 const ProductCustomize = ({ isTrue }) => {
-  console.log(isTrue)
 
   const [size, setSize]=useState('king')
   return (

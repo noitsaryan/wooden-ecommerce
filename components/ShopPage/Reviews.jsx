@@ -20,15 +20,13 @@ const Reviews = ({ sku }) => {
         sku: sku,
       });
 
-      console.log(res.data.data);
       setReviews(res.data.data);
     } catch (err) {
-      console.log("gfgfg", err.message);
+      console.log(err.message);
     }
   };
   useEffect(() => {
     getReviews();
-    console.log(pagination);
   }, [sku, pagination]);
 
     useEffect(() => {
