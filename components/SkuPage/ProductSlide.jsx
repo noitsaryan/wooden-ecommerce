@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 import BreadcrumbNav from "./BreadcrumbNav";
 import { storage } from '@/appwrite/appwrite.config'; // Import storage if not already imported
+import ImageFullPreview from "./ImageFullPreview";
 
 const ProductSlide = ({ image, name }) => {
   const [imageNo, setImageNo] = useState(0);
@@ -27,20 +28,29 @@ const ProductSlide = ({ image, name }) => {
     getPreview();
   }, [image]);
 
+   useEffect(() => {
+    if(imageNo===images.length){
+      setImageNo(0)
+    }
+  }, [imageNo]);
+
   console.log('Slide', image);
 
   return (
     <div className="flex flex-col items-center p-1 bg-white rounded-md relative  ">
       <BreadcrumbNav pName={name} />
       <div className="flex items-center justify-center relative flex-col w-full">
-        <figure className="w-full object-fit overflow-hidden">
+        <figure className="w-full object-fit overflow-hidden relative">
           <Image
             width={500}
             height={500}
             alt="Product_Image"
             className="w-full h-full bg-slate-100 rounded-md transition-all"
-            src={images[imageNo] || "/"}
+            src={ images && images[imageNo] || "/"}
           />
+          <span className="absolute bottom-3 right-3">
+            <ImageFullPreview images={images[imageNo]} setImageNo={setImageNo} imageNo={imageNo}/>
+          </span>
         </figure>
         <div className="absolute flex items-center  w-full justify-between px-3 text-4xl text-black drop-shadow-m font-semibold">
           <RiArrowLeftSLine
