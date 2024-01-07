@@ -23,6 +23,7 @@ export default function AddReview({ sku, getReviews }) {
   const getUser = async () => {
     try {
       const res = await axios.get("/api/get-current-user");
+      console.log(res)
       setUserId(res && res.data.data._id);
     } catch (error) {
       console.log(error.message);
@@ -80,10 +81,10 @@ export default function AddReview({ sku, getReviews }) {
                   Close
                 </Button>
                 <Button
-                  color="primary"
-                  // onPress={onClose}
-                  className="bg-Primary"
                   onClick={() => CreateReview()}
+                  color="primary"
+                  onPress={onClose}
+                  className="bg-Primary"
                 >
                   Submit
                 </Button>
