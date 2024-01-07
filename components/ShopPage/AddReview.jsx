@@ -22,7 +22,7 @@ export default function AddReview({ sku, getReviews }) {
 
   const getUser = async () => {
     try {
-      const res =  await axios.get("/api/get-current-user");
+      const res = await axios.get("/api/get-current-user");
       setUserId(res.data.data._id);
     } catch (error) {
       console.log(error.message);
@@ -30,9 +30,9 @@ export default function AddReview({ sku, getReviews }) {
   };
   const CreateReview = async () => {
     try {
-      const res = userId.length > 0 && await axios.post("/api/create-review", {
+      const res = await axios.post("/api/create-review", {
         userId,
-        comment: reviewTxt,
+        comment:reviewTxt,
         sku,
         rating,
       });
@@ -54,13 +54,13 @@ export default function AddReview({ sku, getReviews }) {
         Add a Review
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent >
+        <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
                 Rating and Review
               </ModalHeader>
-              <ModalBody asChild>
+              <ModalBody>
                 <p>
                   <Rating
                     style={{ maxWidth: 180 }}
@@ -81,9 +81,9 @@ export default function AddReview({ sku, getReviews }) {
                 </Button>
                 <Button
                   color="primary"
-                  onPress={onClose}
+                  // onPress={onClose}
                   className="bg-Primary"
-                  onClick={CreateReview}
+                  onClick={() => CreateReview()}
                 >
                   Submit
                 </Button>
