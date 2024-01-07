@@ -28,6 +28,12 @@ const ProductSlide = ({ image, name }) => {
     getPreview();
   }, [image]);
 
+   useEffect(() => {
+    if(imageNo===images.length){
+      setImageNo(0)
+    }
+  }, [imageNo]);
+
   console.log('Slide', image);
 
   return (

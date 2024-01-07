@@ -51,11 +51,9 @@ export default function ImageFullPreview({ images, imageNo, setImageNo }) {
                     <RiArrowRightSLine
                       className="cursor-pointer"
                       onClick={() =>
-                        setImageNo(
-                          imageNo === images && images.length - 1
+                        setImageNo((prev)=>(prev === images && images.length - 1
                             ? 0
-                            : imageNo + 1
-                        )
+                            : prev + 1))
                       }
                     />
                   </div>
