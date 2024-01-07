@@ -23,7 +23,7 @@ export default function AddReview({ sku, getReviews }) {
   const getUser = async () => {
     try {
       const res = await axios.get("/api/get-current-user");
-      setUserId(res.data.data._id);
+      setUserId(res && res.data.data._id);
     } catch (error) {
       console.log(error.message);
     }
