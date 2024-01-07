@@ -52,18 +52,18 @@ const SignupForm = () => {
         name, email, password
       })
 
-      if (res.data.code === 11000) {
+      if (!res.data.success) {
         toast({
-          title: 'Email Already Exists'
+          title: res.data.message,
+          variant: 'destructive'
         })
         return;
       }
 
-      if (res.data._id) {
-        toast({
-          title: 'Successfully Registered'
-        })
-      }
+      toast({
+        title: 'Successfully Registered'
+      })
+
       route.push('/login')
 
     } catch (error) {

@@ -35,13 +35,14 @@ import { signOut, useSession } from "next-auth/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "../ui/button";
 import axios from "axios";
-import { BarChart4, FileEdit, Menu, Package, PackagePlus } from "lucide-react";
+import {  FileEdit, Menu, Package, PackagePlus } from "lucide-react";
 import { useRef, useState } from "react";
-import Image from "next/image";
 import { useEffect } from "react";
 import SearchProduct from "../HeaderLayout/SearchProduct";
+import { useToast } from "../ui/use-toast";
 
-export function  Search() {
+export function Search() {
+  const { toast } = useToast();
   const session = useSession();
   const route = useRouter();
   const pathname = usePathname();
@@ -208,7 +209,17 @@ export function  Search() {
                   <Button
                     variant="outline"
                     className="w-full"
-                    onClick={() => signOut()}
+                    onClick={() => {
+                      signOut()
+                      axios.get("/api/logout").then((res) => {
+                        console.log(res)
+                        if (res.data.success) {
+                          toast({
+                            title: 'Logged out successfully'
+                          })
+                        }
+                      })
+                    }}
                   >
                     Logout
                   </Button>
@@ -257,7 +268,16 @@ export function  Search() {
                     >
                       Cart
                     </Link>
-                    <Button variant="destructive" onClick={() => signOut()}>
+                    <Button variant="destructive" onClick={() => {
+                      signOut();
+                      axios.get("/api/logout").then((res) => {
+                        if (res.data.success) {
+                          toast({
+                            title: 'Logged out successfully'
+                          })
+                        }
+                      })
+                    }}>
                       Logout
                     </Button>
                   </div>

@@ -1,4 +1,6 @@
 'use client'
+import { useToast } from '@/components/ui/use-toast';
+import axios from 'axios';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link'
 import { usePathname } from 'next/navigation';
@@ -7,7 +9,7 @@ import { FiBox, FiChevronRight, FiHome, FiLock, FiLogOut, FiShoppingBag, FiUser 
 
 
 export default function RootLayout({ children }) {
- 
+    const {toast} = useToast();
     const location = usePathname('/account')
     return (
         <main className='w-full bg-slate-50 flex items-start justify-center gap-3 md:p-10 relative flex-col md:flex-row'>
@@ -18,7 +20,17 @@ export default function RootLayout({ children }) {
                 <Link href="/account/address" className={`h-20  ${location == '/account/address' ? 'bg-slate-100' : 'bg-white'} border-transparent border-l-4 hover:border-Primary transition-all hover:bg-slate-100 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiHome className='text-3xl text-Primary' />Address</span><FiChevronRight /></Link>
                 <Link href="/account/userdata" className={`h-20 ${location == '/account/personaldata' ? 'bg-slate-100' : 'bg-white'} border-transparent border-l-4 hover:border-Primary transition-all hover:bg-slate-100 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiUser className='text-3xl text-Primary' />Personal Data</span><FiChevronRight /></Link>
                 <Link href="/account/new-password" className={`h-20 ${location == '/account/password' ? 'bg-slate-100' : 'bg-white'} border-transparent border-l-4 hover:border-Primary transition-all hover:bg-slate-100 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiLock className='text-3xl text-Primary' />Password</span><FiChevronRight /></Link>
-                <button onClick={signOut} className={`h-20 ${location == '/account/signout' ? 'bg-slate-100' : 'bg-white'} border-transparent border-l-4 hover:border-Primary transition-all hover:bg-slate-100 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiLogOut className='text-3xl text-Primary' />Sign Out</span><FiChevronRight /></button>
+                <button onClick={() => {
+                    signOut();
+                    axios.get("/api/logout").then((res) => {
+                        console.log(res)
+                        if (res.data.success) {
+                            toast({
+                                title: 'Logged out successfully'
+                            })
+                        }
+                    })
+                }} className={`h-20 ${location == '/account/signout' ? 'bg-slate-100' : 'bg-white'} border-transparent border-l-4 hover:border-Primary transition-all hover:bg-slate-100 rounded-sm shadow flex items-center justify-between px-2`}><span className='flex items-center justify-center gap-2'><FiLogOut className='text-3xl text-Primary' />Sign Out</span><FiChevronRight /></button>
 
 
             </section>
@@ -30,7 +42,17 @@ export default function RootLayout({ children }) {
                     <Link href="/account/address" className='text-3xl text-Primary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'>< FiHome /><p className='text-sm'>address</p></Link>
                     <Link href="/account/userdata" className='text-3xl text-Primary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'>< FiUser /><p className='text-sm'>User</p></Link>
                     <Link href="/account/new-password" className='text-3xl text-Primary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'>< FiLock /><p className='text-sm'>password</p></Link>
-                    <button onClick={signOut}  className='text-3xl text-Primary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'><FiLogOut /><p className='text-sm' >logout</p></button>
+                    <button onClick={() => {
+                    signOut();
+                    axios.get("/api/logout").then((res) => {
+                        console.log(res)
+                        if (res.data.success) {
+                            toast({
+                                title: 'Logged out successfully'
+                            })
+                        }
+                    })
+                }} className='text-3xl text-Primary p-1 rounded hover:bg-slate-100 flex justify-center flex-col items-center'><FiLogOut /><p className='text-sm' >logout</p></button>
 
                 </div>
             </section>

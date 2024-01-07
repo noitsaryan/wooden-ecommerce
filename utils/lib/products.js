@@ -12,7 +12,8 @@ export async function createProduct(
   subCategory,
   size,
   warranty,
-  maintenance
+  maintenance,
+  isMadeToOrder
 ) {
   try {
     const res = await axios.post("/api/create-product", {
@@ -28,6 +29,7 @@ export async function createProduct(
       size,
       warranty,
       maintenance,
+      isMadeToOrder
     });
     return res;
   } catch (error) {

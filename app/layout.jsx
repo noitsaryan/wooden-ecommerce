@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <AuthProvider>
           <Header />
-          <NextTopLoader />
+          <NextTopLoader color='#ac342c' />
           {children}
         </AuthProvider>
         <Footer />

@@ -94,6 +94,7 @@ function page() {
                 key={i}
                 link={e.images}
                 price={e.price}
+                isMadeToOrder={e.isMadeToOrder}
               />
             })
           }

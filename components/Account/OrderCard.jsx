@@ -7,8 +7,8 @@ import axios from 'axios';
 import { storage } from '@/appwrite/appwrite.config';
 
 const OrderCard = ({ sku, price, quantity, status, payment, totalPrice }) => {
-  const [response, setResponse] = useState();
-  const [image, setImage] = useState();
+  const [response, setResponse] = useState([]);
+  // const [image, setImage] = useState();
 
   const fetchProduct = async () => {
     try {
@@ -21,23 +21,37 @@ const OrderCard = ({ sku, price, quantity, status, payment, totalPrice }) => {
     }
   };
 
-  const getFilePreviews = () => {
-    if (response && response.images.length > 0) {
-      const fileId = response.images[0];
-      const imageLink = storage.getFilePreview('655a5d3abb5e5f5b80cc', fileId);
-      const startIndex = imageLink.toString().indexOf("[object%20Object]");
-      let image = imageLink.toString().slice(0, startIndex) + '65941e84b9e50d3c99fc' + imageLink.toString().slice(startIndex + "[object%20Object]".length)
-      setImage(image);
+
+  const isArrayofObjects = (value) => {
+    return Array.isArray(value) && value.length > 0 && typeof value[0] === 'object';
+  };
+
+  const getFilePreview = (image) => {
+    if (isArrayofObjects(image)) {
+      const firstImage = image[0].link || '';
+      return firstImage
     }
+
+    if (Array.isArray(image) && image.length > 0 && typeof image[0] === 'string') {
+      return getModifiedUrl(image[0]);
+    }
+
+    if (typeof image === 'string') {
+      return getModifiedUrl(image);
+    }
+
+    return '';
+  };
+
+  const getModifiedUrl = (image) => {
+    const imageLink = storage.getFilePreview('655a5d3abb5e5f5b80cc', image);
+    return imageLink.href.replace('/preview?', '/view?');
   };
 
   useEffect(() => {
     fetchProduct();
   }, [sku]);
 
-  useEffect(() => {
-    getFilePreviews();
-  }, [response]);
 
   return (
     <section className='w-full space-y-2 border rounded-md p-3 shadow mt-3 overflow-hidden'>
@@ -46,13 +60,13 @@ const OrderCard = ({ sku, price, quantity, status, payment, totalPrice }) => {
         <h2>Payment ID: {payment.payment_id}</h2>
       </div>
       <hr />
-      <div className='flex gap-3'>
-        <Image src={image} width={500} height={500} alt='product_ordered_img' className='w-44 bg-slate-100' />
-        <div className='flex flex-col'>
+      <div className='flex  gap-3'>
+        <Image  src={response && getFilePreview(response.images) || "/"} width={300} height={300} alt='product_ordered_img' className='w-32 md:w-44 bg-slate-100' />
+        <div className=''>
           <p className='md:w-full w-40 overflow-hidden truncate font-semibold'>{response?.title}</p>
           <h3 className='text-sm'> Quantity: {quantity} </h3>
-          <h2 className='text-sm'>MRP: Rs.{price}</h2>
-          <h3 className='font-semibold'>Total: Rs.{totalPrice}</h3>
+          <br />
+          <h2 className='text-md font-semibold'>MRP: Rs.{ price }</h2>
           <span className='space-x-2 mt-2'>
             <Button size='sm' className='bg-Primary text-white'>
               Track

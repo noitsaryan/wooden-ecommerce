@@ -1,7 +1,6 @@
 'use client'
 import { Button } from "@nextui-org/react";
 import axios from "axios";
-import toast from "react-hot-toast";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 

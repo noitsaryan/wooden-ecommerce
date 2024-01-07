@@ -1,27 +1,26 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import CartCard from './CartCard'
-import { useSession } from 'next-auth/react'
 import axios from 'axios'
-import { RiBook2Line, RiShoppingBag3Line } from 'react-icons/ri'
+import { RiShoppingBag3Line } from 'react-icons/ri'
 import { Button } from '@nextui-org/react'
 import Link from 'next/link'
+import { useToast } from '../ui/use-toast'
 
 const Carts = () => {
-  const [response, setResponse] = useState()
-  const { data: session } = useSession()
-
-  const fetchUser = async () => {
-    const res = await axios.post('/api/get-user-by-id', {
-      user: session?.user?.email,
-      order: false
-    })
-    setResponse(res.data && res.data.res?.cart)
-  }
-
+  const [response, setResponse] = useState([])
+  const {toast} = useToast()
   useEffect(() => {
-    fetchUser()
-  }, [session])
+    axios.get("/api/get-current-user").then((res) => {
+      if(!res.data.success) {
+        toast({
+          title: 'User not logged in'
+        })
+        return;
+      }
+      setResponse(res.data.data.cart)
+    })
+  }, [])
 
   if ( response && response.length === 0) {
     return <div className='w-full md:h-screen  h-[50vh] flex items-center justify-center flex-col gap-2'>

@@ -7,7 +7,7 @@ import Checkout from '../buttons/Checkout'
 import { useToast } from '../ui/use-toast'
 
 const CartCard = ({ sku, id }) => {
-  const [response, setResponse] = useState();
+  const [response, setResponse] = useState([]);
   const [quantity, setQuantity] = useState(1)
   const {toast} = useToast()
   const remove = async () => {
@@ -88,7 +88,7 @@ const CartCard = ({ sku, id }) => {
         <div className='flex flex-col'>
           <p className='md:w-full w-24 overflow-hidden truncate font-semibold'> </p>
           <h3 className='font-semibold'>{response?.title}</h3>
-          <h3 className='font-semibold'>Price: Rs. {response?.price.toLocaleString()}</h3>
+          <h3 className='font-semibold'>Price: Rs. {response && response.price}</h3>
           <span className='space-x-2 mt-2'>
             <div className='grid grid-cols-2 gap-3 '>
               <Checkout

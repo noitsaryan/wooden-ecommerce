@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Switch } from "@/components/ui/switch"
 
 
 function AddProduct() {
@@ -36,6 +37,7 @@ function AddProduct() {
   const [sizeName, setSizeName] = useState(String)
   const [sizePrice, setSizePrice] = useState(String)
   const [measurement, setMeasurement] = useState(String)
+  const [isMadeToOrder, setIsMadeToOrder] = useState(false)
   const colorInput = useRef()
   const nameInput = useRef()
   const measurementInput = useRef()
@@ -88,7 +90,8 @@ function AddProduct() {
         subCategory,
         sizeArray,
         warranty,
-        maintenance
+        maintenance,
+        isMadeToOrder
       )
       if (promise.data.response) {
         toast({
@@ -154,6 +157,10 @@ function AddProduct() {
             <Label> Sub Category</Label>
             <Input placeholder="Enter Description" onChange={(e) => setSubCategory(e.target.value)} />
           </span>
+          <span>
+            <Label> In Stock</Label>
+            <Switch checked={isMadeToOrder}  onCheckedChange={(e) => { setIsMadeToOrder(e) }} />
+          </span>
         </div>
         <div>
           <h1 className='font-semibold text-lg my-4'  >Specifications</h1>
@@ -192,7 +199,7 @@ function AddProduct() {
                       <Input
                         value={e.name}
                         disabled
-                        
+
                         className="my-1"
                       />
                       <Input
@@ -228,7 +235,7 @@ function AddProduct() {
                       <div className='flex items-center' key={i}>
                         <Input
                           placeholder={e.name}
-                          
+
                           className="my-1"
                         />
                         <p className='mx-1'>:</p>

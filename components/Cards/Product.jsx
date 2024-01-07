@@ -5,7 +5,7 @@ import { BsBoxSeam } from 'react-icons/bs';
 import { storage } from '@/appwrite/appwrite.config';
 import { MotionDiv } from '../MotionDiv';
 
-function Product({ link, title, price, sku }) {
+function Product({ link, title, price, sku, isMadeToOrder }) {
 
   const isArrayofObjects = (value) => {
     return Array.isArray(value) && value.length > 0 && typeof value[0] === 'object';
@@ -44,8 +44,8 @@ function Product({ link, title, price, sku }) {
   };
 
   const variants = {
-    hidden: {opacity: 0},
-    visible: {opacity: 1}
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 }
   }
 
 
@@ -77,7 +77,9 @@ function Product({ link, title, price, sku }) {
           <h3 className='text-lg'>₹{parseInt(price).toLocaleString()}</h3>
           <p className='text-xs mt-[1px] bg-Primary flex gap-1 w-fit p-1 items-center justify-center text-white '>
             <BsBoxSeam className='' />
-            MADE TO ORDER
+            {
+              !isMadeToOrder ? 'MADE TO ORDER' : 'IN STOCK'
+            }
           </p>
         </div>
       </MotionDiv>

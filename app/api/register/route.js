@@ -33,14 +33,22 @@ export async function POST(req) {
 
     const res = await createUser(name, authentication, email);
 
-    return NextResponse.json(res);
-  } catch (error) {
-    if (error.message.code === 11000) {
-      return error.message;
+
+    if (!res.success) {
+      return NextResponse.json({
+        success: false,
+        message: res.message,
+      });
     }
 
     return NextResponse.json({
+      success: true,
+      message: "User created successfully",
+    });
+  } catch (error) {
+    return NextResponse.json({
       message: error.message,
+      success: false,
     });
   }
 }

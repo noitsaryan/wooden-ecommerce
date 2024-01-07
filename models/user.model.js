@@ -20,6 +20,7 @@ const UserSchema = new Schema(
     email: {
       type: String,
       lowercase: true,
+      index: true,
       unique: true,
       required: true,
       validate: {
@@ -87,14 +88,22 @@ export const createUser = async (name, authentication, email) => {
       authentication,
       email,
     });
-    return user;
+    if (!user)
+      return {
+        success: false,
+        message: "Registeration failed",
+      };
+    return {
+      success: true,
+      message: "Registered successfully",
+      data: user,
+    };
   } catch (error) {
     if (error.code === 11000) {
-      const message = {
+      return {
         message: "Email already exists",
-        code: error.code,
+        success: false,
       };
-      return message;
     }
 
     if (

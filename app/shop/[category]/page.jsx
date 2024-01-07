@@ -31,6 +31,7 @@ function page() {
                                         title={e.title}
                                         price={e.price}
                                         link={e.images}
+                                        isMadeToOrder={e.isMadeToOrder}
                                     />
                                 ))}
                         </section>
@@ -44,6 +45,7 @@ function page() {
                                             title={e.title}
                                             price={e.price}
                                             link={e.images}
+                                            isMadeToOrder={e.isMadeToOrder}
                                         />
                                     ))}</section> : category === 'studio' ?
                                 <section className='w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 p-2 gap-6'>
@@ -55,6 +57,7 @@ function page() {
                                                 title={e.title}
                                                 price={e.price}
                                                 link={e.images}
+                                                isMadeToOrder={e.isMadeToOrder}
                                             />
                                         ))}</section> : null
             }

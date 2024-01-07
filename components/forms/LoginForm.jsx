@@ -34,7 +34,7 @@ function LoginForm() {
         email, password, redirect: false
       })
 
-      if (res.error === 'CredentialsSignin') {
+      if (res.error) {
           toast({
             title: "Email or Password is incorrect",
             variant: "destructive"
@@ -42,6 +42,9 @@ function LoginForm() {
       }
 
       if (res.ok) {
+        toast({
+          title: "Logged in successfully",
+        })
         return router.replace('/account')
       }
 

@@ -51,6 +51,9 @@ const ProductSchema = new Schema({
   maintenance: {
     type: String,
   },
+  isMadeToOrder: {
+    type: Boolean,
+  },
 });
 
 export const Product = models?.Product || model("Product", ProductSchema);
@@ -69,7 +72,8 @@ export const createProduct = async (
   subCategory,
   size,
   warranty,
-  maintenance
+  maintenance,
+  isMadeToOrder
 ) => {
   try {
     const variation = {
@@ -132,6 +136,7 @@ export const createProduct = async (
       subCategory,
       warranty,
       maintenance,
+      isMadeToOrder: isMadeToOrder || false,
     });
     return product;
   } catch (error) {

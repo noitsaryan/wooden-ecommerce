@@ -15,8 +15,9 @@ export const authOptions = {
           const { email, password } = credentials;
           await connectDB();
           const user = await login(email, password);
-          console.log(user)
-          cookies().set("user", user._id);
+          cookies().set("user", user._id, {
+            maxAge: 60 * 60 * 1000,
+          });
           return user;
         } catch (error) {
           console.log(error);

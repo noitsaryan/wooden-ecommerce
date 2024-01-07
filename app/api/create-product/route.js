@@ -18,6 +18,7 @@ export async function POST(req) {
       size,
       warranty,
       maintenance,
+      isMadeToOrder
     } = await req.json();
     if (!title) {
       return NextResponse.json("title is missing");
@@ -62,7 +63,8 @@ export async function POST(req) {
       subCategory,
       size,
       warranty,
-      maintenance
+      maintenance, 
+      isMadeToOrder
     );
     return NextResponse.json({
       response,

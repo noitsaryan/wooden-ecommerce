@@ -30,7 +30,7 @@ function Checkout({ amount, sku, price, totalPrice, value, style }) {
         userData()
     }, [])
     return (
-        <Link href={`/checkout?amount=${amount}&order_id=${data?.order?.id}&product_sku=${sku}&quantity=${value}&price=${price}&totalPrice=${totalPrice}&user_id=${data?._id}&email=${session?.user?.email}`} className={`${style} bg-Primary h-12 rounded-md border border-Primary text-white`} >
+        <Link href={`/checkout?amount=${amount}&order_id=${data?.order?.id}&product_sku=${sku}&quantity=${value}&price=${price}&totalPrice=${totalPrice}&user_id=${data?._id}&email=${session?.user?.email}`} className={`${style} bg-Primary h-12 rounded-md border flex items-center justify-center border-Primary text-white`} >
             Buy now
         </Link>
     )

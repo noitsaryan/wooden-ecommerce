@@ -16,7 +16,6 @@ const Orders = () => {
       index: 0, 
       quantity: 10
     })
-    console.log()
     setOrder(order.data.data)
   }
 

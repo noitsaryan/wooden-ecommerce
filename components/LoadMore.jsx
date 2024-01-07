@@ -34,6 +34,7 @@ function LoadMore() {
                         title={e.title}
                         price={e.price}
                         link={e.images}
+                        isMadeToOrder={e.isMadeToOrder}
                     />
                 ))}
             </section>
