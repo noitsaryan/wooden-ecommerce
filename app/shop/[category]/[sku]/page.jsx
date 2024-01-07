@@ -45,7 +45,7 @@ function page() {
 
   useEffect(() => {
     getProducts()
-  },[response])
+  }, [response])
   return (
     <>
       <main className='md:p-2 flex flex-col items-center justify-center'>
@@ -79,9 +79,9 @@ function page() {
           </section>
 
         </section>
-       <h2 className="text-Dark text-2xl font-light text-center -tracking-2 uppercase m-6">Ratings and Reviews</h2>
+        <h2 className="text-Dark text-2xl font-light text-center -tracking-2 uppercase m-6">Ratings and Reviews</h2>
 
-  <Reviews  sku={response.sku}/>
+        <Reviews sku={response.sku} />
         <h2 className="text-Dark text-2xl font-light text-center -tracking-2 uppercase m-6">Related Products</h2>
 
 

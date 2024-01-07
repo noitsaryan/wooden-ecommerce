@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { IoStarSharp } from "react-icons/io5";
 import AddReview from "./AddReview";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 const Reviews = ({ sku }) => {
@@ -29,10 +29,10 @@ const Reviews = ({ sku }) => {
     getReviews();
   }, [sku, pagination]);
 
-    useEffect(() => {
-   if(!reviews){
-    setPagination(0)
-   }
+  useEffect(() => {
+    if (!reviews) {
+      setPagination(0)
+    }
   }, [reviews]);
   return (
     <section className="w-full  bg-slate-100 p-3 space-y-3 border-b">
@@ -41,7 +41,7 @@ const Reviews = ({ sku }) => {
           Total Reviews: {(reviews && reviews.length) || "No Reviews Yet"}
         </h3>
         {session.status === "authenticated" ? (
-          <AddReview sku={sku} getReviews={getReviews}/>
+          <AddReview sku={sku} getReviews={getReviews} />
         ) : (
           <Button
             as={Link}
@@ -88,7 +88,7 @@ const Reviews = ({ sku }) => {
           <Button
             className="bg-Primary text-white"
             size="sm"
-            onClick={() => setPagination((prev) =>prev + 1 )}
+            onClick={() => setPagination((prev) => prev + 1)}
           >
             Next
           </Button>
