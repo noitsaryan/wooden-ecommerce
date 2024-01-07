@@ -1,46 +1,63 @@
 'use client'
 import Product from '@/components/Cards/Product';
-import axios from 'axios';
-import { useParams, useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import ProductShopPage from '@/components/ProductShopPage';
+import { fetchProducts } from '@/utils/services/ShopPageFunctions';
+import { useParams, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 function page() {
-    const [response, setResponse] = useState([])
+    const [data, setData] = useState([])
     const params = useParams();
-    const seachParms = useSearchParams()
-    const page = seachParms.get('p')
-    const { category } = params;
-    const fetchProducts = async (type) => {
-        if (category === 'residence' || category === 'commercial' || category === 'studio' || category === 'lighting') {
-            const res = await axios.post('/api/get-product-category', {
-                type
-            })
-            setResponse(res.data);
-        } else if (category === "all") {
-            const res = await axios.get('/api/get-product-cards')
-            setResponse(res.data)
-        }
-        else {
-            const res = await axios.post('/api/get-product-subcategory', {
-                type: category
-            })
-            setResponse(res.data)
-        }
-
-    }
-
+    const searchParams = useSearchParams();
+    let index = parseInt(searchParams.get("p"))
+    let { category } = params;
     useEffect(() => {
-        fetchProducts(category)
-    }, [])
+        fetchProducts(category, index - 1).then((res) => {
+            setData(res.data)
+        })
+    }, [category, index])
     return (
         <>
-            <section className={`w-full   ${response.length > 0 ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4' : ''} p-2 gap-6`}>
-                {
-                    response.length > 0 ? response && response.slice(((page * 12) - 12), page * 12).map((e, i) => (
-                        <Product key={i} sku={e.sku} title={e.title} price={e.price} link={e.images} />
-                    )) : <h1 className='text-center text-lg   text-Primary p-1'> Can't Find What You Are Looking For! </h1>
-                }
-            </section>
+            {
+                category === 'all' ?
+                    <ProductShopPage />
+                    : category === 'residence' ?
+                        <section className='w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 p-2 gap-6'>
+                            {data &&
+                                data.map((e, i) => (
+                                    <Product
+                                        key={i}
+                                        sku={e.sku}
+                                        title={e.title}
+                                        price={e.price}
+                                        link={e.images}
+                                    />
+                                ))}
+                        </section>
+                        : category === 'commercial' ?
+                            <section className='w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 p-2 gap-6'>
+                                {data &&
+                                    data.map((e, i) => (
+                                        <Product
+                                            key={i}
+                                            sku={e.sku}
+                                            title={e.title}
+                                            price={e.price}
+                                            link={e.images}
+                                        />
+                                    ))}</section> : category === 'studio' ?
+                                <section className='w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 p-2 gap-6'>
+                                    {data &&
+                                        data.map((e, i) => (
+                                            <Product
+                                                key={i}
+                                                sku={e.sku}
+                                                title={e.title}
+                                                price={e.price}
+                                                link={e.images}
+                                            />
+                                        ))}</section> : null
+            }
         </>
     )
 }

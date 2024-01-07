@@ -190,6 +190,7 @@ export async function getProducts(index = 0, quantity = 10) {
     const products = await Product.find()
       .skip(index * quantity)
       .limit(quantity)
+      .sort({ _id: -1 })
       .exec();
     return products;
   } catch (error) {
@@ -203,6 +204,7 @@ export async function getProductsForCard(index = 0, quantity = 10) {
       .skip(index * quantity)
       .limit(quantity)
       .select("title price sku images category subCategory")
+      .sort({ _id: -1 })
       .exec();
     return products;
   } catch (error) {
@@ -221,10 +223,13 @@ export async function getProductByCategory(type) {
   }
 }
 
-export async function getProductByMainCategory(type) {
+export async function getProductByMainCategory(type, index = 0, quantity = 10) {
   try {
     const product = await Product.find({ category: type })
+      .skip(index * quantity)
+      .limit(quantity)
       .select("title price sku images")
+      .sort({ _id: -1 })
       .exec();
     return product;
   } catch (error) {
@@ -240,7 +245,6 @@ export async function getProductBySKU(sku) {
     return error.message;
   }
 }
-
 
 export async function getRecentViewedProducts(skus) {
   try {

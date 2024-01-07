@@ -10,8 +10,6 @@ export default function RootLayout({ children }) {
   const path = usePathname();
   const shouldHideDiv = path.split("/").length > 3; 
 
-  // const [rangeValue, setRangeValue]=useState([])
-
   return (
     <main className='p-4 space-y-6'>
       <hr />

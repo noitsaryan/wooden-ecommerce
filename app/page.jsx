@@ -3,22 +3,12 @@ import RecentViewProducts from "@/components/HomePage/RecentViewProducts";
 import HeroSlider from "@/components/HomePage/Slider";
 import ProductShopPage from "@/components/ProductShopPage";
 import NormalButton from "@/components/buttons/NormalButton";
-import axios from "axios";
-import Image from "next/image";
-import Link from "next/link";
+
 
 const page = () => {
-  // const CtgImg = [
-  //   { link: "/CategoryImg/1.jpg", title: 'Residence' },
-  //   { link: "/CategoryImg/3.jpg", title: 'Commercial' },
-  //   { link: "/CategoryImg/2.jpg", title: 'Studios' },
-  //   { link: "/CategoryImg/4.jpg", title: 'Lighting' }
-  // ]
-
   return (
     <main className="flex flex-col">
       <HeroSlider />
-
       <RecentViewProducts/>
       <section className="p-2 space-y-5">
         <span>
@@ -36,7 +26,7 @@ const page = () => {
 
       <NormalButton
         name="Check More Products"
-        link="/shop/all"
+        link="/shop/all?p=1"
         extraClass={"mt-7"}
       />
     </main>
