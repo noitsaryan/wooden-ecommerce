@@ -72,6 +72,11 @@ function Footer() {
                      Contacts
                     </Link>
                   </li>
+                  <li>
+                    <Link href="/complain" className="hover:underline">
+                     Complain/Query
+                    </Link>
+                  </li>
                 </ul>
               </div>
             </div>
