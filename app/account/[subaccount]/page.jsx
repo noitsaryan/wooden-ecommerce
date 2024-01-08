@@ -23,3 +23,4 @@ const page = ({ params }) => {
 }
 
 export default page
+export const dynamic = 'force-dynamic'
