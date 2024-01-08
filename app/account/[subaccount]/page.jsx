@@ -1,7 +1,7 @@
 import Carts from '@/components/Account/Carts'
 import UserAddress from '@/components/Account/UserAddress'
 import UserData from '@/components/Account/UserData'
-import MyOrders from '@/components/Account/MyOrders'
+import Orders from '@/components/Account/Orders'
 import React from 'react'
 import PasswordChange from '@/components/Account/PasswordChange'
 
@@ -10,7 +10,7 @@ const page = ({ params }) => {
   return (
     <>
       {
-        subaccount === "orders" ? <MyOrders /> :
+        subaccount === "orders" ? <Orders /> :
           subaccount === "carts" ? <Carts /> :
             subaccount === "userdata" ? <UserData /> :
               subaccount === "address" ? <UserAddress /> :
