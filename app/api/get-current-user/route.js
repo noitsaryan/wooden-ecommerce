@@ -6,24 +6,30 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const Id = cookies().get("ashofy-user-session")?.value;
-
-    if (!Id)
+    const userSessionCookie = cookies().get("ashofy-user-session");
+    
+    if (!userSessionCookie)
       return NextResponse.json({
         success: false,
         message: "User not logged in",
       });
 
-    const _id = decode(Id);
+    const decodedToken = await decode(userSessionCookie.value);
+
+    if (!decodedToken)
+      return NextResponse.json({
+        success: false,
+        message: "Invalid user session",
+      });
 
     await connectDB();
 
-    const user = await User.findOne({ _id: _id._id }).exec();
+    const user = await User.findOne({ _id: decodedToken._id }).exec();
 
     if (!user)
       return NextResponse.json({
         success: false,
-        message: "User does not exists",
+        message: "User does not exist",
       });
 
     return NextResponse.json({
