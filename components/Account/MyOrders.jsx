@@ -8,33 +8,32 @@ import { useToast } from '../ui/use-toast'
 
 const Orders = () => {
   const [order, setOrder] = useState()
-  const { toast } = useToast();
+  const {toast} = useToast();
   const fetchOrder = async () => {
-    try {
-      const currentUserRes = await axios.get("/api/get-current-user");
-
-      if (!currentUserRes.data.success) {
-        toast({ title: currentUserRes.data.message });
+    axios.get("/api/get-current-user").then(res => {
+      if (!res.data.success) {
+        toast({
+          title: res.data.message
+        })
         return;
       }
-
-      const orderRes = await axios.post("/api/get-users-order", {
-        email: currentUserRes.data.data.email,
+      axios.post("/api/get-users-order", {
+        email: res.data.data.email,
         index: 0,
-        quantity: 10,
-      });
-
-      if (!orderRes) {
-        toast({ title: 'Order cannot be fetched at the moment' });
-      } else {
-        toast({ title: 'Fetched order successfully' });
-        setOrder(orderRes.data.data);
-      }
-    } catch (error) {
-      console.error("Error fetching order:", error);
-    }
-  };
-
+        quantity: 10
+      }).then((res) => {
+        if (!res) {
+          toast({
+            title: 'Order cannot be fetched at the moment'
+          })
+        }
+        toast({
+          title: 'Fetched order successfully'
+        })
+        setOrder(res.data.data)
+      })
+    })
+  }
 
   useEffect(() => {
     fetchOrder();
