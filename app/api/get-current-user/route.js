@@ -1,11 +1,12 @@
 import { User } from "@/models/user.model";
 import { connectDB } from "@/utils/db";
+import { decode } from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const Id = cookies().get("user")?.value;
+    const Id = cookies().get("ashofy-user-session")?.value;
 
     if (!Id)
       return NextResponse.json({
@@ -13,9 +14,11 @@ export async function GET() {
         message: "User not logged in",
       });
 
+    const _id = decode(Id);
+
     await connectDB();
 
-    const user = await User.findOne({ _id: Id }).exec();
+    const user = await User.findOne({ _id: _id._id }).exec();
 
     if (!user)
       return NextResponse.json({

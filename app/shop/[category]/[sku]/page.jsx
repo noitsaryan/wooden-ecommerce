@@ -13,6 +13,7 @@ import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Reviews from '@/components/ShopPage/Reviews'
 
+
 function page() {
   const { sku } = useParams()
   const [response, setResponse] = useState({})

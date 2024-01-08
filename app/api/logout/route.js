@@ -3,12 +3,12 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        const cookie = cookies().has("user");
+        const cookie = cookies().has("ashofy-user-session");
         if(!cookie) return NextResponse.json({
             success: true, 
             message: 'Already logged out'
         })        
-        cookies().delete("user")
+        cookies().delete("ashofy-user-session")
         return NextResponse.json({
             success: true, 
             message: 'Logged out successfully'

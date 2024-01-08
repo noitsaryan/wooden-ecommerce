@@ -3,25 +3,41 @@ import OrderCard from './OrderCard'
 import { RiBook2Line } from 'react-icons/ri'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
 import axios from 'axios'
+import { useToast } from '../ui/use-toast'
 
 const Orders = () => {
   const [order, setOrder] = useState()
-  const { data: session } = useSession()
-
+  const {toast} = useToast();
   const fetchOrder = async () => {
-    const order = await axios.post("/api/get-users-order", {
-      email: session?.user.email,
-      index: 0, 
-      quantity: 10
+    axios.get("/api/get-current-user").then(res => {
+      if (!res.data.success) {
+        toast({
+          title: res.data.message
+        })
+        return;
+      }
+      axios.post("/api/get-users-order", {
+        email: res.data.data.email,
+        index: 0,
+        quantity: 10
+      }).then((res) => {
+        if (!res) {
+          toast({
+            title: 'Order cannot be fetched at the moment'
+          })
+        }
+        toast({
+          title: 'Fetched order successfully'
+        })
+        setOrder(res.data.data)
+      })
     })
-    setOrder(order.data.data)
   }
 
   useEffect(() => {
     fetchOrder();
-  }, [session])
+  }, [])
 
 
   if (!order) return <div className='w-full md:h-screen  h-[50vh] flex items-center justify-center flex-col gap-2'>

@@ -31,11 +31,10 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { signOut, useSession } from "next-auth/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "../ui/button";
 import axios from "axios";
-import {  FileEdit, Menu, Package, PackagePlus } from "lucide-react";
+import { FileEdit, Menu, Package, PackagePlus } from "lucide-react";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import SearchProduct from "../HeaderLayout/SearchProduct";
@@ -43,7 +42,7 @@ import { useToast } from "../ui/use-toast";
 
 export function Search() {
   const { toast } = useToast();
-  const session = useSession();
+  const [isLoggedIn, setIsLoggedIn] = useState(Boolean);
   const route = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
@@ -51,9 +50,16 @@ export function Search() {
   const close = useRef();
   const [item, setItem] = useState([])
   const [searchItem, setSearchItem] = useState(null);
+
   const fetchProducts = async () => {
-    const res = await axios.get("/api/get-product-cards", {
-    });
+    axios.get('/api/get-current-user').then((res) => {
+      if (!res.data.success) {
+        setIsLoggedIn(false)
+        return;
+      }
+      setIsLoggedIn(true)
+    })
+    const res = await axios.get("/api/get-product-cards");
     setResponse(res.data);
   };
 
@@ -191,7 +197,7 @@ export function Search() {
               <DropdownMenuTrigger>
                 <LuUserCircle className="text-2xl cursor-pointer sm:hidden" />
               </DropdownMenuTrigger>
-              {session.status === "authenticated" ? (
+              {isLoggedIn ? (
                 <DropdownMenuContent className="absolute -right-2">
                   <DropdownMenuLabel>Menu</DropdownMenuLabel>
                   <DropdownMenuSeparator />
@@ -210,7 +216,6 @@ export function Search() {
                     variant="outline"
                     className="w-full"
                     onClick={() => {
-                      signOut()
                       axios.get("/api/logout").then((res) => {
                         console.log(res)
                         if (res.data.success) {
@@ -246,7 +251,7 @@ export function Search() {
                 <LuUserCircle className="text-3xl hover:text-Dark/40 cursor-pointer transition-all text-Dark" />
               </HoverCardTrigger>
               <HoverCardContent className="absolute right-0 w-44">
-                {session.status === "authenticated" ? (
+                { isLoggedIn ? (
                   <div className="space-y-2 flex flex-col justify-center">
                     <h1 className="font-semibold text-Dark"> My Account </h1>
                     <hr />
@@ -269,7 +274,6 @@ export function Search() {
                       Cart
                     </Link>
                     <Button variant="destructive" onClick={() => {
-                      signOut();
                       axios.get("/api/logout").then((res) => {
                         if (res.data.success) {
                           toast({

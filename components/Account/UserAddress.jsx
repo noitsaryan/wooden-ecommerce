@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Input, Button } from "@nextui-org/react";
-import { useSession } from "next-auth/react";
 import axios from "axios";
 import {
   Dialog,
@@ -14,17 +13,16 @@ import {
 import { useToast } from "../ui/use-toast";
 
 const UserAddress = () => {
-  const [response, setResponse] = useState()
   const [billing, setBilling] = useState('')
-  const { data: session } = useSession()
+  const [email, setEmail] = useState('')
   const [fields, setFields] = useState({
     street_name: "",
     flat_no: "",
     landmark: "",
     pincode: "",
   });
-  const {street_name, flat_no, landmark, pincode} = fields
-  const {toast} = useToast()
+  const { street_name, flat_no, landmark, pincode } = fields
+  const { toast } = useToast()
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFields((prevFields) => ({
@@ -33,23 +31,27 @@ const UserAddress = () => {
     }));
   };
 
-  const fetchUser = async () => {
-    const res = await axios.post('/api/get-user-by-id', {
-      user: session?.user?.email,
-      order: false
+  const fetchUser = () => {
+    axios.get("/api/get-current-user").then((res) => {
+      if (!res.data.success) {
+        toast({
+          title: res.data.message
+        })
+        return;
+      }
+      setBilling(res.data.data.address?.shipping_address)
+      setEmail(res.data.data.email)
     })
-    setBilling(res.data.res?.address?.billing_address)
-    setResponse(res.data.res)
   }
 
   const updateUser = async () => {
     const address = `Street: ${street_name}, Flat No: ${flat_no}, Landmark: ${landmark}, Pin Code: ${pincode}`
     const updateAddress = await axios.post('/api/update-user', {
-      email: session?.user?.email,
+      email: email,
       type: 'address',
-      data: {billing_address: billing, shipping_address: address}
+      data: { billing_address: billing, shipping_address: address }
     })
-    if(updateAddress.data.response === 'Success'){
+    if (updateAddress.data.response.success) {
       toast({
         title: 'Address Updated Successfully'
       })
@@ -58,11 +60,7 @@ const UserAddress = () => {
 
   useEffect(() => {
     fetchUser()
-  }, [session])
-
-  if (!response) {
-    return <p> No Data to display </p>
-  }
+  }, [])
 
   return (
     <>
@@ -72,7 +70,7 @@ const UserAddress = () => {
           variant="bordered"
           label="Current Shipping Address:"
           isReadOnly
-          placeholder={response?.address?.shipping_address}
+          placeholder={billing}
         />
         <hr />
         <Dialog>
@@ -137,8 +135,6 @@ const UserAddress = () => {
             </DialogHeader>
           </DialogContent>
         </Dialog>
-
-
       </div>
     </>
   );

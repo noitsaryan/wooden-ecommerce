@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import { Input, Button } from '@nextui-org/react';
-import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import { useToast } from '../ui/use-toast';
 import {
@@ -15,27 +14,30 @@ import {
 
 
 const UserData = () => {
-  const [response, setResponse] = useState()
-  const { data: session } = useSession()
   const { toast } = useToast()
   const [fields, setFields] = useState({
     first_name: '',
     last_name: '',
     phone: 0,
+    email: ''
   });
 
+  const fetchUser = () => {
+    axios.get("/api/get-current-user").then((res) => {
+      if (!res.data.success) {
+        toast({
+          title: res.data.message
+        })
+        return;
+      }
+      setFields({
+        first_name: res.data.data.name?.first_name,
+        last_name: res.data.data.name?.last_name,
+        phone: res.data.data?.phone_no,
+        email: res.data.data.email
+      })
+    })
 
-  const fetchUser = async () => {
-    const res = await axios.post('/api/get-user-by-id', {
-      user: session?.user?.email,
-      order: false
-    })
-    setFields({
-      first_name: res.data.res?.name.first_name,
-      last_name: res.data.res?.name.last_name,
-      phone: res.data.res?.phone_no
-    })
-    setResponse(res.data.res)
   }
 
   const { first_name,
@@ -44,22 +46,30 @@ const UserData = () => {
 
   const updateUser = async () => {
     try {
-      const name = await axios.post('/api/update-user', {
-        email: session?.user?.email,
+      axios.post('/api/update-user', {
+        email: fields.email,
         type: 'name',
         data: { first_name, last_name }
+      }).then((res) => {
+        if (res.data.response.success) {
+          toast({
+            title: 'Changes saved successfully'
+          })
+          return;
+        }
       })
-      const phoneNo = await axios.post('/api/update-user', {
-        email: session?.user?.email,
+      axios.post('/api/update-user', {
+        email: fields.email,
         type: 'phone',
         data: phone
+      }).then((res) => {
+        if (res.data.response.success) {
+          toast({
+            title: 'Changes saved successfully'
+          })
+          return;
+        }
       })
-
-      if(name && phoneNo) {
-        toast({
-          title: 'Changes Saved Successfully'
-        })
-      }
 
     } catch (error) {
       console.log(error.message)
@@ -76,11 +86,7 @@ const UserData = () => {
 
   useEffect(() => {
     fetchUser()
-  }, [session])
-
-  if (!response) {
-    return <p> No Data to display </p>
-  }
+  }, [])
 
   return (
     <div className="space-y-5">
@@ -92,7 +98,7 @@ const UserData = () => {
           name="first_name"
           label="First name"
           isRequired
-          placeholder={response ? response.name.first_name : ''}
+          placeholder={fields.first_name}
           disabled
         />
         <Input
@@ -101,7 +107,7 @@ const UserData = () => {
           name="last_name"
           label="Last name"
           isRequired
-          placeholder={response ? response.name.last_name : ''}
+          placeholder={fields.last_name}
           disabled
         />
       </span>
@@ -112,8 +118,7 @@ const UserData = () => {
         label="Email"
         isRequired
         disabled
-        placeholder={response ? response.email : ''}
-        value={fields.email}
+        placeholder={fields.email}
         onChange={handleChange}
       />
       <Input
@@ -122,7 +127,7 @@ const UserData = () => {
         name="phone"
         label="Phone Number"
         isRequired
-        placeholder={response.phone_no}
+        placeholder={fields.phone}
         disabled
       />
       <Dialog>

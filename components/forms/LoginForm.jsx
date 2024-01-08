@@ -7,12 +7,13 @@ import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 import { Button } from "@nextui-org/react";
 import Link from 'next/link';
 import { useToast } from '../ui/use-toast';
+import axios from 'axios';
 
 function LoginForm() {
   const [email, setEmail] = useState(String)
   const [password, setPassword] = useState(String)
   const router = useRouter(null);
-  const {toast} = useToast()
+  const { toast } = useToast()
   const variants = ["flat", "bordered", "underlined", "faded"];
   const [isVisible, setIsVisible] = React.useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -30,24 +31,22 @@ function LoginForm() {
 
   async function login() {
     try {
-      const res = await signIn('credentials', {
-        email, password, redirect: false
-      })
-
-      if (res.error) {
+      axios.post("/api/login", {
+        email,
+        password
+      }).then((res) => {
+        if (res.data.success) {
           toast({
-            title: "Email or Password is incorrect",
-            variant: "destructive"
+            title: 'Successfully logged in'
           })
-      }
-
-      if (res.ok) {
+          router.replace("/")
+          return;
+        }
         toast({
-          title: "Logged in successfully",
+          title: res.data.message,
+          variant: 'destructive'
         })
-        return router.replace('/account')
-      }
-
+      })
     } catch (error) {
       console.log(error)
     }

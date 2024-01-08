@@ -9,34 +9,40 @@ import { useToast } from '../ui/use-toast'
 
 const Carts = () => {
   const [response, setResponse] = useState([])
-  const {toast} = useToast()
-  useEffect(() => {
+  const { toast } = useToast()
+  const fetchCarts = () => {
     axios.get("/api/get-current-user").then((res) => {
-      if(!res.data.success) {
+      if (!res.data.success) {
         toast({
           title: 'User not logged in'
         })
         return;
       }
+      toast({
+        title: 'Successfully fetched carts '
+      })
       setResponse(res.data.data.cart)
     })
+  }
+  useEffect(() => {
+    fetchCarts();
   }, [])
 
-  if ( response && response.length === 0) {
+  if (response && response.length === 0) {
     return <div className='w-full md:h-screen  h-[50vh] flex items-center justify-center flex-col gap-2'>
-    <RiShoppingBag3Line className='text-8xl text-Primary'/>
-    <span className='flex items-center justify-center flex-col gap-1'>
-      <h2 className='font-light text-2xl'>Your shopping cart is empty!</h2>
-      <Button className='bg-Primary text-white'><Link href="/shop">SHOP NOW</Link></Button>
-    </span>
-  </div>
+      <RiShoppingBag3Line className='text-8xl text-Primary' />
+      <span className='flex items-center justify-center flex-col gap-1'>
+        <h2 className='font-light text-2xl'>Your shopping cart is empty!</h2>
+        <Button className='bg-Primary text-white'><Link href="/shop">SHOP NOW</Link></Button>
+      </span>
+    </div>
   }
   return (
     <section>
       <h2>Cart Details</h2>
       {
         response && response.map((e, i) => {
-          return <CartCard  key={i} sku={e.sku} id={e._id}  />
+          return <CartCard key={i} sku={e.sku} id={e._id} />
         })
       }
     </section>

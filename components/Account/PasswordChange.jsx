@@ -3,41 +3,54 @@ import React, { useState } from 'react'
 import { Input } from '../ui/input'
 import { Button } from '@nextui-org/react';
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
 import { useToast } from '../ui/use-toast';
 
 function PasswordChange() {
+
+    const { toast } = useToast()
+
     const [fields, setFields] = useState({
         old_password: '',
         new_password: '',
         confirm_new_password: ''
     })
-    const { toast } = useToast()
-    const { data: session } = useSession()
+
     const { old_password, new_password, confirm_new_password } = fields;
+
     const handleChange = (e) => {
         const { value, name } = e.target;
         setFields((prev) => ({
             ...prev,
             [name]: value
         }))
-        console.log(old_password)
     }
 
     const Submit = async () => {
         try {
             if (new_password === confirm_new_password) {
-                const password = await axios.post('/api/new-password', {
-                    email: session?.user?.email,
-                    existing_password: old_password,
-                    new_password: confirm_new_password
-                })
-                if(password.data.res === "Password did not matched!"){
-                    toast({
-                        title: 'Old password did not matched'
+                axios.get("/api/get-current-user").then((res) => {
+                    if (!res.data.success) {
+                        toast({
+                            title: res.data.message
+                        })
+                        return;
+                    }
+                    axios.post('/api/new-password', {
+                        email: res.data.data.email,
+                        existing_password: old_password,
+                        new_password: confirm_new_password
+                    }).then((e) => {
+                        if (!e.data.res.success) {
+                            toast({
+                                title: 'Password did not matched'
+                            })
+                            return;
+                        }
+                        toast({
+                            title: 'Password changed successfully'
+                        })
                     })
-                }
-                console.log(password)
+                })
             } else {
                 toast({
                     title: 'Password Mismatched',

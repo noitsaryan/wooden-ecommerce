@@ -1,15 +1,7 @@
-import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
-import { authOptions } from '../api/auth/[...nextauth]/route'
-import LoginForm from '@/components/forms/LoginForm';
-import Image from "next/image";
-
+import LoginForm from "@/components/forms/LoginForm"
+import Image from "next/image"
 
 async function page() {
-
-    
-    const session = await getServerSession(authOptions);
-    if (session) redirect('/account') 
     return (
         <>
          <main className="w-screen h-screen flex items-center justify-center bg-slate-50 p-2">

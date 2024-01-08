@@ -192,9 +192,15 @@ export const resetUserPasswordWithPassword = async (
     const newPassword = await hash(new_password, 10);
     auth.authentication.password = newPassword;
     await auth.save();
-    return auth;
+    return {
+      success: true,
+      message: "Password changed successfully",
+    };
   } catch (error) {
-    return error.message;
+    return {
+      success: false,
+      message: error.message,
+    };
   }
 };
 
@@ -227,7 +233,10 @@ export const update = async (email, userData, type, cartType) => {
       }
     }
     await user.save();
-    return "Success";
+    return {
+      success: true,
+      message: "Successfully updated the data",
+    };
   } catch (error) {
     return error.message;
   }
