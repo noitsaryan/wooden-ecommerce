@@ -9,7 +9,7 @@ import { useToast } from '../ui/use-toast'
 const Orders = () => {
   const [order, setOrder] = useState()
   const {toast} = useToast();
-  const fetchOrder = async () => {
+  const fetchOrder = () => {
     axios.get("/api/get-current-user").then(res => {
       if (!res.data.success) {
         toast({

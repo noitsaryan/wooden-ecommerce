@@ -1,4 +1,3 @@
-'use client'
 import Carts from '@/components/Account/Carts'
 import UserAddress from '@/components/Account/UserAddress'
 import UserData from '@/components/Account/UserData'

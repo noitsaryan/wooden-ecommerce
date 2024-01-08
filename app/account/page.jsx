@@ -1,4 +1,3 @@
-'use client'
 import Orders from '@/components/Account/MyOrders'
 import React from 'react'
 
